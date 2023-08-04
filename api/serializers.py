@@ -2,7 +2,6 @@ import os
 from posts_app.models import PostModel, MessagesModel, CategoryModel
 from rest_framework import serializers
 from django.core.paginator import Paginator
-from settings import SERVER_URL
 
 class MessageBaseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,10 +44,11 @@ class BaseReturnSerializer(DynamicModelSerializer):
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         if self.context['request'].query_params.get('onlyMessages') != 'true':
+          base_url = "https://pelayosn.up.railway.app"
           ret['likes'] = len(instance.likes.all())
           ret['disslikes'] = len(instance.disslikes.all())
-          ret['image'] = SERVER_URL + instance.image.url if instance.image else None
-          ret['files'] = [{'url': SERVER_URL + file.files.url, 'title': os.path.basename(file.files.name), 'id': file.id} for file in instance.files.all()]
+          ret['image'] = base_url + instance.image.url if instance.image else None
+          ret['files'] = [{'url': base_url + file.files.url, 'title': os.path.basename(file.files.name), 'id': file.id} for file in instance.files.all()]
           ret['messagesCount'] = len(instance.messages.all())
         return ret
       
