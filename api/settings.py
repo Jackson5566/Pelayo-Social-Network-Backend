@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+SERVER_URL = 'https://pelayosn.up.railway.app'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -48,7 +50,7 @@ INSTALLED_APPS = [
     'django_filters'
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://pelayosn.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [SERVER_URL]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
