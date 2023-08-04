@@ -82,15 +82,17 @@ WSGI_APPLICATION = 'api.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+# PGPASSWORD=6mAJWtStoEpFCwZxxz6C psql -h containers-us-west-79.railway.app -U postgres -p 6680 -d railway
+
 
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pelayo_social_network',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': 'qwertyteclado&!',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'PASSWORD': '6mAJWtStoEpFCwZxxz6C',
+        'HOST': 'containers-us-west-79.railway.app',
+        'PORT': '6680',
     }
 }
 
@@ -129,7 +131,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+
 STATIC_URL = 'static/'
+
+STATIC_ROOT =  BASE_DIR / 'staticfiles' 
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
