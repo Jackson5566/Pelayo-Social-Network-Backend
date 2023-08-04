@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'django_filters'
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://pelayosn.up.railway.app']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -84,7 +86,6 @@ WSGI_APPLICATION = 'api.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 # PGPASSWORD=6mAJWtStoEpFCwZxxz6C psql -h containers-us-west-79.railway.app -U postgres -p 6680 -d railway
-
 
 DATABASES = {
      'default': {
