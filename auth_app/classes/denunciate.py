@@ -9,13 +9,13 @@ class DenunciateUser:
        self.user_who_reported = user_who_reported
        self.set_user_reported(user_reported_id)
 
-    def set_user_reported(self, user_reported_id):
+    def set_user_reported(self, user_reported_id: int) -> Union[Response, None]:
         try:
             self.user_reported = User.objects.filter(id=user_reported_id).first()
         except User.DoesNotExist:
             return Response({'message': 'Usuario no encontrado'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def start_denunciate_proccess(self):
+    def start_denunciate_proccess(self) -> Response:
         complain_error = self.verify_complain()
         if complain_error:
             return complain_error
@@ -32,13 +32,13 @@ class DenunciateUser:
                 return Response({'message', 'No puedes denunciarte'}, status=status.HTTP_400_BAD_REQUEST)
         else: return Response('Usuario ya denunciado', status=status.HTTP_400_BAD_REQUEST)
     
-    def add_complaint(self):
+    def add_complaint(self) -> None:
         self.user_reported.denunciations.add(self.user_who_reported)
 
     def count_user_reported_complaints(self) -> int:
         user_reported_denuncations = len(self.user_reported.denunciations.all())
         return user_reported_denuncations
     
-    def send_complaint_mail(self, user_reported_denuncations):
+    def send_complaint_mail(self, user_reported_denuncations: int) -> None:
         send_mail("Exceso de denuncias", f"El usuario ha sido denunciado {user_reported_denuncations} veces", 
                   None,  ["jackson0102almeida@gmail.com"])
