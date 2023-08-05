@@ -27,8 +27,8 @@ class DenunciateUser:
         return Response("Usario denunciado", status=status.HTTP_200_OK)
 
     def verify_complain(self):
-        if self.user_reported not in self.user.denunciations.all():
-            if self.user_reported == self.user_who_reported:
+        if self.user_who_reported not in self.user_reported.denunciations.all():
+            if self.user_who_reported == self.user_reported:
                 raise Exception('No te puedes denunciar a ti mismo')
         else: return Exception('Usuario ya denunciado')
     
