@@ -72,3 +72,5 @@ class UsersView(viewsets.ModelViewSet):
     serializer_class  = UsersSerializer
     queryset = User.objects.all()
     permission_classes = [permissions.IsAdminUser]
+
+# Comentario
