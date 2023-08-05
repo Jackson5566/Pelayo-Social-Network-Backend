@@ -142,7 +142,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 
 # Default primary key field type
@@ -153,7 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 
-MEDIA_ROOT =  BASE_DIR / 'media' 
+MEDIA_ROOT = BASE_DIR.parent / 'media' 
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
