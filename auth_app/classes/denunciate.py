@@ -18,7 +18,7 @@ class DenunciateUser:
         try:
             self.verify_complain()
         except Exception as err:
-            return Response(err, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message', str(err)}, status=status.HTTP_400_BAD_REQUEST)
         
         self.add_complaint()
         user_reported_denuncations = self.count_user_reported_complaints()
