@@ -16,21 +16,21 @@ class DenunciateUser:
 
     def start_denunciate_proccess(self):
         try:
-            is_complaint_valid = self.verify_complain()
+            self.verify_complain()
         except Exception as err:
             return Response(err, status=status.HTTP_400_BAD_REQUEST)
         
-        if is_complaint_valid:
-            self.add_complaint()
-            user_reported_denuncations = self.count_user_reported_complaints()
-            if user_reported_denuncations >= 20:
-                self.send_complaint_mail(user_reported_denuncations=user_reported_denuncations)
-    
+        self.add_complaint()
+        user_reported_denuncations = self.count_user_reported_complaints()
+        if user_reported_denuncations >= 20:
+            self.send_complaint_mail(user_reported_denuncations=user_reported_denuncations)
+        return Response("Usario denunciado", status=status.HTTP_200_OK)
+
     def verify_complain(self):
         if self.user_reported not in self.user.denunciations.all():
-            if self.user_reported != self.user_who_reported:
+            if self.user_reported == self.user_who_reported:
                 raise Exception('No te puedes denunciar a ti mismo')
-        return Exception('Usuario ya denunciado')
+        else: return Exception('Usuario ya denunciado')
     
     def add_complaint(self):
         self.user_reported.denunciations.add(self.user_who_reported)

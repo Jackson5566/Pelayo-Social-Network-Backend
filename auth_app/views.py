@@ -66,8 +66,8 @@ class CreateUserConfirmation(generics.GenericAPIView, UserExpirationLink):
 def denunciate(request):
     user_reported_id = request.data.get('id')
     denunciate_user = DenunciateUser(user_who_reported=request.user, user_reported_id=user_reported_id)
-    denunciate_user.start_denunciate_proccess()
-    
+    return denunciate_user.start_denunciate_proccess()
+
 class UsersView(viewsets.ModelViewSet):
     serializer_class  = UsersSerializer
     queryset = User.objects.all()
