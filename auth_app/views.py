@@ -1,4 +1,3 @@
-from django.core.mail import send_mail
 from rest_framework import generics, permissions, viewsets, status
 from auth_app.models import User
 from rest_framework.response import Response
@@ -7,8 +6,8 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializer import UsersSerializer
 from .models import User
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from classes.expirationLink import UserExpirationLink
-from classes.denunciate import DenunciateUser
+from .classes.expirationLink import UserExpirationLink
+from .classes.denunciate import DenunciateUser
 
 class PasswordChangeRequestView(generics.GenericAPIView, UserExpirationLink):
     def post(self, request):
@@ -16,7 +15,6 @@ class PasswordChangeRequestView(generics.GenericAPIView, UserExpirationLink):
         self.user = User.objects.get(email=self.email)
         self.send_link(template='password_reset_email.html')
         return Response({'message': 'Se ha enviado un email que te permitirá cambiar tu contraseña.'}, status=status.HTTP_200_OK)
-
 
 class PasswordChangeConfirmView(generics.GenericAPIView, UserExpirationLink):
     def post(self, request, token):
@@ -30,8 +28,6 @@ class PasswordChangeConfirmView(generics.GenericAPIView, UserExpirationLink):
             return Response({'message': 'Contraseña cambiada correctamente.'}, status=status.HTTP_200_OK)
         else:
             return Response({'error': 'Las contraseñas no coinciden.'}, status=status.HTTP_400_BAD_REQUEST)
-            
-
 
 class CreateUser(generics.GenericAPIView, UserExpirationLink):
     def post(self, request):
