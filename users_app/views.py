@@ -1,8 +1,6 @@
 from auth_app.models import User
-
 from .serializer import UsersSerializerReturn, UserInformationSerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework import permissions
 from rest_framework import viewsets
 from rest_framework import status
@@ -33,12 +31,17 @@ class SelectCurrentlyUserViewSet(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        if self.request.query_params.get('onlyPosts') == 'true':
+        query_params = self.request.query_params
+
+        if query_params.get('onlyPosts') == 'true':
             self.serializer_class.Meta.fields = ['posts']
-        elif self.request.query_params.get('onlyInformation') == 'true':
+
+        elif query_params.get('onlyInformation') == 'true':
             self.serializer_class.Meta.fields = ['username', 'last_name', 'posts']
+
         else:
-            self.serializer_class.Meta.fields = ['email', 'username', 'last_name', 'id', 'posts']        
+            self.serializer_class.Meta.fields = ['email', 'username', 'last_name', 'id', 'posts']    
+                
         return self.request.user
     
 class CurrentUserInfomation(APIView):

@@ -21,6 +21,7 @@ class MessageView(APIView):
             post.messages.add(message)
             message_serializer = MessageBaseSerializer(instance=message)
             return Response(message_serializer.data, status=status.HTTP_201_CREATED)
+        
         return Response({'message': 'Problemas con la creación'}, status=status.HTTP_400_BAD_REQUEST)
     
     def put(self, request):

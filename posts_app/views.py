@@ -24,7 +24,7 @@ class PostsView(APIView):
         posts = PostModel.objects.get(id=_id)
         context = {'request': request }
 
-        if (self.request.query_params.get('onlyMessages') == 'true'):
+        if self.request.query_params.get('onlyMessages') == 'true':
             posts_serializer = PostsReturnSerializerWithoutUser(posts, many=False, context=context, fields=['messages'])
             return Response(posts_serializer.data)
         else:
