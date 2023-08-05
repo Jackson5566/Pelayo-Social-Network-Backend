@@ -12,7 +12,7 @@ class DenunciateUser:
         try:
             self.user_reported = User.objects.filter(id=user_reported_id).first()
         except User.DoesNotExist:
-            return Response({'message': 'Usuario no encontrado'})
+            return Response({'message': 'Usuario no encontrado'}, status=status.HTTP_400_BAD_REQUEST)
 
     def start_denunciate_proccess(self):
         try:
