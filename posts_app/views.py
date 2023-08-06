@@ -1,155 +1,69 @@
-from .models import PostModel
-from rest_framework import status
-from rest_framework import permissions
+from .models import PostModel, CategoryModel, FileModel
+from rest_framework import status, permissions, viewsets
 from rest_framework.response import Response
-from .serializer import PostsCreateSerializer, PostsReturnSerializerWithUser, PostsReturnSerializerWithoutUser, FilesSerializer
+from .serializer import PostsCreateSerializer, PostsReturnSerializerWithUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from necesary_scripts.list_features import sort, separate_by_vowels
-from necesary_scripts.search_requirements import delete_repetitive_characters, Coincidences
 from rest_framework.views import APIView
 from .paginations import MyPagination
-from rest_framework import viewsets
-from .models import CategoryModel
 from api.serializers import CategorySerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
-from .models import FileModel
+from posts_app.classes.posts_classes.post_processor import PostProcessor
+from posts_app.classes.posts_classes.get_post import GetPostData
+from .classes.like_proccessor import PostLikeProcessor
+from .classes.search import SearchAlgorithm
+from rest_framework.exceptions import ValidationError
+from posts_app.classes.posts_classes.create_post import CreatePost
+from .classes.posts_classes.update_post import UpdatePost, NotAllowed
+
 
 class PostsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
 
-    def get(self, request, _id, format=None):
-        posts = PostModel.objects.get(id=_id)
-        context = {'request': request }
+    def get(self, request, _id):
+        post_instance = PostModel.objects.get(id=_id)
+        context = {'request': request}
+        get_post_data_instance = GetPostData(post_instance=post_instance, request=request, context=context)
+        return Response(get_post_data_instance.get_post_data())
 
-        if self.request.query_params.get('onlyMessages') == 'true':
-            posts_serializer = PostsReturnSerializerWithoutUser(posts, many=False, context=context, fields=['messages'])
-            return Response(posts_serializer.data)
-        else:
-            if posts.user == request.user:
-                posts_serializer = PostsReturnSerializerWithoutUser(posts, many=False, context=context)
-                fromUser = True
-            else:
-                posts_serializer = PostsReturnSerializerWithUser(posts, many=False, context=context)
-                fromUser = False
+    def post(self, request: object):
+        create_post_instance = CreatePost(request=request)
+        try:
+            create_post_instance.create_post()
+            return Response({'message': 'Exito con la creación'}, status=status.HTTP_201_CREATED)
 
-            info = posts_serializer.data
-            info['fromUser'] = fromUser
-            return Response(info)
-
-    def post(self, request, format=None):
-        # file_serializer = FilesSerializer(data=request.data)
-        files_instances = self.serialize_files(request)
-
-        posts_serializer = PostsCreateSerializer(data=request.data)
-        if posts_serializer.is_valid():
-            post_instance = posts_serializer.create(validated_data=posts_serializer.validated_data, user=request.user)
-
-            self.add_files(files_instances=files_instances, post_instance=post_instance)
-
-            self.setCategories(request=request, instance=post_instance)
-
-            return Response({
-                'message': 'Exito con la creación'
-            }, status=status.HTTP_201_CREATED)
-        
-        return Response(posts_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+        except ValidationError as err:
+            return Response({'message': str(err)}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, _id):
         post = PostModel.objects.get(id=_id)
         post.delete()
         return Response({'message': 'Delete'}, status=status.HTTP_200_OK)
 
-
-    def put(self, request, format=None):
-        posts_serializer = PostsCreateSerializer(data=request.data)
-
-        files_instances = self.serialize_files(request=request)
-
-        if posts_serializer.is_valid():
-            post = PostModel.objects.get(id=request.data['id'])
-
-            post.categories.clear()
-
-            self.setCategories(request=request, instance=post)
-
-            if (request.user == post.user):
-                post_instance = posts_serializer.update(validated_data=posts_serializer.validated_data, instance=post)
-
-                self.add_files(post_instance=post_instance, files_instances=files_instances)
-
-                return Response({
-                    'message': 'Exito con la actualización'
-                }, status=status.HTTP_200_OK)
+    def put(self, request):
+        update_post_instance = UpdatePost(request=request)
+        try:
+            update_post_instance.start_update_post()
+        except ValueError as error:
             return Response({
-                    'message': 'No tienes permiso para realizar la actualización'
-                }, status=status.HTTP_403_FORBIDDEN)
-        
-        return Response({
-            'message': 'Error con la actualización, información no válida'
-        }, status=status.HTTP_400_BAD_REQUEST)
-    
-    
+                'message': str(error)
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        except NotAllowed as error:
+            return Response({
+                'message': str(error)
+            }, status=status.HTTP_403_FORBIDDEN)
+
     def patch(self, request, _id):
-        posts = PostModel.objects.get(id=_id)
-        likes_user = request.user in posts.likes.all()
-        disslikes_user = request.user in posts.disslikes.all()
+        like_processor = PostLikeProcessor(request=request, post_id=_id)
+        like_processor.start_process()
 
-        likes = request.data['likes']
-        disslikes = request.data['disslikes']
-
-        if (request.data['like']):
-            if (likes_user):
-                posts.likes.remove(request.user)
-                likes -= 1
-            else:
-                posts.likes.add(request.user)
-                likes += 1
-
-            if (disslikes_user):
-                posts.disslikes.remove(request.user)
-                disslikes -= 1
-
-        else: 
-            if (disslikes_user):
-                posts.disslikes.remove(request.user)
-                disslikes -= 1
-            else:
-                posts.disslikes.add(request.user)
-                disslikes += 1
-
-            if (likes_user):
-                posts.likes.remove(request.user)
-                likes -= 1
-        
         return Response({
-            "likes": likes,
-            "disslikes": disslikes
+            "likes": like_processor.likes,
+            "disslikes": like_processor.dislikes
         }, status=status.HTTP_200_OK)
-    
-    def setCategories(self, instance, request):
-        for category in request.data.getlist('categories'):
-            category_instance = CategoryModel.objects.filter(name=category).first()
-            if category_instance:
-                instance.categories.add(category_instance)
-
-    def serialize_files(self, request):
-        file_serializer = FilesSerializer(data=request.data)
-
-        if file_serializer.is_valid():
-            files_instances = file_serializer.create(validated_data=file_serializer.validated_data)
-        else: 
-            files_instances = None
-        
-        return files_instances
-    
-    def add_files(self, files_instances, post_instance):
-        if files_instances:
-            for file in files_instances:
-                post_instance.files.add(file)
 
 
 class PostsViewSet(generics.ListAPIView):
@@ -161,51 +75,18 @@ class PostsViewSet(generics.ListAPIView):
     def get_queryset(self):
         return PostModel.objects.all().order_by('-created')
 
+
 class SearchViewSet(viewsets.ModelViewSet):
-    permission_classes =[permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
     authentication_classes = [JWTAuthentication]
     pagination_class = MyPagination
     serializer_class = PostsReturnSerializerWithUser
 
     def get_queryset(self):
-        # Tomamos la informacion recibida mediante el HttpParams de Angular, que contiene la búsqueda realizada
-        search = self.request.query_params.get('search')
-        # Eliminamos los espacios de la cadena de texto. Convertimos el texo a lowercase para evitar problemas en cuanto igualdad
-        search = search.strip().lower()
+        search_algorithm = SearchAlgorithm(search=self.request.query_params.get('search'))
+        search_algorithm.start_search()
+        return search_algorithm.get_searched_posts()
 
-        # Se separa la cadena de texto por vocales mediante la funcion creada por mi de separate_by_vowels
-        search = separate_by_vowels(search)
-        # Para ahorranos coincidencias inecesarias eliminamos los caracteres que son iguales
-        search = list(set(search))
-
-        # Se crea una lista para añadir posteriormente en ella los elementos de la base de datos y sus coincidencias
-        list_coincidence = []
-
-        # Exploramos todos los posts que hay dentro de la vase de datos
-        for element in PostModel.objects.all().order_by("-created"):
-            # Separamos por vocales la descripcion de los elementos
-            list_content = separate_by_vowels(element.description.lower())
-            # Separamos por vocales el titulo de los elementos
-            list_title = separate_by_vowels(element.title.lower())
-            # Almacenamos las coincidencias totales y hacemos uso para ello de la funcion Coincidence
-            coincidences = (Coincidences(list_title, search) + Coincidences(list_content, search))
-            #Comprobamos si las coincidencias son mayores a 0, si es así vamos a tener en cuenta estos elementos
-            if coincidences > 0: list_coincidence.append([coincidences, element])
-
-        # Gracias a la creacion del array bidimensional podemos ordenar la lista
-        # sort(list=list_coincidence, reverse=True)
-        list_coincidence.sort(key=lambda element: element[0], reverse=True)
-        
-        # Para devolver algo limpio, debemos de eliminar la estrategia del array bidimension que se utlizó
-        list_unidimensional = [element[1] for element in list_coincidence]
-
-        # Devolvemos una respuesta con los elementos sin sus respectivas coincidencias
-
-        """EL algoritmo se basa en separar lo esrito por vocales, de esta forma logramos una busqueda mucho mas efectiva mirando la
-        semejanza de las palabras. Ejemplo: Coche, cole. Estas palabras guardan cierta semejanza, y queremos ser concientes de esta
-        semejanza """
-
-        return list_unidimensional
 
 @api_view(['GET'])
 @permission_classes([permissions.IsAuthenticated])
@@ -223,17 +104,14 @@ def get_categories(request):
     serialized_categories = CategorySerializer(categories, many=True)
     return Response(serialized_categories.data)
 
+
 @api_view(['DELETE'])
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([JWTAuthentication])
-def delete_file(request, id):
+def delete_file(request, post_id):
     try:
-        file = FileModel.objects.get(id=id)
+        file = FileModel.objects.get(id=post_id)
         file.delete()
-        return Response({
-            'message': 'Recurso eliminado con éxito'
-        }, status=status.HTTP_200_OK)
-    except:
-        return Response({
-            'message': 'Recurso no encontrado'
-        }, status=status.HTTP_404_NOT_FOUND)
+        return Response({'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
+    except FileModel.DoesNotExist:
+        return Response({'message': 'Recurso no encontrado'}, status=status.HTTP_404_NOT_FOUND)

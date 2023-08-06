@@ -5,9 +5,10 @@ from api.serializers import BaseReturnSerializer, CategorySerializer
 from message_app.serializer import MessageSerializer
 from django.core.paginator import Paginator
 
+
 class FilesSerializer(serializers.ModelSerializer):
     files = serializers.ListField(child=serializers.FileField())
-    
+
     class Meta:
         model = FileModel
         fields = ['files']
@@ -20,17 +21,20 @@ class FilesSerializer(serializers.ModelSerializer):
             instances.append(file)
         return instances
 
+
 class PostsReturnSerializerWithUser(BaseReturnSerializer):
     user = UsersSerializerReturn2()
 
+
 class PostsReturnSerializerWithoutUser(BaseReturnSerializer):
     pass
+
 
 class PostsCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostModel
         exclude = ['user', 'likes', 'disslikes', 'files', 'messages', 'categories']
 
-    def create(self, validated_data, user):
-        instance = PostModel.objects.create(**validated_data, user=user)
+    def create(self, validated_data):
+        instance = PostModel.objects.create(**validated_data, user=self.context['request'].user)
         return instance
