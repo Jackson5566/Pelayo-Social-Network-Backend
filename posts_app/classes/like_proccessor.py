@@ -14,7 +14,7 @@ class PostLikeProcessor:
         return self.request.user in self.post.likes.all()
 
     def is_user_in_post_dislikes(self) -> bool:
-        return self.request.user in self.post.dislikes.all()
+        return self.request.user in self.post.disslikes.all()
 
     def start_process(self) -> None:
         if self.user_did_like():
@@ -42,9 +42,9 @@ class PostLikeProcessor:
         self.likes += 1
 
     def decrease_dislikes(self) -> None:
-        self.post.dislikes.remove(self.request.user)
+        self.post.disslikes.remove(self.request.user)
         self.dislikes -= 1
 
     def increase_dislikes(self) -> None:
-        self.post.dislikes.add(self.request.user)
+        self.post.disslikes.add(self.request.user)
         self.dislikes += 1
