@@ -19,8 +19,12 @@ class PostLikeProcessor:
     def start_process(self) -> None:
         if self.user_did_like():
             self.decrease_likes() if self.user_in_post_like else self.increase_likes()
+            if self.user_in_post_dislikes:
+                self.decrease_dislikes()
         else:
             self.decrease_dislikes() if self.user_in_post_dislikes else self.increase_dislikes()
+            if self.user_in_post_like:
+                self.decrease_likes()
 
     def user_did_like(self) -> bool:
         if self.request.data['like']:
