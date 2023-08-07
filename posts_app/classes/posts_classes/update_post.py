@@ -8,7 +8,8 @@ from rest_framework import status
 class UpdatePost(PostCreateUpdateBase, PostBase):
 
     def __init__(self, request):
-        super().__init__(request=request)
+        PostBase.__init__(self, request=request)
+        PostCreateUpdateBase.__init__(self)
         self.post_instance = None
 
     def _get_serializer_post(self):
