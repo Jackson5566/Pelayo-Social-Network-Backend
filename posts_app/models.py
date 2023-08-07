@@ -34,6 +34,9 @@ class PostModel(models.Model):
 
     def save(self, *args, **kwargs):
         # Se llama al original de la clase Model
+        print('args, ' + str(*args))
+        print('kwargs ', + str(*kwargs))
+
         super().save(*args, **kwargs)
         # Se captura la imagen guardada
         if self.image:
