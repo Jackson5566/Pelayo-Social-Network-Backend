@@ -1,5 +1,5 @@
 from .models import PostModel, CategoryModel, FileModel
-from rest_framework import status, permissions, viewsets
+from rest_framework import status, permissions, viewsets, generics
 from rest_framework.response import Response
 from .serializer import PostsReturnSerializerWithUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -8,13 +8,12 @@ from rest_framework.views import APIView
 from .paginations import MyPagination
 from api.serializers import CategorySerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import generics
 from posts_app.classes.posts_classes.get_post import GetPostData
 from .classes.like_proccessor import PostLikeProcessor
 from .classes.search import SearchAlgorithm
-from rest_framework.exceptions import ValidationError
 from posts_app.classes.posts_classes.create_post import CreatePost
-from .classes.posts_classes.update_post import UpdatePost, NotAllowed
+from .classes.posts_classes.update_post import UpdatePost
+from .classes.posts_classes.delete_post import DeletePost
 
 
 class PostsView(APIView):
@@ -25,44 +24,29 @@ class PostsView(APIView):
         post_instance = PostModel.objects.get(id=_id)
         context = {'request': request}
         get_post_data_instance = GetPostData(post_instance=post_instance, request=request, context=context)
-        return Response(get_post_data_instance.get_post_data())
+        get_post_data_instance.start_get_post_data_process()
+        return get_post_data_instance.response
 
-    def post(self, request: object):
+    def post(self, request):
         create_post_instance = CreatePost(request=request)
-        try:
-            create_post_instance.create_post()
-            return Response({'message': 'Exito con la creación'}, status=status.HTTP_201_CREATED)
-
-        except ValidationError as err:
-            return Response({'message': str(err)}, status=status.HTTP_400_BAD_REQUEST)
+        create_post_instance.create_post()
+        return create_post_instance.response
 
     def delete(self, request, _id):
         post = PostModel.objects.get(id=_id)
-        post.delete()
-        return Response({'message': 'Delete'}, status=status.HTTP_200_OK)
+        delete_post_instance = DeletePost(request=request, post_instance=post)
+        delete_post_instance.start_delete_post_process()
+        return delete_post_instance.response
 
     def put(self, request):
         update_post_instance = UpdatePost(request=request)
-        try:
-            update_post_instance.start_update_post()
-        except ValueError as error:
-            return Response({
-                'message': str(error)
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        except NotAllowed as error:
-            return Response({
-                'message': str(error)
-            }, status=status.HTTP_403_FORBIDDEN)
+        update_post_instance.start_update_post()
+        return update_post_instance.response
 
     def patch(self, request, _id):
         like_processor = PostLikeProcessor(request=request, post_id=_id)
         like_processor.start_process()
-
-        return Response({
-            "likes": like_processor.likes,
-            "disslikes": like_processor.dislikes
-        }, status=status.HTTP_200_OK)
+        return like_processor.response
 
 
 class PostsViewSet(generics.ListAPIView):

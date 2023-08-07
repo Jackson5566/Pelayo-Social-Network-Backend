@@ -1,13 +1,18 @@
 from typing import Union
 from posts_app.serializer import PostsReturnSerializerWithoutUser, PostsReturnSerializerWithUser
+from .post_base import PostBase
+from rest_framework import status
 
 
-class GetPostData:
+class GetPostData(PostBase):
     def __init__(self, request, post_instance, context):
+        super().__init__(request=request)
         self.post = post_instance
         self.context = context
-        self.request = request
         self.post_serializer = None
+
+    def start_get_post_data_process(self):
+        self._set_response(data=self.get_post_data(), status=status.HTTP_200_OK)
 
     def get_post_data(self):
         if self.show_only_messages():

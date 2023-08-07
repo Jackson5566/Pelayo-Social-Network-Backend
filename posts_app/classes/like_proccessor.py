@@ -1,9 +1,11 @@
 from ..models import PostModel
+from posts_classes.post_base import PostBase
+from rest_framework import status
 
 
-class PostLikeProcessor:
+class PostLikeProcessor(PostBase):
     def __init__(self, request, post_id):
-        self.request = request
+        super().__init__(request=request)
         self.post = PostModel.objects.get(id=post_id)
         self.user_in_post_like = self.is_user_in_post_like()
         self.user_in_post_dislikes = self.is_user_in_post_dislikes()
@@ -25,6 +27,11 @@ class PostLikeProcessor:
             self.decrease_dislikes() if self.user_in_post_dislikes else self.increase_dislikes()
             if self.user_in_post_like:
                 self.decrease_likes()
+
+        self._set_response(data={
+            "likes": self.likes,
+            "disslikes": self.dislikes
+        }, status=status.HTTP_200_OK)
 
     def user_did_like(self) -> bool:
         if self.request.data['like']:

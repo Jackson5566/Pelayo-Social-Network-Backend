@@ -2,7 +2,7 @@ from posts_app.models import CategoryModel
 from posts_app.serializer import FilesSerializer
 
 
-class PostProcessor:
+class PostCreateUpdateProcessor:
     @staticmethod
     def set_categories(post_instance, request) -> None:
         for category in request.data.getlist('categories'):
