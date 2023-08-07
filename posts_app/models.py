@@ -35,6 +35,8 @@ class PostModel(models.Model):
     def save(self, *args, **kwargs):
         last_img_path = self.image.path
         super().save(*args, **kwargs)
+        print(last_img_path)
+        print(self.image.path)
         if self.image and last_img_path == self.image.path:
             imagen = Image.open(self.image.path)
             # Si el modo de la imagen es RGBA se transforma en RGB
