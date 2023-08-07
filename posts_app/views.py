@@ -1,7 +1,7 @@
 from .models import PostModel, CategoryModel, FileModel
 from rest_framework import status, permissions, viewsets
 from rest_framework.response import Response
-from .serializer import PostsCreateSerializer, PostsReturnSerializerWithUser
+from .serializer import PostsReturnSerializerWithUser
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.views import APIView
@@ -9,7 +9,6 @@ from .paginations import MyPagination
 from api.serializers import CategorySerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import generics
-from posts_app.classes.posts_classes.post_processor import PostProcessor
 from posts_app.classes.posts_classes.get_post import GetPostData
 from .classes.like_proccessor import PostLikeProcessor
 from .classes.search import SearchAlgorithm
