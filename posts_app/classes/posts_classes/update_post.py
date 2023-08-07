@@ -7,7 +7,7 @@ from rest_framework.exceptions import ValidationError
 
 class NotAllowed(Exception):
     def __init__(self, message):
-        super.__init__(message)
+        super().__init__(message)
 
 
 class UpdatePost(PostCreateUpdateBase):
@@ -34,7 +34,8 @@ class UpdatePost(PostCreateUpdateBase):
 
                 PostProcessor.add_files(post_instance=post_instance, files_instances=files_instances)
 
-            raise NotAllowed("No tienes permiso para esto")
+            else:
+                raise NotAllowed("No tienes permiso para esto")
         raise ValidationError("No válido")
 
 

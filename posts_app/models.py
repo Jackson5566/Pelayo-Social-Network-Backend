@@ -35,17 +35,12 @@ class PostModel(models.Model):
     def save(self, *args, **kwargs):
         last_img_path = self.image.path
         super().save(*args, **kwargs)
-        print(last_img_path)
-        print(self.image.path)
-        if self.image and last_img_path == self.image.path:
-            imagen = Image.open(self.image.path)
-            # Si el modo de la imagen es RGBA se transforma en RGB
-            if imagen.mode == "RGBA":
-                imagen = imagen.convert("RGB")
+        if self.image and last_img_path != self.image.path:
+            image = Image.open(self.image.path)
+            if image.mode == "RGBA":
+                image = image.convert("RGB")
 
-            # Se redimensiona la imagen y se le añade un suavizado
-            imagen_redimensionada = imagen.resize((800, 600), Image.LANCZOS)
-            # Se guarda la imagen
+            imagen_redimensionada = image.resize((800, 600), Image.LANCZOS)
             imagen_redimensionada.save(self.image.path, "JPEG", quality=50, optimize=True)
 
     def __str__(self):
