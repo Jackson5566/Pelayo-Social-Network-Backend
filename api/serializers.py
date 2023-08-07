@@ -49,13 +49,13 @@ class BaseReturnSerializer(DynamicModelSerializer):
         ret = super().to_representation(instance)
         if self.context['request'].query_params.get('onlyMessages') != 'true':
             base_url = "https://pelayosn.up.railway.app"
-            ret['likes'] = len(instance.likes.all())
-            ret['disslikes'] = len(instance.disslikes.all())
+            ret['likes'] = instance.likes.count()
+            ret['disslikes'] = instance.dislikes.count()
             ret['image'] = base_url + instance.image.url if instance.image else None
             ret['files'] = [
                 {'url': base_url + file.files.url, 'title': os.path.basename(file.files.name), 'id': file.id} for file
                 in instance.files.all()]
-            ret['messagesCount'] = len(instance.messages.all())
+            ret['messagesCount'] = instance.messages.count()
         return ret
 
     def serializer_posts(self, obj):
