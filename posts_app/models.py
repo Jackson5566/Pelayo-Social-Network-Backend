@@ -36,6 +36,7 @@ class PostModel(models.Model):
         # Se llama al original de la clase Model
         print(f'{args}')
         print(f'{kwargs}')
+        print(kwargs['image'])
 
         super().save(*args, **kwargs)
         # Se captura la imagen guardada
