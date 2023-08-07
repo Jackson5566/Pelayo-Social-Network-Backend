@@ -9,7 +9,7 @@ class CreatePost(PostCreateUpdateBase):
         super().__init__(request=request)
 
     def _get_serializer_post(self):
-        return PostsCreateSerializer(data=self.request.data, scontext={'request': self.request})
+        return PostsCreateSerializer(data=self.request.data, context={'request': self.request})
 
     def create_post(self):
         files_instances = PostProcessor.serialize_files(self.request)
