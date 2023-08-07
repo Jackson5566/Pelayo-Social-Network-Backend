@@ -33,17 +33,9 @@ class PostModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        img = self.image.path
-        print(img)
+        last_img_path = self.image.path
         super().save(*args, **kwargs)
-
-        print(self.image.path)
-
-        print("-----")
-        print(img)
-        print(self.image.path)
-
-        if self.image:
+        if self.image and last_img_path == self.image.path:
             imagen = Image.open(self.image.path)
             # Si el modo de la imagen es RGBA se transforma en RGB
             if imagen.mode == "RGBA":
