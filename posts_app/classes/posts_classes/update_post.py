@@ -24,7 +24,7 @@ class UpdatePost(PostCreateUpdateBase):
         if self.post_serializer.is_valid():
             post = PostModel.objects.get(id=self.request.data['id'])
 
-            post.categories.clear(
+            post.categories.clear()
 
             PostProcessor.set_categories(request=self.request, post_instance=post)
 

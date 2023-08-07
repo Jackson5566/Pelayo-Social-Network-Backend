@@ -40,7 +40,7 @@ class DenunciateUser:
         self.user_reported.denunciations.add(self.user_who_reported)
 
     def count_user_reported_complaints(self) -> int:
-        user_reported_denuncations = len(self.user_reported.denunciations.all())
+        user_reported_denuncations = self.user_reported.denunciations.count()
         return user_reported_denuncations
 
     @staticmethod
