@@ -38,7 +38,12 @@ class PostModel(models.Model):
         print(f'{kwargs}')
         print(kwargs['image'])
 
-        super().save(*args, **kwargs)
+        image_anterior = self.image
+
+        instance = super().save(*args, **kwargs)
+
+        print('Imagne anterior' + image_anterior.path)
+        print("Imagen nueva" + instance.image.path)
         # Se captura la imagen guardada
         if self.image:
             imagen = Image.open(self.image.path)
