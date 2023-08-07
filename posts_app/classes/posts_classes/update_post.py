@@ -24,11 +24,11 @@ class UpdatePost(PostCreateUpdateBase):
         if self.post_serializer.is_valid():
             post = PostModel.objects.get(id=self.request.data['id'])
 
-            post.categories.clear()
+            post.categories.clear(
 
             PostProcessor.set_categories(request=self.request, post_instance=post)
 
-            if self.is_from_authenticated_user():
+            if self.request.user == post.user:
                 post_instance = self.post_serializer.update(validated_data=self.post_serializer.validated_data,
                                                             instance=post)
 
@@ -36,9 +36,6 @@ class UpdatePost(PostCreateUpdateBase):
 
             raise NotAllowed("No tienes permiso para esto")
         raise ValidationError("No válido")
-
-    def is_from_authenticated_user(self) -> bool:
-        return self.request.user == self.post_instance.user
 
 
 """posts_serializer = PostsCreateSerializer(data=request.data)

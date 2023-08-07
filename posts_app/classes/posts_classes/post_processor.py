@@ -26,3 +26,9 @@ class PostProcessor:
         if files_instances:
             for file in files_instances:
                 post_instance.files.add(file)
+
+    @staticmethod
+    def is_from_authenticated_user(user, post_instance) -> bool:
+        return user == post_instance
+
+# Arreglar los parametros de los metodos estaticos
