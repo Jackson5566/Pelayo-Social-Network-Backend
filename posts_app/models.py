@@ -33,19 +33,12 @@ class PostModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        # Se llama al original de la clase Model
-        image_anterior = self.image
-
-        instance = super().save(*args, **kwargs)
-
-        print('Imagne anterior' + image_anterior.path)
-        print("Imagen nueva" + self.image.path)
-        # Se captura la imagen guardada
         if self.image:
             imagen = Image.open(self.image.path)
             # Si el modo de la imagen es RGBA se transforma en RGB
             if imagen.mode == "RGBA":
                 imagen = imagen.convert("RGB")
+
             # Se redimensiona la imagen y se le añade un suavizado
             imagen_redimensionada = imagen.resize((800, 600), Image.LANCZOS)
             # Se guarda la imagen
