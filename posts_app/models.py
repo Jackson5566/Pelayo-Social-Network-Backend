@@ -34,10 +34,6 @@ class PostModel(models.Model):
 
     def save(self, *args, **kwargs):
         # Se llama al original de la clase Model
-        print(f'{args}')
-        print(f'{kwargs}')
-        print(kwargs['image'])
-
         image_anterior = self.image
 
         instance = super().save(*args, **kwargs)
