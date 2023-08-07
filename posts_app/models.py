@@ -36,10 +36,10 @@ class PostModel(models.Model):
         # Se llama al original de la clase Model
         image_anterior = self.image
 
-        instance = super(PostModel, self).save(*args, **kwargs)
+        instance = super().save(*args, **kwargs)
 
         print('Imagne anterior' + image_anterior.path)
-        print("Imagen nueva" + instance.image.path)
+        print("Imagen nueva" + self.image.path)
         # Se captura la imagen guardada
         if self.image:
             imagen = Image.open(self.image.path)
