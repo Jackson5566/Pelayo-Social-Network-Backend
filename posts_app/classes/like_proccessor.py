@@ -1,5 +1,5 @@
 from ..models import PostModel
-from posts_classes.post_base import PostBase
+from .posts_classes.post_base import PostBase
 from rest_framework import status
 
 
