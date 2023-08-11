@@ -33,7 +33,8 @@ class PostModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        last_img_path = self.image.path
+        if self.image:
+            last_img_path = self.image.path
         super().save(*args, **kwargs)
         if self.image and last_img_path != self.image.path:
             image = Image.open(self.image.path)

@@ -70,9 +70,9 @@ class CreateUserConfirmation(generics.GenericAPIView, UserExpirationLink):
 @permission_classes([permissions.IsAuthenticated])
 @authentication_classes([JWTAuthentication])
 def denunciate(request):
-    user_reported_id = request.data.get('id')
-    denunciation_user = DenunciateUser(user_who_reported=request.user, user_reported_id=user_reported_id)
-    return denunciation_user.start_denunciate_proccess()
+    denunciation_user = DenunciateUser(request=request)
+    denunciation_user.start_process()
+    return denunciation_user.response
 
 
 class UsersView(viewsets.ModelViewSet):

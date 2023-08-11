@@ -24,27 +24,28 @@ class PostsView(APIView):
         post_instance = PostModel.objects.get(id=_id)
         context = {'request': request}
         get_post_data_instance = GetPostData(post_instance=post_instance, request=request, context=context)
-        get_post_data_instance.start_get_post_data_process()
+        get_post_data_instance.start_process()
         return get_post_data_instance.response
 
     def post(self, request):
         create_post_instance = CreatePost(request=request)
-        create_post_instance.create_post()
+        create_post_instance.start_process()
         return create_post_instance.response
 
     def delete(self, request, _id):
         post = PostModel.objects.get(id=_id)
         delete_post_instance = DeletePost(request=request, post_instance=post)
-        delete_post_instance.start_delete_post_process()
+        delete_post_instance.start_process()
         return delete_post_instance.response
 
     def put(self, request):
         update_post_instance = UpdatePost(request=request)
-        update_post_instance.start_update_post()
+        update_post_instance.start_process()
         return update_post_instance.response
 
     def patch(self, request, _id):
-        like_processor = PostLikeProcessor(request=request, post_id=_id)
+        post = PostModel.objects.get(id=_id)
+        like_processor = PostLikeProcessor(request=request, post_instance=post)
         like_processor.start_process()
         return like_processor.response
 
@@ -66,9 +67,9 @@ class SearchViewSet(viewsets.ModelViewSet):
     serializer_class = PostsReturnSerializerWithUser
 
     def get_queryset(self):
-        search_algorithm = SearchAlgorithm(search=self.request.query_params.get('search'))
-        search_algorithm.start_search()
-        return search_algorithm.get_searched_posts()
+        search_algorithm = SearchAlgorithm(request=self.request)
+        search_algorithm.start_process()
+        return search_algorithm.response
 
 
 @api_view(['GET'])

@@ -1,14 +1,12 @@
-from rest_framework.response import Response
 from rest_framework import status
-from .post_base import PostBase
+from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 
 
-class DeletePost(PostBase):
+class DeletePost(PostOperations):
     def __init__(self, request, post_instance):
-        super().__init__(request=request)
-        self.post_instance = post_instance
+        super().__init__(request=request, post_instance=post_instance)
 
-    def start_delete_post_process(self):
+    def start_process(self):
         self.delete_post()
         self._set_response(data={'message': 'Delete'}, status=status.HTTP_200_OK)
 
