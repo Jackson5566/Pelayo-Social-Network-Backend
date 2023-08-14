@@ -23,7 +23,7 @@ class PostCreateUpdateOperations(PostOperations, ABC):
         pass
 
     def set_categories(self) -> None:
-        for category in self.request.data.getlist('categories'):
+        for category in self.request_manager.request.data.getlist('categories'):
             category_instance = CategoryModel.objects.filter(name=category).first()
             if category_instance:
                 self.post_instance.categories.add(category_instance)
@@ -35,7 +35,7 @@ class PostCreateUpdateOperations(PostOperations, ABC):
             return file_serializer.create(validated_data=file_serializer.validated_data)  # OJO Devuelve una lista
 
     def files_serializer(self):
-        return FilesSerializer(data=self.request.data)
+        return FilesSerializer(data=self.request_manager.request.data)
 
     def add_files(self, files_instances):
         if files_instances:

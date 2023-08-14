@@ -1,4 +1,5 @@
 from rest_framework import status
+from api.classes.view_logic_executor import ResponseBody
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 
 
@@ -8,7 +9,7 @@ class DeletePost(PostOperations):
 
     def start_process(self):
         self.delete_post()
-        self._set_response(data={'message': 'Delete'}, status=status.HTTP_200_OK)
+        self.response = ResponseBody(data={'message': 'Deleted'}, status=status.HTTP_200_OK)
 
     def delete_post(self):
         self.post_instance.delete()

@@ -69,7 +69,7 @@ class SearchViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         search_algorithm = SearchAlgorithm(request=self.request)
         search_algorithm.start_process()
-        return search_algorithm.response
+        return search_algorithm.queryset
 
 
 @api_view(['GET'])

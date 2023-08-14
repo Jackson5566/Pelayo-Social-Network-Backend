@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import PasswordChangeRequestView, PasswordChangeConfirmView, CreateUser, UsersView, denunciate, CreateUserConfirmation
+from .views import PasswordChangeRequestView, PasswordChangeConfirmView, CreateUser, UsersView, denunciate, \
+    CreateUserConfirmation
 from rest_framework import routers
 
 router = routers.DefaultRouter()

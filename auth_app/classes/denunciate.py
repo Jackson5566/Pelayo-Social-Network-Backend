@@ -1,22 +1,19 @@
-from abc import ABC
-
 from ..models import User
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from rest_framework import status
-from typing import Union
-from api.classes.view_logic_executor import ViewLogicExecutor
+from api.classes.view_logic_executor import ControllerLogicExecutor
 
 
-class DenunciateUser(ViewLogicExecutor):
+class DenunciateUser(ControllerLogicExecutor):
     def __init__(self, request):
         super().__init__(request=request)
-        self.user_who_reported = self.request.user
+        self.user_who_reported = self.request_manager.user
         self.user_reported = self.get_user_reported()
 
     def get_user_reported(self) -> User:
         try:
-            user_reported_id = self.request.get('id')
+            user_reported_id = self.request_manager.data.get('id')
             return User.objects.filter(id=user_reported_id).first()
         except User.DoesNotExist:
             self._set_response(data={'message': 'Usuario no encontrado'}, status=status.HTTP_400_BAD_REQUEST)

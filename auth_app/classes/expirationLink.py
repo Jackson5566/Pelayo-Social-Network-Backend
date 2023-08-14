@@ -22,36 +22,66 @@ class EncodeProccesor:
         return decoded_token_str
 
 
-class UserExpirationLink:
-    frontEnd_site = 'localhost:4200'
-    subject = 'Password Reset Request'
-    signer = TimestampSigner()
-    email = None
-    user = None
+class UserExpirationLinkUtilities:
+    def __init__(self):
+        self.signer = TimestampSigner()
+        self._user = None
+        self._user_email = None
 
-    def encode_token(self):
-        token = self.signer.sign(str(self.user.id))
-        return EncodeProccesor.encode(token=token)
+    @property
+    def user(self):
+        return self._user
 
-    def decode_token(self, token):
-        return EncodeProccesor.decode(token=token)
+    @user.setter
+    def user(self, user):
+        self._user = user
 
-    def send_link(self, template: str) -> None:
-        if self.user:
+    @property
+    def user_email(self):
+        return self._user_email
+
+    @user_email.setter
+    def user_email(self, user_email):
+        self._user_email = user_email
+
+
+class SendUserExpirationLink:
+    FRONT_END_SITE = 'localhost:4200'
+
+    def __init__(self):
+        self.utilities = UserExpirationLinkUtilities()
+
+    def send_link(self, template: str, subject: str) -> None:
+        if self.utilities.user:
             encoded_token = self.encode_token()
             message = render_to_string(template, {
-                'user': self.user,
-                'domain': self.frontEnd_site,
+                'user': self.utilities.user,
+                'domain': self.FRONT_END_SITE,
                 'token': encoded_token,
             })
-            send_mail(self.subject, None, None, [self.email], fail_silently=False, html_message=message)
+            send_mail(subject, None, None,
+                      [self.utilities.user_email],
+                      fail_silently=False, html_message=message)
+
+    def encode_token(self):
+        token = self.utilities.signer.sign(str(self.utilities.user.id))
+        return EncodeProccesor.encode(token=token)
+
+
+class GetUserFromExpirationLink:
+
+    def __init__(self):
+        self.utilities = UserExpirationLinkUtilities()
 
     def set_user(self, token: str) -> Union[Response, None]:
         decoded_token_str = self.decode_token(token)
-        user_id = self.signer.unsign(decoded_token_str, max_age=3600)
+        user_id = self.utilities.signer.unsign(decoded_token_str, max_age=3600)
         try:
-            self.user = User.objects.get(id=int(user_id))
+            self.utilities.user = User.objects.get(id=int(user_id))
         except BadSignature:
             return Response({'error': 'Link de resto inválido.'}, status=status.HTTP_400_BAD_REQUEST)
         except User.DoesNotExist:
             return Response({'error': 'Usario no encontrado'}, status=status.HTTP_400_BAD_REQUEST)
+
+    def decode_token(self, token):
+        return EncodeProccesor.decode(token=token)

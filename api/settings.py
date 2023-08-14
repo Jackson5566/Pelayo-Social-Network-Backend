@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django_filters'
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://pelayosn.up.railway.app']
+# CSRF_TRUSTED_ORIGINS = ['https://pelayosn.up.railway.app']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -90,11 +90,11 @@ WSGI_APPLICATION = 'api.wsgi.application'
 DATABASES = {
      'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'railway',
+        'NAME': 'pelayo_social_network',
         'USER': 'postgres',
-        'PASSWORD': '6mAJWtStoEpFCwZxxz6C',
-        'HOST': 'containers-us-west-79.railway.app',
-        'PORT': '6680',
+        'PASSWORD': 'qwertyteclado&!',
+        'HOST': 'localhost',
+        'PORT': '5433',
     }
 }
 
@@ -136,7 +136,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT =  BASE_DIR / 'staticfiles' 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
@@ -154,7 +154,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 
-MEDIA_ROOT = BASE_DIR.parent / 'media' 
+MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
