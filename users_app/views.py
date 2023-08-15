@@ -1,21 +1,16 @@
 from auth_app.models import User
-from .serializer import UsersSerializerReturn, UserInformationSerializer
-from rest_framework.response import Response
-from rest_framework import permissions
-from rest_framework import status
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework import viewsets
-from rest_framework import generics
 from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import permissions, generics, viewsets, status
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .serializer import UsersSerializerReturn, UserInformationSerializer
 
 
-class BaseSelectUserViewSet(viewsets.ModelViewSet):
+class SelectUserViewSet(viewsets.ModelViewSet):
     serializer_class = UsersSerializerReturn
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-
-class SelectUserViewSet(BaseSelectUserViewSet):
     def get_queryset(self):
         users = User.objects.all()
         if self.request.query_params.get('onlyPosts') == 'true':
@@ -46,7 +41,7 @@ class SelectCurrentlyUserViewSet(generics.RetrieveAPIView):
         return self.request.user
 
 
-class CurrentUserInfomation(APIView):
+class CurrentInformation(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 

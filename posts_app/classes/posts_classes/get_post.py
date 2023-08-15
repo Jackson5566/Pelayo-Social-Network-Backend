@@ -1,11 +1,8 @@
 from typing import Union
-from django.db.models import Model
 from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
-from posts_app.models import PostModel
 from posts_app.serializer import PostsReturnSerializerWithoutUser, PostsReturnSerializerWithUser
 from rest_framework import status
-from django.shortcuts import get_object_or_404
 from api.classes.serializer_manager import SerializerManager
 
 
@@ -14,9 +11,6 @@ class GetPostData(PostOperations):
         super().__init__(request=request, model_id=post_id)
         self.context = context
         self.post_serializer_manager = SerializerManager()
-
-    def get_default_instance(self, model_id=None) -> Union[None, Model]:
-        return get_object_or_404(PostModel, id=model_id)
 
     def start_process(self):
         data = self.get_data()
@@ -42,10 +36,10 @@ class GetPostData(PostOperations):
 
     def serialize_without_user(self, fields: Union[list, None] = None) -> None:
         self.post_serializer_manager.serializer = PostsReturnSerializerWithoutUser(
-            self.post_instance_manager.instance, many=False, context=self.context, fields=fields)
+            self.model_instance_manager.instance, many=False, context=self.context, fields=fields)
 
     def serialize_with_user(self) -> None:
-        self.post_serializer_manager.serializer = PostsReturnSerializerWithUser(self.post_instance_manager.instance,
+        self.post_serializer_manager.serializer = PostsReturnSerializerWithUser(self.model_instance_manager.instance,
                                                                                 many=False, context=self.context)
 
     def show_only_messages(self) -> bool:

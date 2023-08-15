@@ -1,4 +1,4 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from api.classes.controller_logic_excecutor import ResponseBody
 from api.serializers import CommentBaseSerializer
 from message_app.serializer import CommentSerializer
@@ -14,8 +14,8 @@ class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor, AB
     Al ser las operaciones de acrualizacion y creacion tan similares, se hace necesario una clase para compartir
     funcionalidades"""
 
-    def __init__(self, request):
-        super().__init__(request=request)
+    def __init__(self, request, model_id=None):
+        super().__init__(request=request, model_id=model_id)
         comment_serializer = self._get_comment_serializer()
         self.comment_serializer_manager = SerializerManager(serializer=comment_serializer)
 
@@ -25,7 +25,7 @@ class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor, AB
         self.set_resulted_message()
 
     def set_resulted_message(self) -> None:  # Se estará viendo en response
-        message_to_return_serializer = CommentBaseSerializer(instance=self.comment_instance_manager.instance)
+        message_to_return_serializer = CommentBaseSerializer(instance=self.model_instance_manager.instance)
         self.response = ResponseBody(data=message_to_return_serializer.data, status=status.HTTP_201_CREATED)
 
     def _get_comment_serializer(self) -> CommentSerializer:

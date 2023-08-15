@@ -18,8 +18,5 @@ class GetCommentOperation(CommentOperations):
         message_data = self.get_message_serializer().data
         self.response = ResponseBody(data=message_data, status=status.HTTP_200_OK)
 
-    def get_default_instance(self, model_id=None) -> Union[None, Model]:
-        return get_object_or_404(MessagesModel, id=model_id)
-
     def get_message_serializer(self):
-        return CommentSerializer(self.comment_instance_manager.instance, many=False, fields=['title', 'content'])
+        return CommentSerializer(self.model_instance_manager.instance, many=False, fields=['title', 'content'])

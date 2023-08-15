@@ -4,6 +4,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from message_app.classes.create_comment import CreateCommentOperation
 from message_app.classes.update_comment import UpdateCommentOperation
 from message_app.classes.get_comment import GetCommentOperation
+from api.shortcuts.active_response import process_and_get_response
 
 
 class MessageView(APIView):
@@ -12,15 +13,12 @@ class MessageView(APIView):
 
     def post(self, request):
         create_comment_instance = CreateCommentOperation(request=request)
-        create_comment_instance.start_process()
-        return create_comment_instance.response
+        return process_and_get_response(create_comment_instance)
 
     def put(self, request):
         update_comment_instance = UpdateCommentOperation(request=request)
-        update_comment_instance.start_process()
-        return update_comment_instance.response
+        return process_and_get_response(update_comment_instance)
 
     def get(self, request, id):
         get_comment_instance = GetCommentOperation(request=request, post_id=id)
-        get_comment_instance.start_process()
-        return get_comment_instance.response
+        return process_and_get_response(get_comment_instance)

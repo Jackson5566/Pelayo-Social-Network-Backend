@@ -1,19 +1,20 @@
-from rest_framework import generics, permissions, viewsets, status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework_simplejwt.tokens import RefreshToken
-from .serializer import UsersSerializer
 from .models import User
+from .serializer import UsersSerializer
+from rest_framework.response import Response
+from .classes.denunciate import DenunciateUser
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework import generics, permissions, viewsets, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .classes.expirationLink import GetUserFromExpirationLink, SendUserExpirationLink
-from .classes.denunciate import DenunciateUser
+from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
 
 class PasswordChangeRequestView(generics.GenericAPIView):
     def post(self, request):
         send_user_expiration_link = SendUserExpirationLink()
         send_user_expiration_link.utilities.user_email = request.data.get('email')
-        send_user_expiration_link.utilities.user = User.objects.get(email=send_user_expiration_link.utilities.user_email)
+        send_user_expiration_link.utilities.user = User.objects.get(
+            email=send_user_expiration_link.utilities.user_email)
         send_user_expiration_link.send_link(template='password_reset_email.html', subject="Password Reset Link")
         return Response({'message': 'Se ha enviado un email que te permitirá cambiar tu contraseña.'},
                         status=status.HTTP_200_OK)
@@ -83,4 +84,3 @@ class UsersView(viewsets.ModelViewSet):
     serializer_class = UsersSerializer
     queryset = User.objects.all()
     permission_classes = [permissions.IsAdminUser]
-

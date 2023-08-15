@@ -14,7 +14,10 @@ from .classes.search import SearchAlgorithm
 from posts_app.classes.posts_classes.create_post import CreatePost
 from .classes.posts_classes.update_post import UpdatePost
 from .classes.posts_classes.delete_post import DeletePost
+from api.shortcuts.active_response import process_and_get_response, process_and_get_queryset
 
+
+# Intentar usar deocradores para eviar la duplicacion
 
 class PostsView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -23,34 +26,31 @@ class PostsView(APIView):
     def get(self, request, _id):
         context = {'request': request}
         get_post_data_instance = GetPostData(post_id=_id, request=request, context=context)
-        get_post_data_instance.start_process()
-        return get_post_data_instance.response
+        return process_and_get_response(get_post_data_instance)
 
     def post(self, request):
         create_post_instance = CreatePost(request=request)
-        create_post_instance.start_process()
-        return create_post_instance.response
+        return process_and_get_response(create_post_instance)
 
     def delete(self, request, _id):
         delete_post_instance = DeletePost(request=request, post_id=_id)
-        delete_post_instance.start_process()
-        return delete_post_instance.response
+        return process_and_get_response(delete_post_instance)
 
     def put(self, request):
         update_post_instance = UpdatePost(request=request)
-        update_post_instance.start_process()
-        return update_post_instance.response
+        return process_and_get_response(update_post_instance)
 
     def patch(self, request, _id):
         like_processor = PostLikeProcessor(request=request, post_id=_id)
-        like_processor.start_process()
-        return like_processor.response
+        return process_and_get_response(like_processor)
 
 
 class PostsViewSet(generics.ListAPIView):
     serializer_class = PostsReturnSerializerWithUser
     pagination_class = MyPagination
     filter_backends = [DjangoFilterBackend]
+    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [JWTAuthentication]
     filterset_fields = ['categories__name']
 
     def get_queryset(self):
@@ -65,8 +65,7 @@ class SearchViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         search_algorithm = SearchAlgorithm(request=self.request)
-        search_algorithm.start_process()
-        return search_algorithm.queryset
+        return process_and_get_queryset(search_algorithm)
 
 
 @api_view(['GET'])
