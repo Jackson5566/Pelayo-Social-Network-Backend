@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import CategoryModel, PostModel, FileModel
 from users_app.serializer import UsersSerializerReturn2
 from api.serializers import BaseReturnSerializer, CategorySerializer
-from message_app.serializer import MessageSerializer
+from message_app.serializer import CommentSerializer
 from django.core.paginator import Paginator
 
 

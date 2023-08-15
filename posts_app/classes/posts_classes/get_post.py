@@ -1,16 +1,22 @@
 from typing import Union
-
-from api.classes.view_logic_executor import ResponseBody
+from django.db.models import Model
+from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
+from posts_app.models import PostModel
 from posts_app.serializer import PostsReturnSerializerWithoutUser, PostsReturnSerializerWithUser
 from rest_framework import status
+from django.shortcuts import get_object_or_404
+from api.classes.serializer_manager import SerializerManager
 
 
 class GetPostData(PostOperations):
-    def __init__(self, request, post_instance, context):
-        super().__init__(request=request, post_instance=post_instance)
+    def __init__(self, request, post_id, context):
+        super().__init__(request=request, model_id=post_id)
         self.context = context
-        self.post_serializer = None
+        self.post_serializer_manager = SerializerManager()
+
+    def get_default_instance(self, model_id=None) -> Union[None, Model]:
+        return get_object_or_404(PostModel, id=model_id)
 
     def start_process(self):
         data = self.get_data()
@@ -22,24 +28,25 @@ class GetPostData(PostOperations):
     def get_post_data(self):
         from_user = self.is_post_from_authenticated_user()
         self.serialize_post(is_from_user=from_user)
-        data = self.post_serializer.data
+        data = self.post_serializer_manager.serializer.data
         data['fromUser'] = from_user
         return data
 
     def get_message_data(self):
         self.serialize_without_user(fields=['message'])
-        data = self.post_serializer.data
+        data = self.post_serializer_manager.serializer.data
         return data
 
     def serialize_post(self, is_from_user: bool):
         self.serialize_without_user() if is_from_user else self.serialize_with_user()
 
     def serialize_without_user(self, fields: Union[list, None] = None) -> None:
-        self.post_serializer = PostsReturnSerializerWithoutUser(self.post_instance, many=False, context=self.context,
-                                                                fields=fields)
+        self.post_serializer_manager.serializer = PostsReturnSerializerWithoutUser(
+            self.post_instance_manager.instance, many=False, context=self.context, fields=fields)
 
     def serialize_with_user(self) -> None:
-        self.post_serializer = PostsReturnSerializerWithUser(self.post_instance, many=False, context=self.context)
+        self.post_serializer_manager.serializer = PostsReturnSerializerWithUser(self.post_instance_manager.instance,
+                                                                                many=False, context=self.context)
 
     def show_only_messages(self) -> bool:
         return self.request_manager.request.query_params.get('onlyMessages') == 'true'

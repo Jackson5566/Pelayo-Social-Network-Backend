@@ -4,7 +4,7 @@ from rest_framework import serializers
 from django.core.paginator import Paginator
 
 
-class MessageBaseSerializer(serializers.ModelSerializer):
+class CommentBaseSerializer(serializers.ModelSerializer):
     class Meta:
         model = MessagesModel
         fields = '__all__'
@@ -60,5 +60,5 @@ class BaseReturnSerializer(DynamicModelSerializer):
             page = self.context['request'].query_params.get('messagePage') or 1
             paginator = Paginator(obj.messages.all(), 4)
             to_serializer = paginator.page(page)
-            to_serializer = MessageBaseSerializer(to_serializer, many=True)
+            to_serializer = CommentBaseSerializer(to_serializer, many=True)
             return to_serializer.data

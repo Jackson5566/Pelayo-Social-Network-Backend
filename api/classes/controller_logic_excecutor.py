@@ -1,5 +1,4 @@
 from abc import ABC
-
 from rest_framework.response import Response
 from dataclasses import dataclass
 from .request_manager import RequestManager
@@ -13,7 +12,9 @@ class ResponseBody:
 
 
 class ControllerLogicExecutor(ExecutorBase, ABC):
-    """Ejecutor de la lógica del controlador"""
+    """Ejecutor de la lógica del controlador
+    Propósito: Manejar las solicitudes, procesarlas y devolver un respuesta
+    """
 
     def __init__(self, request):
         self.request_manager = RequestManager(request=request)

@@ -4,7 +4,9 @@ from .excecutor_base import ExecutorBase
 
 
 class AccessDataLogicController(ExecutorBase, ABC):
-
+    """Clase controladora del acceso a data(queryset)
+    Propósito: Manejar las solicitudes, procesarlas y devolver un queryset
+    """
     def __init__(self, request):
         self.request_manager = RequestManager(request=request)
         self._queryset = None

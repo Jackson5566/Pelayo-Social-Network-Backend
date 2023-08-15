@@ -1,10 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from .serializer import MessageSerializer
-from rest_framework.response import Response
-from .models import MessagesModel
 from message_app.classes.create_comment import CreateCommentOperation
+from message_app.classes.update_comment import UpdateCommentOperation
+from message_app.classes.get_comment import GetCommentOperation
 
 
 class MessageView(APIView):
@@ -17,14 +16,11 @@ class MessageView(APIView):
         return create_comment_instance.response
 
     def put(self, request):
-        update_comment_instance = CreateCommentOperation(request=request)
+        update_comment_instance = UpdateCommentOperation(request=request)
         update_comment_instance.start_process()
         return update_comment_instance.response
 
     def get(self, request, id):
-        try:
-            message = MessagesModel.objects.get(id=id)
-            message_serializer = MessageSerializer(message, many=False, fields=['title', 'content'])
-            return Response(message_serializer.data)
-        except:
-            return Response({'error': 'Mensaje no encontrado'})
+        get_comment_instance = GetCommentOperation(request=request, post_id=id)
+        get_comment_instance.start_process()
+        return get_comment_instance.response

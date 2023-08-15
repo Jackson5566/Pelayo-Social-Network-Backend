@@ -2,7 +2,7 @@ from ..models import User
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from rest_framework import status
-from api.classes.view_logic_executor import ControllerLogicExecutor
+from api.classes.controller_logic_excecutor import ControllerLogicExecutor
 
 
 class DenunciateUser(ControllerLogicExecutor):

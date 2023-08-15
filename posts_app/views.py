@@ -21,9 +21,8 @@ class PostsView(APIView):
     authentication_classes = [JWTAuthentication]
 
     def get(self, request, _id):
-        post_instance = PostModel.objects.get(id=_id)
         context = {'request': request}
-        get_post_data_instance = GetPostData(post_instance=post_instance, request=request, context=context)
+        get_post_data_instance = GetPostData(post_id=_id, request=request, context=context)
         get_post_data_instance.start_process()
         return get_post_data_instance.response
 
@@ -33,8 +32,7 @@ class PostsView(APIView):
         return create_post_instance.response
 
     def delete(self, request, _id):
-        post = PostModel.objects.get(id=_id)
-        delete_post_instance = DeletePost(request=request, post_instance=post)
+        delete_post_instance = DeletePost(request=request, post_id=_id)
         delete_post_instance.start_process()
         return delete_post_instance.response
 
@@ -44,8 +42,7 @@ class PostsView(APIView):
         return update_post_instance.response
 
     def patch(self, request, _id):
-        post = PostModel.objects.get(id=_id)
-        like_processor = PostLikeProcessor(request=request, post_instance=post)
+        like_processor = PostLikeProcessor(request=request, post_id=_id)
         like_processor.start_process()
         return like_processor.response
 
