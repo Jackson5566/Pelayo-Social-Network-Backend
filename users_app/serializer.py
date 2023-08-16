@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from api.serializers import DynamicModelSerializer
 
 
-class UsersSerializerReturn(serializers.ModelSerializer):
+class UsersSerializerReturn(DynamicModelSerializer):
     posts = serializers.SerializerMethodField('serializer_posts')
 
     class Meta:
@@ -28,7 +28,7 @@ class UsersSerializerReturn(serializers.ModelSerializer):
         return ret
 
 
-class UsersSerializerReturn2(serializers.ModelSerializer):
+class UsersSerializerReturn2(DynamicModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'username', 'last_name', 'id']

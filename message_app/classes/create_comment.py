@@ -8,7 +8,6 @@ class CreateCommentOperation(CreateUpdateCommentOperations):
         super().__init__(request=request)
         self._post_instance = self.get_commented_post()
 
-    @validate_serializer('comment_serializer_manager')
     def create_or_update_process(self):
         self.model_instance_manager.instance = self.comment_serializer_manager.serializer_class.create(
             validated_data=self.comment_serializer_manager.serializer_class.validated_data)

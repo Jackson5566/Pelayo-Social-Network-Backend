@@ -10,3 +10,7 @@ class ModelOperations:
     def __init__(self, model_id, model_class):
         default_model_instance = get_object_or_404(model_class, id=model_id) if model_id else None
         self.model_instance_manager = InstanceManager(instance=default_model_instance)
+
+    def is_model_instance_from_user(self, user) -> bool:
+        return user == self.model_instance_manager.instance.user
+

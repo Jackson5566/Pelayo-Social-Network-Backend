@@ -20,7 +20,7 @@ class GetPostData(PostOperations):
         return self.get_message_data() if self.show_only_messages() else self.get_post_data()
 
     def get_post_data(self):
-        from_user = self.is_post_from_authenticated_user()
+        from_user = self.is_model_instance_from_user(user=self.authenticated_user)
         self.serialize_post(is_from_user=from_user)
         data = self.serializer_manager.serializer_class.data
         data['fromUser'] = from_user

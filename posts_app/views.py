@@ -13,10 +13,10 @@ from posts_app.classes.posts_classes.create_post import CreatePost
 from .classes.posts_classes.update_post import UpdatePost
 from .classes.posts_classes.delete_post import DeletePost
 from api.shortcuts.data_get import process_and_get_response, process_and_get_queryset
-from api.decorators.add_security import add_security
+from api.decorators.add_security import access_protected
 
 
-@add_security
+@access_protected
 class PostsView(APIView):
     def get(self, request, _id):
         context = {'request': request}
@@ -40,7 +40,7 @@ class PostsView(APIView):
         return process_and_get_response(like_processor)
 
 
-@add_security
+@access_protected
 class PostsViewSet(generics.ListAPIView):
     serializer_class = PostsReturnSerializerWithUser
     pagination_class = MyPagination
@@ -51,7 +51,7 @@ class PostsViewSet(generics.ListAPIView):
         return PostModel.objects.all().order_by('-created')
 
 
-@add_security
+@access_protected
 class SearchViewSet(viewsets.ModelViewSet):
     pagination_class = MyPagination
     serializer_class = PostsReturnSerializerWithUser
@@ -61,14 +61,14 @@ class SearchViewSet(viewsets.ModelViewSet):
         return process_and_get_queryset(search_algorithm)
 
 
-@add_security
+@access_protected
 class PreSearch(APIView):
     def get(self, request):
         title_posts = [post.title for post in PostModel.objects.all()]
         return Response(title_posts)
 
 
-@add_security
+@access_protected
 class GetCategories(APIView):
     def get(self, request):
         categories = CategoryModel.objects.all()
@@ -76,7 +76,7 @@ class GetCategories(APIView):
         return Response(serialized_categories.data)
 
 
-@add_security
+@access_protected
 class DeleteFile(APIView):
     def delete(self, request, post_id):
         try:
@@ -85,24 +85,3 @@ class DeleteFile(APIView):
             return Response({'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
         except FileModel.DoesNotExist:
             return Response({'message': 'Recurso no encontrado'}, status=status.HTTP_404_NOT_FOUND)
-
-# @api_view(['GET'])
-# @permission_classes([permissions.IsAuthenticated])
-# @authentication_classes([JWTAuthentication])
-# def pre_search(request):
-#     title_posts = [post.title for post in PostModel.objects.all()]
-#     return Response(title_posts)
-
-
-# @api_view(['GET'])
-# @permission_classes([permissions.IsAuthenticated])
-# @authentication_classes([JWTAuthentication])
-# def get_categories(request):
-# )
-
-# @api_view(['DELETE'])
-# @permission_classes([permissions.IsAuthenticated])
-# @authentication_classes([JWTAuthentication])
-# def delete_file(request, post_id):
-#
-#

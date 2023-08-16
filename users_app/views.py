@@ -4,16 +4,13 @@ from rest_framework.response import Response
 from rest_framework import permissions, generics, viewsets, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializer import UsersSerializerReturn, UserInformationSerializer
+from api.decorators.add_security import access_protected
 
 
-class SelectUserViewSet(viewsets.ModelViewSet):
-    serializer_class = UsersSerializerReturn
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
+@access_protected
+class SelectUserViewSet(APIView):
+    def get(self, request, id):
         users = User.objects.all()
-        print(self.serializer_class)
         if self.request.query_params.get('onlyPosts') == 'true':
             self.serializer_class.Meta.fields = ['posts']
         else:

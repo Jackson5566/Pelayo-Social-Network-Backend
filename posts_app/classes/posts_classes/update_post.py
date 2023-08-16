@@ -10,7 +10,7 @@ class UpdatePost(PostCreateUpdateOperations):
         super().__init__(request=request, model_id=post_id)
 
     def create_or_update_process(self):
-        if self.is_post_from_authenticated_user(post_instance=self.model_instance_manager.instance):
+        if self.is_model_instance_from_user(user=self.authenticated_user):
             self.update_post()
             self.response = ResponseBody(data={'message': 'Éxito con la actualización'}, status=status.HTTP_200_OK)
 
