@@ -1,9 +1,7 @@
 from .models import PostModel, CategoryModel, FileModel
-from rest_framework import status, permissions, viewsets, generics
+from rest_framework import status, viewsets, generics
 from rest_framework.response import Response
 from .serializer import PostsReturnSerializerWithUser
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.views import APIView
 from .paginations import MyPagination
 from api.serializers import CategorySerializer
@@ -14,15 +12,12 @@ from .classes.search import SearchAlgorithm
 from posts_app.classes.posts_classes.create_post import CreatePost
 from .classes.posts_classes.update_post import UpdatePost
 from .classes.posts_classes.delete_post import DeletePost
-from api.shortcuts.active_response import process_and_get_response, process_and_get_queryset
+from api.shortcuts.data_get import process_and_get_response, process_and_get_queryset
+from api.decorators.add_security import add_security
 
 
-# Intentar usar deocradores para eviar la duplicacion
-
+@add_security
 class PostsView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
-
     def get(self, request, _id):
         context = {'request': request}
         get_post_data_instance = GetPostData(post_id=_id, request=request, context=context)
@@ -45,21 +40,19 @@ class PostsView(APIView):
         return process_and_get_response(like_processor)
 
 
+@add_security
 class PostsViewSet(generics.ListAPIView):
     serializer_class = PostsReturnSerializerWithUser
     pagination_class = MyPagination
     filter_backends = [DjangoFilterBackend]
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
     filterset_fields = ['categories__name']
 
     def get_queryset(self):
         return PostModel.objects.all().order_by('-created')
 
 
+@add_security
 class SearchViewSet(viewsets.ModelViewSet):
-    permission_classes = [permissions.IsAuthenticated]
-    authentication_classes = [JWTAuthentication]
     pagination_class = MyPagination
     serializer_class = PostsReturnSerializerWithUser
 
@@ -68,30 +61,48 @@ class SearchViewSet(viewsets.ModelViewSet):
         return process_and_get_queryset(search_algorithm)
 
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([JWTAuthentication])
-def pre_search(request):
-    title_posts = [post.title for post in PostModel.objects.all()]
-    return Response(title_posts)
+@add_security
+class PreSearch(APIView):
+    def get(self, request):
+        title_posts = [post.title for post in PostModel.objects.all()]
+        return Response(title_posts)
 
 
-@api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([JWTAuthentication])
-def get_categories(request):
-    categories = CategoryModel.objects.all()
-    serialized_categories = CategorySerializer(categories, many=True)
-    return Response(serialized_categories.data)
+@add_security
+class GetCategories(APIView):
+    def get(self, request):
+        categories = CategoryModel.objects.all()
+        serialized_categories = CategorySerializer(categories, many=True)
+        return Response(serialized_categories.data)
 
 
-@api_view(['DELETE'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([JWTAuthentication])
-def delete_file(request, post_id):
-    try:
-        file = FileModel.objects.get(id=post_id)
-        file.delete()
-        return Response({'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
-    except FileModel.DoesNotExist:
-        return Response({'message': 'Recurso no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+@add_security
+class DeleteFile(APIView):
+    def delete(self, request, post_id):
+        try:
+            file = FileModel.objects.get(id=post_id)
+            file.delete()
+            return Response({'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
+        except FileModel.DoesNotExist:
+            return Response({'message': 'Recurso no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+
+# @api_view(['GET'])
+# @permission_classes([permissions.IsAuthenticated])
+# @authentication_classes([JWTAuthentication])
+# def pre_search(request):
+#     title_posts = [post.title for post in PostModel.objects.all()]
+#     return Response(title_posts)
+
+
+# @api_view(['GET'])
+# @permission_classes([permissions.IsAuthenticated])
+# @authentication_classes([JWTAuthentication])
+# def get_categories(request):
+# )
+
+# @api_view(['DELETE'])
+# @permission_classes([permissions.IsAuthenticated])
+# @authentication_classes([JWTAuthentication])
+# def delete_file(request, post_id):
+#
+#

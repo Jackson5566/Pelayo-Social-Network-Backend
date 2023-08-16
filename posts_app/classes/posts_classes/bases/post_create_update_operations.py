@@ -12,7 +12,7 @@ class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     def __init__(self, request, model_id=None):
         super().__init__(request=request, model_id=model_id)
         post_serializer = self._get_serializer_post()
-        self.post_serializer_manager = SerializerManager(serializer=post_serializer)
+        self.serializer_manager = SerializerManager(serializer=post_serializer)
 
     @validate_serializer('post_serializer_manager')
     def start_process(self):

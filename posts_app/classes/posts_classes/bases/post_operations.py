@@ -8,7 +8,7 @@ class PostOperations(ControllerLogicExecutor, ModelOperations, ABC):
 
     def __init__(self, request, model_id=None):
         ControllerLogicExecutor.__init__(self, request=request)
-        ModelOperations.__init__(self, model_id=model_id, model=PostModel)
+        ModelOperations.__init__(self, model_id=model_id, model_class=PostModel)
 
     def is_post_from_authenticated_user(self, post_instance=None) -> bool:
         return self.request_manager.request.user == post_instance.user if post_instance \

@@ -13,6 +13,7 @@ class SelectUserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         users = User.objects.all()
+        print(self.serializer_class)
         if self.request.query_params.get('onlyPosts') == 'true':
             self.serializer_class.Meta.fields = ['posts']
         else:

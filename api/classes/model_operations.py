@@ -3,6 +3,10 @@ from django.shortcuts import get_object_or_404
 
 
 class ModelOperations:
-    def __init__(self, model_id, model):
-        default_model_instance = get_object_or_404(model, id=model_id) if model_id else None
+    """
+    Clase que trabaja con una instancia del modelo y que además va obtener la instancia mediante un id pasado como
+    parámetro
+    """
+    def __init__(self, model_id, model_class):
+        default_model_instance = get_object_or_404(model_class, id=model_id) if model_id else None
         self.model_instance_manager = InstanceManager(instance=default_model_instance)

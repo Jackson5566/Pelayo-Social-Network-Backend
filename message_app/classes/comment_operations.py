@@ -11,4 +11,4 @@ class CommentOperations(ControllerLogicExecutor, ModelOperations, ABC):
 
     def __init__(self, request, model_id=None):
         ControllerLogicExecutor.__init__(self, request=request)
-        ModelOperations.__init__(self, model_id=model_id, model=MessagesModel)
+        ModelOperations.__init__(self, model_id=model_id, model_class=MessagesModel)

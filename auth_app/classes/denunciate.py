@@ -5,6 +5,8 @@ from rest_framework import status
 from api.classes.controller_logic_excecutor import ControllerLogicExecutor
 
 
+# Actualizar con las nuevas caracteristicas de la arquitectura
+
 class DenunciateUser(ControllerLogicExecutor):
     def __init__(self, request):
         super().__init__(request=request)

@@ -3,11 +3,14 @@ from .serializer import UsersSerializer
 from rest_framework.response import Response
 from .classes.denunciate import DenunciateUser
 from rest_framework_simplejwt.tokens import RefreshToken
+from api.shortcuts.data_get import process_and_get_response
 from rest_framework import generics, permissions, viewsets, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .classes.expirationLink import GetUserFromExpirationLink, SendUserExpirationLink
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 
+
+# Simplificar más este código
 
 class PasswordChangeRequestView(generics.GenericAPIView):
     def post(self, request):
@@ -76,8 +79,7 @@ class CreateUserConfirmation(generics.GenericAPIView):
 @authentication_classes([JWTAuthentication])
 def denunciate(request):
     denunciation_user = DenunciateUser(request=request)
-    denunciation_user.start_process()
-    return denunciation_user.response
+    return process_and_get_response(denunciation_user)
 
 
 class UsersView(viewsets.ModelViewSet):

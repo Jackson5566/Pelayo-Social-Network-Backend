@@ -8,7 +8,6 @@ class SearchAlgorithm(AccessDataLogicController):
     def __init__(self, request):
         super().__init__(request=request)
         self.search = self.request_manager.request.query_params.get('search')
-        print(self.search)
         self.list_coincidence = []
 
     def start_process(self):

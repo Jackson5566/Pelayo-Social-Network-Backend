@@ -12,8 +12,8 @@ class CreatePost(PostCreateUpdateOperations):
         self.response = ResponseBody(data={'message': 'Exito con la creación'}, status=status.HTTP_201_CREATED)
 
     def create_post(self):
-        self.model_instance_manager.instance = self.post_serializer_manager.serializer.create(
-            validated_data=self.post_serializer_manager.serializer.validated_data)
+        self.model_instance_manager.instance = self.serializer_manager.serializer_class.create(
+            validated_data=self.serializer_manager.serializer_class.validated_data)
 
         files_instances = self.create_files()
 

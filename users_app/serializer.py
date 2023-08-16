@@ -4,6 +4,7 @@ from api.serializers import BaseReturnSerializer
 from django.core.paginator import Paginator
 from api.serializers import DynamicModelSerializer
 
+
 class UsersSerializerReturn(serializers.ModelSerializer):
     posts = serializers.SerializerMethodField('serializer_posts')
 
@@ -19,22 +20,25 @@ class UsersSerializerReturn(serializers.ModelSerializer):
             to_serializer = BaseReturnSerializer(to_serializer, many=True, context=self.context)
             return to_serializer.data
         return None
-        
+
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         if self.context['request'].query_params.get('onlyPosts') != 'true':
             ret['postsCount'] = len(instance.posts.all())
         return ret
-    
+
+
 class UsersSerializerReturn2(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'username', 'last_name', 'id']
 
+
 class UsersLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password']
+
 
 class UserInformationSerializer(DynamicModelSerializer):
     class Meta:

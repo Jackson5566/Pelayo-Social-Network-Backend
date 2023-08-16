@@ -4,7 +4,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from message_app.classes.create_comment import CreateCommentOperation
 from message_app.classes.update_comment import UpdateCommentOperation
 from message_app.classes.get_comment import GetCommentOperation
-from api.shortcuts.active_response import process_and_get_response
+from api.shortcuts.data_get import process_and_get_response
 
 
 class MessageView(APIView):
