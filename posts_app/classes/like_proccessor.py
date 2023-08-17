@@ -12,10 +12,10 @@ class PostLikeProcessor(PostOperations):
         self.dislikes = self.get_dislikes()
 
     def is_user_in_post_like(self) -> bool:
-        return self.request_manager.request.user in self.model_instance_manager.instance.likes.all()
+        return self.request_manager.request.user in self.instance_manager.instance.likes.all()
 
     def is_user_in_post_dislikes(self) -> bool:
-        return self.request_manager.request.user in self.model_instance_manager.instance.dislikes.all()
+        return self.request_manager.request.user in self.instance_manager.instance.dislikes.all()
 
     def start_process(self) -> None:
         if self.user_did_like():
@@ -41,17 +41,17 @@ class PostLikeProcessor(PostOperations):
         return self.request_manager.request.data.get('disslikes')
 
     def decrease_likes(self) -> None:
-        self.model_instance_manager.instance.likes.remove(self.request_manager.request.user)
+        self.instance_manager.instance.likes.remove(self.request_manager.request.user)
         self.likes -= 1
 
     def increase_likes(self) -> None:
-        self.model_instance_manager.instance.likes.add(self.request_manager.request.user)
+        self.instance_manager.instance.likes.add(self.request_manager.request.user)
         self.likes += 1
 
     def decrease_dislikes(self) -> None:
-        self.model_instance_manager.instance.dislikes.remove(self.request_manager.request.user)
+        self.instance_manager.instance.dislikes.remove(self.request_manager.request.user)
         self.dislikes -= 1
 
     def increase_dislikes(self) -> None:
-        self.model_instance_manager.instance.dislikes.add(self.request_manager.request.user)
+        self.instance_manager.instance.dislikes.add(self.request_manager.request.user)
         self.dislikes += 1

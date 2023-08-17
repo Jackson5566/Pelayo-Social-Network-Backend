@@ -22,13 +22,13 @@ class GetPostData(PostOperations):
     def get_post_data(self):
         from_user = self.is_model_instance_from_user(user=self.authenticated_user)
         self.serialize_post(is_from_user=from_user)
-        data = self.serializer_manager.serializer_class.data
+        data = self.serializer_manager.serializer.data
         data['fromUser'] = from_user
         return data
 
     def get_message_data(self):
         self.serialize_without_user(fields=['messages'])
-        data = self.serializer_manager.serializer_class.data
+        data = self.serializer_manager.serializer.data
         return data
 
     def serialize_post(self, is_from_user: bool):
@@ -36,11 +36,11 @@ class GetPostData(PostOperations):
 
     def serialize_without_user(self, fields: Union[list, None] = None) -> None:
         self.serializer_manager.serializer_class = PostsReturnSerializerWithoutUser(
-            self.model_instance_manager.instance, many=False, context=self.context, fields=fields)
+            self.instance_manager.instance, many=False, context=self.context, fields=fields)
 
     def serialize_with_user(self) -> None:
-        self.serializer_manager.serializer_class = PostsReturnSerializerWithUser(self.model_instance_manager.instance,
-                                                                           many=False, context=self.context)
+        self.serializer_manager.serializer_class = PostsReturnSerializerWithUser(self.instance_manager.instance,
+                                                                                 many=False, context=self.context)
 
     def show_only_messages(self) -> bool:
         return self.request_manager.request.query_params.get('onlyMessages') == 'true'

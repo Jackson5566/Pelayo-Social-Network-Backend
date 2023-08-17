@@ -4,12 +4,12 @@ class SerializerManager:
     Uso principal: Igual que otras se asegurará de el correcto manejo de los serilizers en las clases que la implementen
     """
     def __init__(self, serializer=None):
-        self._serializer_class = serializer
+        self._serializer = serializer
 
     @property
-    def serializer_class(self):
-        return self._serializer_class
+    def serializer(self):
+        return self._serializer
 
-    @serializer_class.setter
-    def serializer_class(self, serializer):
-        self._serializer_class = serializer
+    @serializer.setter
+    def serializer(self, serializer):
+        self._serializer = serializer

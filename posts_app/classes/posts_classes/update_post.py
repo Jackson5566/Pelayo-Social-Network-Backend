@@ -20,10 +20,10 @@ class UpdatePost(PostCreateUpdateOperations):
     def update_post(self):
         files_instances = self.create_files()
 
-        self.model_instance_manager.instance = self.serializer_manager.serializer_class.update(
+        self.instance_manager.instance = self.serializer_manager.serializer.update(
             validated_data=self.serializer_manager.serializer.validated_data,
-            instance=self.model_instance_manager.instance)
+            instance=self.instance_manager.instance)
         self.add_files(files_instances=files_instances)
 
-        self.model_instance_manager.instance.categories.clear()
+        self.instance_manager.instance.categories.clear()
         self.set_categories()

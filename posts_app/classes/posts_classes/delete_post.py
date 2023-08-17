@@ -12,4 +12,4 @@ class DeletePost(PostOperations):
         self.response = ResponseBody(data={'message': 'Deleted'}, status=status.HTTP_200_OK)
 
     def delete_post(self):
-        self.model_instance_manager.instance.delete()
+        self.instance_manager.instance.delete()

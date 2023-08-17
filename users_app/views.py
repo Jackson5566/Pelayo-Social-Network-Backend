@@ -1,45 +1,35 @@
 from auth_app.models import User
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import permissions, generics, viewsets, status
+from rest_framework import permissions, generics, status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .serializer import UsersSerializerReturn, UserInformationSerializer
 from api.decorators.add_security import access_protected
+from .classes.get_user_operation import GetUserOperation
+from api.shortcuts.data_get import process_and_get_response
 
 
 @access_protected
 class SelectUserViewSet(APIView):
     def get(self, request, id):
-        users = User.objects.all()
-        if self.request.query_params.get('onlyPosts') == 'true':
-            self.serializer_class.Meta.fields = ['posts']
-        else:
-            self.serializer_class.Meta.fields = ['email', 'username', 'last_name', 'id', 'posts']
-        return users
+        get_user_operation = GetUserOperation(request=request, user_id=id)
+        return process_and_get_response(get_user_operation)
 
 
-class SelectCurrentlyUserViewSet(generics.RetrieveAPIView):
+@access_protected
+class SelectCurrentlyUserViewSet(APIView):
     queryset = User.objects.all()
     serializer_class = UsersSerializerReturn
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
-    def get_object(self):
-        query_params = self.request.query_params
-
-        if query_params.get('onlyPosts') == 'true':
-            self.serializer_class.Meta.fields = ['posts']
-
-        elif query_params.get('onlyInformation') == 'true':
-            self.serializer_class.Meta.fields = ['username', 'last_name', 'posts']
-
-        else:
-            self.serializer_class.Meta.fields = ['email', 'username', 'last_name', 'id', 'posts']
-
-        return self.request.user
+    def get(self, request):
+        authenticated_user = self.request.user
+        get_user_operation = GetUserOperation(request=request, user_instance=authenticated_user)
+        return process_and_get_response(get_user_operation)
 
 
-class CurrentInformation(APIView):
+class CurrentUserInformation(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
