@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import SelectUserViewSet, SelectCurrentlyUserViewSet, CurrentUserInformation
+from .views import SelectUserViewSet, CurrentUserInformation
 from rest_framework import routers
 
 # router = routers.DefaultRouter()
@@ -10,7 +10,6 @@ from rest_framework import routers
 urlpatterns = [
     # path('user-config', user_config)
     path('user/<int:id>/', SelectUserViewSet.as_view()),
-    path('user-config/', SelectCurrentlyUserViewSet.as_view()),
     path('current-user-information/', CurrentUserInformation.as_view())
 ]
 # urlpatterns += router.urls

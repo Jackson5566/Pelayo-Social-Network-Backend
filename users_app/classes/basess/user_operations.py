@@ -10,8 +10,5 @@ class UserOperations(Operations, ABC):
         ControllerLogicExecutor.__init__(self, request=request)
         ModelOperations.__init__(self, model_id=model_id, model_instance=model_instance, model_class=User)
 
-    def only_post(self) -> bool:
-        return self.request_manager.request.query_params.get('onlyPosts') == 'true'
-
-    def only_information(self) -> bool:
-        return self.request_manager.request.query_params.get('onlyInformation') == 'true'
+    def only(self) -> str:
+        return self.request_manager.request.query_params.get('only', '')

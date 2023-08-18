@@ -1,10 +1,7 @@
-from .models import PostModel, CategoryModel, FileModel
-from rest_framework import status, viewsets, generics
+from .models import PostModel
+from rest_framework import viewsets, generics
 from rest_framework.response import Response
-from .serializer import PostsReturnSerializerWithUser
 from rest_framework.views import APIView
-from .paginations import MyPagination
-from api.serializers import CategorySerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from posts_app.classes.posts_classes.get_post import GetPostData
 from .classes.like_proccessor import PostLikeProcessor
@@ -14,13 +11,33 @@ from .classes.posts_classes.update_post import UpdatePost
 from .classes.posts_classes.delete_post import DeletePost
 from api.shortcuts.data_get import process_and_get_response, process_and_get_queryset
 from api.decorators.add_security import access_protected
+from api.decorators.get_posts import get_posts
+from posts_app.classes.posts_classes.delete_file import DeleteFile
+from posts_app.classes.posts_classes.get_categories import GetCategories
+
+
+@get_posts
+@access_protected
+class PostsView(generics.ListAPIView):
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['categories__name']
+
+    def get_queryset(self):
+        return PostModel.objects.all().order_by('-created')
+
+
+@get_posts
+@access_protected
+class SearchPost(viewsets.ModelViewSet):
+    def get_queryset(self):
+        search_algorithm = SearchAlgorithm(request=self.request)
+        return process_and_get_queryset(search_algorithm)
 
 
 @access_protected
-class PostsView(APIView):
+class PostView(APIView):
     def get(self, request, _id):
-        context = {'request': request}
-        get_post_data_instance = GetPostData(post_id=_id, request=request, context=context)
+        get_post_data_instance = GetPostData(post_id=_id, request=request)
         return process_and_get_response(get_post_data_instance)
 
     def post(self, request):
@@ -41,27 +58,6 @@ class PostsView(APIView):
 
 
 @access_protected
-class PostsViewSet(generics.ListAPIView):
-    serializer_class = PostsReturnSerializerWithUser
-    pagination_class = MyPagination
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['categories__name']
-
-    def get_queryset(self):
-        return PostModel.objects.all().order_by('-created')
-
-
-@access_protected
-class SearchViewSet(viewsets.ModelViewSet):
-    pagination_class = MyPagination
-    serializer_class = PostsReturnSerializerWithUser
-
-    def get_queryset(self):
-        search_algorithm = SearchAlgorithm(request=self.request)
-        return process_and_get_queryset(search_algorithm)
-
-
-@access_protected
 class PreSearch(APIView):
     def get(self, request):
         title_posts = [post.title for post in PostModel.objects.all()]
@@ -71,17 +67,19 @@ class PreSearch(APIView):
 @access_protected
 class GetCategories(APIView):
     def get(self, request):
-        categories = CategoryModel.objects.all()
-        serialized_categories = CategorySerializer(categories, many=True)
-        return Response(serialized_categories.data)
+        get_categories = GetCategories(request=request)
+        return process_and_get_response(get_categories)
 
 
 @access_protected
 class DeleteFile(APIView):
-    def delete(self, request, post_id):
-        try:
-            file = FileModel.objects.get(id=post_id)
-            file.delete()
-            return Response({'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
-        except FileModel.DoesNotExist:
-            return Response({'message': 'Recurso no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+    def delete(self, request, id):
+        delete_file = DeleteFile(request=request, file_id=id)
+        process_and_get_response(delete_file)
+
+    # try:
+    #     file = FileModel.objects.get(id=post_id)
+    #     file.delete()
+    #     return Response({'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
+    # except FileModel.DoesNotExist:
+    #     return Response({'message': 'Recurso no encontrado'}, status=status.HTTP_404_NOT_FOUND)

@@ -1,3 +1,4 @@
+from rest_framework.views import APIView
 from .models import User
 from .serializer import UsersSerializer
 from rest_framework.response import Response
@@ -5,9 +6,9 @@ from .classes.denunciate import DenunciateUser
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.shortcuts.data_get import process_and_get_response
 from rest_framework import generics, permissions, viewsets, status
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from .classes.expirationLink import GetUserFromExpirationLink, SendUserExpirationLink
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
+from api.decorators.add_security import access_protected
+from django.shortcuts import get_object_or_404
 
 
 # Simplificar más este código
@@ -16,8 +17,10 @@ class PasswordChangeRequestView(generics.GenericAPIView):
     def post(self, request):
         send_user_expiration_link = SendUserExpirationLink()
         send_user_expiration_link.utilities.user_email = request.data.get('email')
-        send_user_expiration_link.utilities.user = User.objects.get(
-            email=send_user_expiration_link.utilities.user_email)
+
+        send_user_expiration_link.utilities.user = get_object_or_404(
+            User, email=send_user_expiration_link.utilities.user_email)
+
         send_user_expiration_link.send_link(template='password_reset_email.html', subject="Password Reset Link")
         return Response({'message': 'Se ha enviado un email que te permitirá cambiar tu contraseña.'},
                         status=status.HTTP_200_OK)
@@ -27,6 +30,7 @@ class PasswordChangeConfirmView(generics.GenericAPIView):
     def post(self, request, token):
         get_user_from_expiration_link = GetUserFromExpirationLink()
         get_user_from_expiration_link.set_user(token)
+
         password = request.data.get('password')
         confirm_password = request.data.get('confirm_password')
 
@@ -74,12 +78,11 @@ class CreateUserConfirmation(generics.GenericAPIView):
                         status=status.HTTP_201_CREATED)
 
 
-@api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated])
-@authentication_classes([JWTAuthentication])
-def denunciate(request):
-    denunciation_user = DenunciateUser(request=request)
-    return process_and_get_response(denunciation_user)
+@access_protected
+class Complaint(APIView):
+    def post(self, request):
+        denunciation_user = DenunciateUser(request=request)
+        return process_and_get_response(denunciation_user)
 
 
 class UsersView(viewsets.ModelViewSet):

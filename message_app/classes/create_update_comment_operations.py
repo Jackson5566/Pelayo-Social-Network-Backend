@@ -17,6 +17,10 @@ class CreateUpdateCommentOperations(CommentOperations, CreateUpdateOperation):
         CommentOperations.__init__(self, request=request, model_id=model_id)
         SerializerOperations.__init__(self)
 
+    def _get_serializer(self, **kwargs):
+        return CommentSerializer(data=self.request_manager.request.data,
+                                 context={'request': self.request_manager.request})
+
     @validate_serializer('serializer_manager')
     def start_process(self) -> None:
         self.create_or_update_process()
@@ -25,7 +29,3 @@ class CreateUpdateCommentOperations(CommentOperations, CreateUpdateOperation):
     def set_resulted_message(self) -> None:  # Se estará viendo en response
         message_to_return_serializer = CommentBaseSerializer(instance=self.instance_manager.instance)
         self.response = ResponseBody(data=message_to_return_serializer.data, status=status.HTTP_201_CREATED)
-
-    def _get_serializer(self):
-        return CommentSerializer(data=self.request_manager.request.data,
-                                 context={'request': self.request_manager.request})

@@ -1,27 +1,11 @@
-from django.core.mail import send_mail
-from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework import permissions
-from .serializer import ContactSerializer
-from rest_framework.response import Response
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from rest_framework import status
-from smtplib import SMTPException
+from rest_framework.views import APIView
+from api.decorators.add_security import access_protected
+from .classes.send_mail import SendMailOperation
+from api.shortcuts.data_get import process_and_get_response
 
 
-@api_view(['POST'])
-@permission_classes([permissions.AllowAny])
-@authentication_classes([JWTAuthentication])
-def fsend_mail(request):
-    serializer = ContactSerializer(data=request.data)
-    if serializer.is_valid():
-        data = serializer.validated_data
-        try:
-            send_mail(data['subject'], data[
-                'content'] + f"Email enviado por: {request.user.email if request.user.is_authenticated else data['email']}",
-                      "jackson0102almeida@gmail.com", ["jackson0102almeida@gmail.com"], fail_silently=False)
-            return Response({"info": "Mail enviado correctamente"})
-        except SMTPException:
-            return Response({"info": "Ha ocurrido un error con el envio del mail"},
-                            status=status.HTTP_406_NOT_ACCEPTABLE)
-
-    return Response({"info": "No es valido"}, status=status.HTTP_400_BAD_REQUEST)
+@access_protected
+class SendMail(APIView):
+    def post(self, request):
+        send_mail_operation = SendMailOperation(request=request)
+        return process_and_get_response(send_mail_operation)

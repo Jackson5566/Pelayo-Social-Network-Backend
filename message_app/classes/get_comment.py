@@ -10,7 +10,7 @@ class GetCommentOperation(CommentOperations, SerializerOperations):
         CommentOperations.__init__(self, request=request, model_id=post_id)
         SerializerOperations.__init__(self)
 
-    def _get_serializer(self):
+    def _get_serializer(self, **kwargs):
         return CommentSerializer(self.instance_manager.instance, many=False, fields=['title', 'content'])
 
     def start_process(self):

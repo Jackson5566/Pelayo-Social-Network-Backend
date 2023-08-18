@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from api.serializers import DynamicModelSerializer
 
 
-class UsersSerializerReturn(DynamicModelSerializer):
+class UsersSerializer(DynamicModelSerializer):
     posts = serializers.SerializerMethodField('serializer_posts')
 
     class Meta:
@@ -13,18 +13,17 @@ class UsersSerializerReturn(DynamicModelSerializer):
         fields = ['email', 'username', 'last_name', 'id', 'posts']
 
     def serializer_posts(self, obj):
-        if self.context['request'].query_params.get('onlyInformation') != 'true':
+        if self.context['request'].query_params.get('only') != 'info':
             page = self.context['request'].query_params.get('page') or 1
             paginator = Paginator(obj.posts.all(), 4)
             to_serializer = paginator.page(page)
             to_serializer = BaseReturnSerializer(to_serializer, many=True, context=self.context)
             return to_serializer.data
-        return None
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        if self.context['request'].query_params.get('onlyPosts') != 'true':
-            ret['postsCount'] = len(instance.posts.all())
+        if self.context['request'].query_params.get('only') != 'posts':
+            ret['postsCount'] = instance.posts.count()
         return ret
 
 

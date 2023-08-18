@@ -16,7 +16,7 @@ class PostCreateUpdateOperations(PostOperations, CreateUpdateOperation):
     def start_process(self):
         self.create_or_update_process()
 
-    def _get_serializer(self):
+    def _get_serializer(self, **kwargs):
         return PostsCreateSerializer(data=self.request_manager.request.data,
                                      context={'request': self.request_manager.request})
 

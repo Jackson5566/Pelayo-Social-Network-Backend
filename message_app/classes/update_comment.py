@@ -1,4 +1,3 @@
-from api.decorators.validate_serializer import validate_serializer
 from .create_update_comment_operations import CreateUpdateCommentOperations
 
 

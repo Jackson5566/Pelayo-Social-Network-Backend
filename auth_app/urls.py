@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PasswordChangeRequestView, PasswordChangeConfirmView, CreateUser, UsersView, denunciate, \
+from .views import PasswordChangeRequestView, PasswordChangeConfirmView, CreateUser, UsersView, Complaint, \
     CreateUserConfirmation
 from rest_framework import routers
 
@@ -11,7 +11,7 @@ urlpatterns = [
     path('change/password/confirm/<str:token>/', PasswordChangeConfirmView.as_view()),
     path('create-user', CreateUser.as_view()),
     path('create-user/confirmation/<str:token>/', CreateUserConfirmation.as_view()),
-    path('denunciate/', denunciate)
+    path('denunciate/', Complaint.as_view())
 ]
 
 urlpatterns += router.urls

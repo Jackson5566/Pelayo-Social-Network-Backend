@@ -8,5 +8,5 @@ class SerializerOperations(ABC):
         self.serializer_manager = SerializerManager(serializer=post_serializer)
 
     @abstractmethod
-    def _get_serializer(self):
+    def _get_serializer(self, **kwargs):
         pass
