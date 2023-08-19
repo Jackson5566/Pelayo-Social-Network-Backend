@@ -1,6 +1,6 @@
 from abc import ABC
 from message_app.models import MessagesModel
-from api.classes.model_operations import ModelOperations
+from api.classes.model_operations import ModelOperations, SearchModel
 from api.classes.controller_logic_excecutor import ControllerLogicExecutor
 from api.classes.type_alias.operations import Operations
 
@@ -12,6 +12,5 @@ class CommentOperations(Operations, ABC):
 
     def __init__(self, request, model_id=None):
         ControllerLogicExecutor.__init__(self, request=request)
-        ModelOperations.__init__(self, model_id=model_id, model_class=MessagesModel)
+        ModelOperations.__init__(self, search_model=SearchModel(model_id=model_id, model_class=MessagesModel))
 
-# Intentar el alcanze de autonomia de CreateUpdate

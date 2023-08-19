@@ -7,6 +7,8 @@ class UpdateCommentOperation(CreateUpdateCommentOperations):
         super().__init__(request=request, model_id=comment_id)
 
     def create_or_update_process(self):
-        self.instance_manager.instance = self.serializer_manager.serializer.update(
-            instance=self.instance_manager.instance,
-            validated_data=self.serializer_manager.serializer.validated_data)
+        authenticated_user = self.request_manager.request.user
+        if self.is_model_instance_from_user(user=authenticated_user):
+            self.instance_manager.instance = self.serializer_manager.serializer.update(
+                instance=self.instance_manager.instance,
+                validated_data=self.serializer_manager.serializer.validated_data)

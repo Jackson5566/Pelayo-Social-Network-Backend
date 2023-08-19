@@ -4,11 +4,11 @@ from message_app.serializer import CommentSerializer
 from rest_framework import status
 from .comment_operations import CommentOperations
 from api.decorators.validate_serializer import validate_serializer
-from api.classes.type_alias.operations import CreateUpdateOperation
+from api.classes.type_alias.operations import CreateUpdateProcessor
 from api.classes.serialzer_operations import SerializerOperations
 
 
-class CreateUpdateCommentOperations(CommentOperations, CreateUpdateOperation):
+class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor):
     """Al igual que CommentOperations, se encargara de expander una clase, en este caso la anteriormente mencionada
     Al ser las operaciones de acrualizacion y creacion tan similares, se hace necesario una clase para compartir
     funcionalidades"""

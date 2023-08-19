@@ -15,7 +15,7 @@ class SendMailOperation(ControllerLogicExecutor, SerializerOperations):
     def _get_serializer(self, **kwargs):
         return ContactSerializer(data=self.request_manager.request.data)
 
-    @validate_serializer('request_manager')
+    @validate_serializer('serializer_manager')
     def start_process(self):
         data = self.serializer_manager.serializer.validated_data
         user = self.request_manager.request.user

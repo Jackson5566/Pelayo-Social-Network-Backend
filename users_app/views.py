@@ -23,24 +23,3 @@ class CurrentUserInformation(APIView):
         authenticated_user = self.request.user
         update_user = UpdateUser(request=request, user_instance=authenticated_user)
         return process_and_get_response(update_user)
-
-
-
-    # user_serializer = UserInformationSerializer(data=request.data,
-    #                                             fields=[self.request.query_params.get('changeField')])
-    # if user_serializer.is_valid():
-    #     user_serializer.update(instance=request.user, validated_data=user_serializer.validated_data)
-    #     return Response({
-    #         'message': 'Actualizacion con exito'
-    #     }, status=status.HTTP_200_OK)
-    # return Response(status=status.HTTP_400_BAD_REQUEST)
-
-# @access_protected
-# class SelectCurrentlyUserViewSet(APIView):
-#     def get(self, request):
-#         authenticated_user = self.request.user
-#         get_user_operation = GetUserOperation(request=request, user_instance=authenticated_user)
-#         return process_and_get_response(get_user_operation)
-
-
-# unir ambas clases en una

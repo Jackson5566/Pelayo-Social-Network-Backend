@@ -58,7 +58,7 @@ class CreateUser(generics.GenericAPIView):
                                                 subject='Confirmación de cuenta')
 
             return Response({
-                'message': 'Mail de ocnfirmacion enviado'
+                'message': 'Mail de confirmación enviado'
             }, status=200)
 
         return Response(users_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

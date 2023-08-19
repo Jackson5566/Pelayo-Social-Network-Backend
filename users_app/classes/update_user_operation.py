@@ -19,7 +19,7 @@ class UpdateUser(UserOperations, SerializerOperations):
     @validate_serializer('serializer_manager')
     def start_process(self):
         self.serializer_manager.serializer.update(instance=self.instance_manager.instance,
-                                                  validated_data=self.request_manager.request.validated_data)
+                                                  validated_data=self.serializer_manager.serializer.validated_data)
         self.response = ResponseBody(data={
             'message': 'Actualizacion con exito'
         }, status=status.HTTP_200_OK)

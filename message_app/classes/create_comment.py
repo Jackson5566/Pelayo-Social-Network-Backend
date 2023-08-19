@@ -1,6 +1,6 @@
 from posts_app.models import PostModel
-from api.decorators.validate_serializer import validate_serializer
 from .create_update_comment_operations import CreateUpdateCommentOperations
+from django.shortcuts import get_object_or_404
 
 
 class CreateCommentOperation(CreateUpdateCommentOperations):
@@ -19,4 +19,4 @@ class CreateCommentOperation(CreateUpdateCommentOperations):
 
     def get_commented_post(self):
         post_id = self.request_manager.request.data.get('id')
-        return PostModel.objects.get(id=post_id)
+        return get_object_or_404(PostModel, id=post_id)

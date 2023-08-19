@@ -16,6 +16,8 @@ from posts_app.classes.posts_classes.delete_file import DeleteFile
 from posts_app.classes.posts_classes.get_categories import GetCategories
 
 
+# Emplearme mas a fondo con temas de optimizacion
+
 @get_posts
 @access_protected
 class PostsView(generics.ListAPIView):
@@ -23,7 +25,8 @@ class PostsView(generics.ListAPIView):
     filterset_fields = ['categories__name']
 
     def get_queryset(self):
-        return PostModel.objects.all().order_by('-created')
+        return PostModel.objects.select_related('user').prefetch_related('categories', 'files', 'likes', 'dislikes',
+                                                                         'messages').all().order_by('-created')
 
 
 @get_posts
@@ -60,26 +63,19 @@ class PostView(APIView):
 @access_protected
 class PreSearch(APIView):
     def get(self, request):
-        title_posts = [post.title for post in PostModel.objects.all()]
+        title_posts = PostModel.objects.values_list('title', flat=True)
         return Response(title_posts)
 
 
 @access_protected
-class GetCategories(APIView):
+class GetCategoriesView(APIView):
     def get(self, request):
         get_categories = GetCategories(request=request)
         return process_and_get_response(get_categories)
 
 
 @access_protected
-class DeleteFile(APIView):
+class DeleteFileView(APIView):
     def delete(self, request, id):
         delete_file = DeleteFile(request=request, file_id=id)
         process_and_get_response(delete_file)
-
-    # try:
-    #     file = FileModel.objects.get(id=post_id)
-    #     file.delete()
-    #     return Response({'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
-    # except FileModel.DoesNotExist:
-    #     return Response({'message': 'Recurso no encontrado'}, status=status.HTTP_404_NOT_FOUND)

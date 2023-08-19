@@ -23,6 +23,7 @@ class UpdatePost(PostCreateUpdateOperations):
         self.instance_manager.instance = self.serializer_manager.serializer.update(
             validated_data=self.serializer_manager.serializer.validated_data,
             instance=self.instance_manager.instance)
+        
         self.add_files(files_instances=files_instances)
 
         self.instance_manager.instance.categories.clear()

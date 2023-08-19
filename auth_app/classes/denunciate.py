@@ -2,50 +2,46 @@ from ..models import User
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from rest_framework import status
-from api.classes.controller_logic_excecutor import ControllerLogicExecutor
+from api.classes.controller_logic_excecutor import ControllerLogicExecutor, ResponseBody
+from api.classes.model_operations import ModelOperations, SearchModel
+from api.classes.type_alias.operations import Operations
 
 
-# Actualizar con las nuevas caracteristicas de la arquitectura
-
-class DenunciateUser(ControllerLogicExecutor):
+class DenunciateUser(Operations):
     def __init__(self, request):
-        super().__init__(request=request)
-        self.user_who_reported = self.request_manager.user
-        self.user_reported = self.get_user_reported()
-
-    def get_user_reported(self) -> User:
-        try:
-            user_reported_id = self.request_manager.data.get('id')
-            return User.objects.filter(id=user_reported_id).first()
-        except User.DoesNotExist:
-            self._set_response(data={'message': 'Usuario no encontrado'}, status=status.HTTP_400_BAD_REQUEST)
+        ControllerLogicExecutor.__init__(self, request=request)
+        user_id = self.request_manager.request.data.get('id')
+        ModelOperations.__init__(self, SearchModel(model_id=user_id, model_class=User))
+        self.user_who_reported = self.request_manager.request.user
 
     def start_process(self) -> None:
-        complain_error = self.verify_complain()
-        if complain_error is None:
+        complain_error: Response = self.verify_complain()
+        if not complain_error:
             self.add_complaint()
             self.verify_user_reported_complaints()
-            self._set_response(data={'message': 'Usuario Denunciado'}, status=status.HTTP_200_OK)
+            self.response: ResponseBody = ResponseBody(data={'message': 'Usuario Denunciado'},
+                                                       status=status.HTTP_200_OK)
 
     def verify_complain(self) -> Response:
-        if self.user_who_reported not in self.user_reported.denunciations.all():
-            if self.user_who_reported == self.user_reported:
-                self._set_response(data={'message', 'No puedes denunciarte'}, status=status.HTTP_400_BAD_REQUEST)
+        if self.user_who_reported not in self.instance_manager.instance.denunciations.all():
+            if self.user_who_reported == self.instance_manager.instance:
+                self.response = ResponseBody(data={'message': 'No puedes denunciarte'},
+                                             status=status.HTTP_400_BAD_REQUEST)
         else:
-            self._set_response(data={'message': 'Usuario ya denunciado'}, status=status.HTTP_400_BAD_REQUEST)
+            self.response = ResponseBody(data={'message': 'Usuario ya denunciado'}, status=status.HTTP_400_BAD_REQUEST)
 
         return self.response
 
     def add_complaint(self) -> None:
-        self.user_reported.denunciations.add(self.user_who_reported)
+        self.instance_manager.instance.denunciations.add(self.user_who_reported)
 
     def verify_user_reported_complaints(self):
-        user_reported_denuncations = self.count_user_reported_complaints()
+        user_reported_denuncations: int = self.count_user_reported_complaints()
         if user_reported_denuncations >= 20:
             self.send_complaint_mail(user_reported_denuncations=user_reported_denuncations)
 
     def count_user_reported_complaints(self) -> int:
-        user_reported_denuncations = self.user_reported.denunciations.count()
+        user_reported_denuncations: int = self.instance_manager.instance.denunciations.count()
         return user_reported_denuncations
 
     @staticmethod

@@ -2,12 +2,13 @@ from django.db.models import Model
 from api.classes.instance_manager import InstanceManager
 from django.shortcuts import get_object_or_404
 from dataclasses import dataclass
+from typing import Union, Type
 
 
 @dataclass
 class SearchModel:
     model_id: int
-    model_class: Model
+    model_class: Type[Model]
 
 
 class ModelOperations:
@@ -16,8 +17,13 @@ class ModelOperations:
     parámetro
     """
 
-    def __init__(self, model_class, model_id=None, model_instance=None):
-        default_model_instance = get_object_or_404(model_class, id=model_id) if model_id else model_instance
+    def __init__(self, search_model: Union[SearchModel, None] = None, model_instance=None):
+        if not search_model and not model_instance:
+            raise Exception("Informacion no enviada")
+
+        default_model_instance = get_object_or_404(search_model.model_class, id=search_model.model_id) if (
+            search_model) else model_instance
+
         self.instance_manager = InstanceManager(instance=default_model_instance)
 
     def is_model_instance_from_user(self, user) -> bool:

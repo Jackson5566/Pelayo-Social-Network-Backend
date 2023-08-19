@@ -4,6 +4,7 @@ from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 from posts_app.serializer import PostsReturnSerializerWithoutUser, PostsReturnSerializerWithUser
 from api.classes.serialzer_operations import SerializerOperations
+from rest_framework.serializers import ModelSerializer
 
 
 # Adaptacion del codigo a SerialzierOperations
@@ -14,44 +15,48 @@ class GetPostData(PostOperations, SerializerOperations):
         PostOperations.__init__(self, request=request, model_id=post_id)
         self.context = {'request': request}
         self.is_from_user = self.is_model_instance_from_user(user=self.authenticated_user)
+        self.only_messages = self.show_only_messages()
         SerializerOperations.__init__(self)
 
     def _get_serializer(self, **kwargs):
-        if self.show_only_messages():
-            self.serialize_without_user(fields=['messages'])
-        else:
-            from_user = self.is_model_instance_from_user(user=self.authenticated_user)
-            self.serialize_post(is_from_user=from_user)
+        serializer = self.serialize_without_user(fields=['messages']) if self.only_messages else self.serialize_post()
+        return serializer
 
     def start_process(self):
-        data = self.get_data()
+        data = self.serializer_manager.serializer.data
+        if not self.only_messages:
+            data['fromUser'] = self.is_from_user
+
         self.response = ResponseBody(data=data, status=status.HTTP_200_OK)
 
-    def get_data(self):
-        return self.get_message_data() if self.show_only_messages() else self.get_post_data()
+    def serialize_post(self) -> ModelSerializer:
+        return self.serialize_without_user() if self.is_from_user else self.serialize_with_user()
 
-    def get_post_data(self):
-        from_user = self.is_model_instance_from_user(user=self.authenticated_user)
-        self.serialize_post(is_from_user=from_user)
-        data = self.serializer_manager.serializer.data
-        data['fromUser'] = from_user
-        return data
-
-    def get_message_data(self):
-        self.serialize_without_user(fields=['messages'])
-        data = self.serializer_manager.serializer.data
-        return data
-
-    def serialize_post(self, is_from_user: bool):
-        self.serialize_without_user() if is_from_user else self.serialize_with_user()
-
-    def serialize_without_user(self, fields: Union[list, None] = None) -> None:
-        self.serializer_manager.serializer = PostsReturnSerializerWithoutUser(
+    def serialize_without_user(self, fields: Union[list, None] = None) -> ModelSerializer:
+        return PostsReturnSerializerWithoutUser(
             self.instance_manager.instance, many=False, context=self.context, fields=fields)
 
-    def serialize_with_user(self) -> None:
-        self.serializer_manager.serializer = PostsReturnSerializerWithUser(self.instance_manager.instance,
-                                                                           many=False, context=self.context)
+    def serialize_with_user(self) -> ModelSerializer:
+        return PostsReturnSerializerWithUser(self.instance_manager.instance, many=False, context=self.context)
 
     def show_only_messages(self) -> bool:
         return self.request_manager.request.query_params.get('onlyMessages') == 'true'
+
+    # def start_process(self):
+    #     data = self.get_data()
+    #     self.response = ResponseBody(data=data, status=status.HTTP_200_OK)
+
+    # def get_data(self):
+    #     return self.get_message_data() if self.show_only_messages() else self.get_post_data()
+    #
+    # def get_post_data(self):
+    #     from_user = self.is_model_instance_from_user(user=self.authenticated_user)
+    #     self.serialize_post(is_from_user=from_user)
+    #     data = self.serializer_manager.serializer.data
+    #     data['fromUser'] = from_user
+    #     return data
+    #
+    # def get_message_data(self):
+    #     self.serialize_without_user(fields=['messages'])
+    #     data = self.serializer_manager.serializer.data
+    #     return data
