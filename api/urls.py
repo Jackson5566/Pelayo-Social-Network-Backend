@@ -15,4 +15,5 @@ urlpatterns = [
     path('api/token/obtain', TokenObtainPairView.as_view(), name='token_obtain'),
 ]
 
-if settings.DEBUG: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

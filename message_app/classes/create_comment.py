@@ -20,3 +20,6 @@ class CreateCommentOperation(CreateUpdateCommentOperations):
     def get_commented_post(self):
         post_id = self.request_manager.request.data.get('id')
         return get_object_or_404(PostModel, id=post_id)
+
+    def get_status(self):
+        return 201

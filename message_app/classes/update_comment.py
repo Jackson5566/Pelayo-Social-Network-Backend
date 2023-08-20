@@ -12,3 +12,6 @@ class UpdateCommentOperation(CreateUpdateCommentOperations):
             self.instance_manager.instance = self.serializer_manager.serializer.update(
                 instance=self.instance_manager.instance,
                 validated_data=self.serializer_manager.serializer.validated_data)
+
+    def get_status(self):
+        return 200

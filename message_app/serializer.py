@@ -8,5 +8,6 @@ class CommentSerializer(DynamicModelSerializer):
         fields = ['title', 'content']
 
     def create(self, validated_data):
-        instance = MessagesModel.objects.create(**validated_data, user=self.context.get('request').user)
+        user = self.context.get('request').user
+        instance = MessagesModel.objects.create(**validated_data, user=user)
         return instance

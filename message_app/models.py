@@ -9,4 +9,4 @@ class MessagesModel(models.Model):
     created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
-        return f"{self.title}, created by: {self.user.username}"
+        return f"{self.title}, created by: {self.user.username}, id{self.id}"

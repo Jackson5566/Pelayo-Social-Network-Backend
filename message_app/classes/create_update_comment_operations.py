@@ -1,3 +1,4 @@
+from abc import abstractmethod
 from api.classes.controller_logic_excecutor import ResponseBody
 from api.serializers import CommentBaseSerializer
 from message_app.serializer import CommentSerializer
@@ -28,4 +29,8 @@ class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor):
 
     def set_resulted_message(self) -> None:  # Se estará viendo en response
         message_to_return_serializer = CommentBaseSerializer(instance=self.instance_manager.instance)
-        self.response = ResponseBody(data=message_to_return_serializer.data, status=status.HTTP_201_CREATED)
+        self.response = ResponseBody(data=message_to_return_serializer.data, status=self.get_status())
+
+    @abstractmethod
+    def get_status(self):
+        return status.HTTP_201_CREATED
