@@ -3,13 +3,15 @@ from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 
 
+# Eliminar el innecesario id que se recibe como parametro en la vista, ademas optimizar el acceso a la base de datos
+
 class PostLikeProcessor(PostOperations):
     def __init__(self, request, post_id):
         super().__init__(request=request, model_id=post_id)
         self.user_in_post_like = self.is_user_in_post_like()
         self.user_in_post_dislikes = self.is_user_in_post_dislikes()
-        self.likes = self.get_likes()
-        self.dislikes = self.get_dislikes()
+        self.likes = int(self.get_likes())
+        self.dislikes = int(self.get_dislikes())
 
     def is_user_in_post_like(self) -> bool:
         return self.request_manager.request.user in self.instance_manager.instance.likes.all()
@@ -30,7 +32,7 @@ class PostLikeProcessor(PostOperations):
         self.response = ResponseBody(data={"likes": self.likes, "disslikes": self.dislikes}, status=status.HTTP_200_OK)
 
     def user_did_like(self) -> bool:
-        if self.request_manager.request.data.get('like'):
+        if bool(self.request_manager.request.data.get('like')):
             return True
         return False
 

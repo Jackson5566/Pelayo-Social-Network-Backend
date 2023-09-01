@@ -1,5 +1,5 @@
 from .models import PostModel
-from rest_framework import viewsets, generics
+from rest_framework import generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django_filters.rest_framework import DjangoFilterBackend
@@ -22,7 +22,7 @@ from posts_app.classes.posts_classes.get_categories import GetCategories
 @access_protected
 class PostsView(generics.ListAPIView):
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['categories__name']
+    filterset_fields = ['categories__name', 'user__id']
 
     def get_queryset(self):
         return PostModel.objects.select_related('user').prefetch_related('categories', 'files', 'likes', 'dislikes',
@@ -31,7 +31,7 @@ class PostsView(generics.ListAPIView):
 
 @get_posts
 @access_protected
-class SearchPost(viewsets.ModelViewSet):
+class SearchPost(generics.ListAPIView):
     def get_queryset(self):
         search_algorithm = SearchAlgorithm(request=self.request)
         return process_and_get_queryset(search_algorithm)
@@ -78,4 +78,4 @@ class GetCategoriesView(APIView):
 class DeleteFileView(APIView):
     def delete(self, request, id):
         delete_file = DeleteFile(request=request, file_id=id)
-        process_and_get_response(delete_file)
+        return process_and_get_response(delete_file)

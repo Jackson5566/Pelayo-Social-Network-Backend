@@ -6,7 +6,7 @@ from users_app.classes.update_user_operation import UpdateUser
 
 
 @access_protected
-class SelectUserViewSet(APIView):
+class SelectedUserInfo(APIView):
     def get(self, request, id):
         get_user_operation = GetUserOperation(request=request, user_id=id)
         return process_and_get_response(get_user_operation)

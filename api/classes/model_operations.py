@@ -23,9 +23,6 @@ class ModelOperations:
     """
 
     def __init__(self, search_model: Union[SearchModel, None] = None, model_instance=None):
-        print("Pepe")
-        print(search_model)
-        print(search_model.is_valid())
         default_model_instance = get_object_or_404(search_model.model_class, id=search_model.model_id) \
             if search_model and search_model.is_valid() else model_instance
         self.instance_manager = InstanceManager(instance=default_model_instance)

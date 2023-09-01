@@ -41,22 +41,3 @@ class GetPostData(PostOperations, SerializerOperations):
 
     def show_only_messages(self) -> bool:
         return self.request_manager.request.query_params.get('onlyMessages') == 'true'
-
-    # def start_process(self):
-    #     data = self.get_data()
-    #     self.response = ResponseBody(data=data, status=status.HTTP_200_OK)
-
-    # def get_data(self):
-    #     return self.get_message_data() if self.show_only_messages() else self.get_post_data()
-    #
-    # def get_post_data(self):
-    #     from_user = self.is_model_instance_from_user(user=self.authenticated_user)
-    #     self.serialize_post(is_from_user=from_user)
-    #     data = self.serializer_manager.serializer.data
-    #     data['fromUser'] = from_user
-    #     return data
-    #
-    # def get_message_data(self):
-    #     self.serialize_without_user(fields=['messages'])
-    #     data = self.serializer_manager.serializer.data
-    #     return data

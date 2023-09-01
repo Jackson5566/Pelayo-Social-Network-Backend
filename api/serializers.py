@@ -2,7 +2,7 @@ import os
 from posts_app.models import PostModel, MessagesModel, CategoryModel
 from rest_framework import serializers
 from django.core.paginator import Paginator
-
+from api.settings import BACKEND_URL
 
 class CommentBaseSerializer(serializers.ModelSerializer):
     class Meta:
@@ -45,20 +45,20 @@ class BaseReturnSerializer(DynamicModelSerializer):
     def to_representation(self, instance):
         ret = super().to_representation(instance)
         if self.context['request'].query_params.get('onlyMessages') != 'true':
-            base_url = "https://pelayosn.up.railway.app"
             ret['likes'] = instance.likes.count()
             ret['disslikes'] = instance.dislikes.count()
-            ret['image'] = base_url + instance.image.url if instance.image else None
+            ret['image'] = BACKEND_URL + instance.image.url if instance.image else None
             ret['files'] = [
-                {'url': base_url + file.files.url, 'title': os.path.basename(file.files.name), 'id': file.id} for file
-                in instance.files.all()]
+                {'url': BACKEND_URL + file.files.url, 'title': os.path.basename(file.files.name), 'id': file.id}
+                for file in instance.files.all()]
             ret['messagesCount'] = instance.messages.count()
         return ret
 
     def serializer_posts(self, obj):
         if self.context['request'].query_params.get('edit') != 'true':
             page = self.context['request'].query_params.get('messagePage') or 1
-            paginator = Paginator(obj.messages.all(), 4)
+            messages = obj.messages.all().order_by('id')
+            paginator = Paginator(messages, 4)
             to_serializer = paginator.page(page)
             to_serializer = CommentBaseSerializer(to_serializer, many=True)
             return to_serializer.data

@@ -1,19 +1,14 @@
-from rest_framework.test import APITestCase
-from rest_framework import status
-from django.contrib.auth import get_user_model
 from .models import MessagesModel
 from posts_app.models import PostModel
+from api.base_test import *
 
-User = get_user_model()
 
-
-class GetMessageTest(APITestCase):
+class MessageOperationsTest(Test):
 
     def setUp(self):
-        user = User.objects.create_user(username='testuser', password='testpass')
-        self.client.force_authenticate(user=user)
+        super().setUp()
         message = MessagesModel(title='Test message', content='Test')
-        message.user = user
+        message.user = self.user
         message.save()
 
     def test_create_message_successful(self):
@@ -33,4 +28,5 @@ class GetMessageTest(APITestCase):
     def test_update_message_successful(self):
         message_id = MessagesModel.objects.all().first().id
         response = self.client.put('/api/message/', {'title': 'Titulo', 'content': 'Content', 'id': str(message_id)})
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)

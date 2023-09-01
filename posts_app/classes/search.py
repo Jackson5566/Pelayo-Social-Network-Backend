@@ -17,7 +17,9 @@ class SearchAlgorithm(AccessDataLogicController):
         self.queryset = self.get_searched_posts()
 
     def set_coincidences_list(self):
-        for element in PostModel.objects.all().order_by("-created"):
+        posts = PostModel.objects.select_related('user').prefetch_related('categories', 'files', 'likes', 'dislikes',
+                                                                          'messages').all().order_by('-created')
+        for element in posts:
             list_content = separate_by_vowels(element.description.lower())
             list_title = separate_by_vowels(element.title.lower())
             coincidences = (get_coincidences(list_title, search=self.search) + get_coincidences(list_content,
