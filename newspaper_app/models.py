@@ -5,7 +5,7 @@ from django.db import models
 
 class NewspaperModel(models.Model):
     title = models.CharField(max_length=100)
-    img = models.ImageField(blank=True, null=True, upload_to='newspaper')
+    image = models.ImageField(blank=True, null=True, upload_to='newspaper')
     text = models.TextField()
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
