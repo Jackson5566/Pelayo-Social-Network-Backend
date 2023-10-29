@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'message_app',
     'django_filters',
-    'news_app'
+    'news_app',
+    'newspaper_app'
 ]
 
 # https://jackson782.pythonanywhere.com/

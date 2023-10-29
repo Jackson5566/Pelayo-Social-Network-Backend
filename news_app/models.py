@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+
 
 # Create your models here.
 
@@ -9,3 +9,6 @@ class NewsModel(models.Model):
     }, help_text="Titulo de la noticia")
     image = models.ImageField(upload_to='news', blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    def __str__(self):
+        return self.title
