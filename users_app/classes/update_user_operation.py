@@ -1,7 +1,7 @@
 from rest_framework import status
 from .basess.user_operations import UserOperations
 from api.classes.serialzer_operations import SerializerOperations
-from ..serializer import UsersSerializer
+from ..serializer import UsersSerializerReturn2
 from api.decorators.validate_serializer import validate_serializer
 from api.classes.controller_logic_excecutor import ResponseBody
 
@@ -13,7 +13,7 @@ class UpdateUser(UserOperations, SerializerOperations):
 
     def _get_serializer(self, **kwargs):
         field = self.request_manager.request.query_params.get('changeField')
-        return UsersSerializer(data=self.request_manager.request.data,
+        return UsersSerializerReturn2(data=self.request_manager.request.data,
                                fields=[field])
 
     @validate_serializer('serializer_manager')

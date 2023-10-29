@@ -63,7 +63,12 @@ class PostView(APIView):
 @access_protected
 class PreSearch(APIView):
     def get(self, request):
-        title_posts = PostModel.objects.values_list('title', flat=True)
+        user_id = request.query_params.get('user_id')
+        title_posts = PostModel.objects
+        if user_id:
+            title_posts = title_posts.filter(user__id=user_id)
+
+        title_posts = title_posts.values_list('title', flat=True)
         return Response(title_posts)
 
 
@@ -79,3 +84,30 @@ class DeleteFileView(APIView):
     def delete(self, request, id):
         delete_file = DeleteFile(request=request, file_id=id)
         return process_and_get_response(delete_file)
+
+
+from rest_framework import serializers
+from .models import FileModel
+
+class FileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FileModel
+        fields = '__all__'
+        read_only_fields = ('files',)
+
+from rest_framework.generics import RetrieveAPIView
+from django.http import FileResponse
+
+class DownloadFileView(RetrieveAPIView):
+    queryset = FileModel.objects.all()
+    serializer_class = FileSerializer
+    lookup_field = 'pk'
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        file = instance.files
+
+        response = FileResponse(file, as_attachment=True)
+
+        return response
+

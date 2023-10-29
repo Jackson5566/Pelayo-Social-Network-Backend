@@ -16,6 +16,7 @@ from datetime import timedelta
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -25,8 +26,7 @@ SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['*']
-
+#jackson782.pythonanywhere.com
 # Application definition
 
 INSTALLED_APPS = [
@@ -44,11 +44,11 @@ INSTALLED_APPS = [
     'contact_app',
     'rest_framework_simplejwt',
     'message_app',
-    'django_filters'
+    'django_filters',
+    'news_app'
 ]
 
-# CSRF_TRUSTED_ORIGINS = ['https://pelayosn.up.railway.app']
-
+# https://jackson782.pythonanywhere.com/
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "corsheaders.middleware.CorsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware"
 ]
 
 ROOT_URLCONF = 'api.urls'
@@ -81,20 +81,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-# PGPASSWORD=6mAJWtStoEpFCwZxxz6C psql -h containers-us-west-79.railway.app -U postgres -p 6680 -d railway
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'HOST': 'Jackson782.mysql.pythonanywhere-services.com',
+#         'USER': 'Jackson782',
+#         'PASSWORD': 'mysqldatabase&!',
+#         'NAME': 'Jackson782$default',
+#         'CHARSET': 'utf8',
+#     },
+# }
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pelayo_social_network',
-        'USER': 'postgres',
-        'PASSWORD': 'qwertyteclado&!',
-        'HOST': 'localhost',
-        'PORT': '5433',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -114,6 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -125,34 +130,45 @@ USE_I18N = True
 
 USE_TZ = True
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
 STATIC_URL = 'static/'
 
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
 STATICFILES_DIRS = [
-    BASE_DIR / 'static'
+
 ]
 
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
+STATIC_ROOT =  BASE_DIR / 'staticfiles'
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL = True
-CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_ALL = False
+CORS_ALLOWED_ORIGINS = [
+    "https://pelayo-sn-media.b-cdn.net",
+    "https://pelayo-social-network.web.app",
+    "http://localhost:4200"
+]
+
+CORS_ALLOWED_PATHS = [
+    r'^/media/gallery/',
+]
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
+#
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "buselenterprise01@gmail.com"
@@ -163,14 +179,8 @@ SIMPLE_JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
 }
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-#     'PAGE_SIZE': 4
-# }
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
-# }
 AUTH_USER_MODEL = 'auth_app.User'
 
-BACKEND_URL = 'http://localhost:8000'
+BACKEND_URL = 'https://jackson782.pythonanywhere.com'
+
+ATOMIC_REQUESTS = True

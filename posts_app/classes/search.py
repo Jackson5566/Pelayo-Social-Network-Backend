@@ -18,7 +18,11 @@ class SearchAlgorithm(AccessDataLogicController):
 
     def set_coincidences_list(self):
         posts = PostModel.objects.select_related('user').prefetch_related('categories', 'files', 'likes', 'dislikes',
-                                                                          'messages').all().order_by('-created')
+                                                                          'messages')
+
+        user_id = self.request_manager.request.query_params.get('user__id')
+        posts = (posts.filter(user__id=user_id) if user_id else posts.all()).order_by('-created')
+
         for element in posts:
             list_content = separate_by_vowels(element.description.lower())
             list_title = separate_by_vowels(element.title.lower())

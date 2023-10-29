@@ -17,3 +17,7 @@ class DeleteProcessor(ABC):
     @abstractmethod
     def delete(self):
         pass
+
+
+class GetProcessor(SerializerOperations, ABC):
+    pass

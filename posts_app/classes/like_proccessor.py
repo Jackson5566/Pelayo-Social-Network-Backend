@@ -1,6 +1,7 @@
 from rest_framework import status
 from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
+from django.core.exceptions import ObjectDoesNotExist
 
 
 # Eliminar el innecesario id que se recibe como parametro en la vista, ademas optimizar el acceso a la base de datos
@@ -14,10 +15,21 @@ class PostLikeProcessor(PostOperations):
         self.dislikes = int(self.get_dislikes())
 
     def is_user_in_post_like(self) -> bool:
-        return self.request_manager.request.user in self.instance_manager.instance.likes.all()
+        authenticated_user = self.request_manager.request.user
+        try:
+            user_in_post_like = self.instance_manager.instance.likes.get(id=authenticated_user.id)
+        except ObjectDoesNotExist:
+            user_in_post_like = None
+        return True if user_in_post_like  else False
 
     def is_user_in_post_dislikes(self) -> bool:
-        return self.request_manager.request.user in self.instance_manager.instance.dislikes.all()
+        authenticated_user = self.request_manager.request.user
+        try:
+            user_in_post_dislikes = self.instance_manager.instance.dislikes.get(id=authenticated_user.id)
+        except ObjectDoesNotExist:
+            user_in_post_dislikes = None
+
+        return True if user_in_post_dislikes else False
 
     def start_process(self) -> None:
         if self.user_did_like():

@@ -5,7 +5,7 @@ from api.serializers import DynamicModelSerializer
 class CommentSerializer(DynamicModelSerializer):
     class Meta:
         model = MessagesModel
-        fields = ['title', 'content']
+        fields = ['content']
 
     def create(self, validated_data):
         user = self.context.get('request').user

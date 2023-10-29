@@ -1,7 +1,7 @@
 from api.classes.controller_logic_excecutor import ResponseBody
 from .basess.user_operations import UserOperations
 from api.classes.serialzer_operations import SerializerOperations
-from ..serializer import UsersSerializer
+from ..serializer import UsersSerializerReturn2
 from rest_framework import status
 
 
@@ -14,7 +14,7 @@ class GetUserOperation(UserOperations, SerializerOperations):
     def _get_serializer(self, **kwargs):
         # fields = self.get_fields()
         context = {'request': self.request_manager.request}
-        return UsersSerializer(instance=self.instance_manager.instance, fields=['username', 'last_name', 'id'],
+        return UsersSerializerReturn2(instance=self.instance_manager.instance,
                                context=context, many=False)
 
     # def get_fields(self):

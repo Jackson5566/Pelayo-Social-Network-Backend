@@ -5,5 +5,6 @@ def validate_serializer(serializer_attr_name: str):
 
             if serializer.is_valid(raise_exception=True):
                 return body_func(self)
+
         return validate
     return executor_func

@@ -13,7 +13,7 @@ class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor):
         SerializerOperations.__init__(self)
 
     @validate_serializer('serializer_manager')
-    def start_process(self):
+    def start_process(self) -> None:
         self.create_or_update_process()
 
     def _get_serializer(self, **kwargs):

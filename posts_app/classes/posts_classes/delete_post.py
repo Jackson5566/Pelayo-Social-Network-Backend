@@ -10,7 +10,9 @@ class DeletePost(PostOperations, DeleteProcessor):
 
     def start_process(self):
         self.delete()
-        self.response = ResponseBody(data={'message': 'Deleted'}, status=status.HTTP_200_OK)
+        self.response = ResponseBody(data={'message': 'Eliminado'}, status=status.HTTP_200_OK)
 
     def delete(self):
+        self.instance_manager.instance.files.all().delete()
+        self.instance_manager.instance.messages.all().delete()
         self.instance_manager.instance.delete()

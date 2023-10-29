@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from typing import Union
 
+# Analizar funcionamiento
 
 class EncodeProccesor:
     @staticmethod
@@ -26,7 +27,6 @@ class UserExpirationLinkUtilities:
     def __init__(self):
         self.signer = TimestampSigner()
         self._user = None
-        self._user_email = None
 
     @property
     def user(self):
@@ -36,17 +36,8 @@ class UserExpirationLinkUtilities:
     def user(self, user):
         self._user = user
 
-    @property
-    def user_email(self):
-        return self._user_email
-
-    @user_email.setter
-    def user_email(self, user_email):
-        self._user_email = user_email
-
-
 class SendUserExpirationLink:
-    FRONT_END_SITE = 'localhost:4200'
+    FRONT_END_SITE = 'pelayo-social-network.web.app'
 
     def __init__(self):
         self.utilities = UserExpirationLinkUtilities()
@@ -59,11 +50,12 @@ class SendUserExpirationLink:
                 'domain': self.FRONT_END_SITE,
                 'token': encoded_token,
             })
-            send_mail(subject, None, None,
-                      [self.utilities.user_email],
+            print("Ususario: " + self.utilities.user.email)
+            send_mail(subject, "Registro de usuario: ", None,
+                      [self.utilities.user.email],
                       fail_silently=False, html_message=message)
 
-    def encode_token(self):
+    def encode_token(self) -> str:
         token = self.utilities.signer.sign(str(self.utilities.user.id))
         return EncodeProccesor.encode(token=token)
 
