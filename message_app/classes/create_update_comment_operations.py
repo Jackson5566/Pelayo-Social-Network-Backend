@@ -1,4 +1,4 @@
-from abc import abstractmethod
+from abc import abstractmethod, ABC
 from api.classes.controller_logic_excecutor import ResponseBody
 from api.serializers import CommentBaseSerializer
 from message_app.serializer import CommentSerializer
@@ -9,7 +9,7 @@ from api.classes.type_alias.operations import CreateUpdateProcessor
 from api.classes.serialzer_operations import SerializerOperations
 
 
-class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor):
+class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor, ABC):
     """Al igual que CommentOperations, se encargara de expander una clase, en este caso la anteriormente mencionada
     Al ser las operaciones de acrualizacion y creacion tan similares, se hace necesario una clase para compartir
     funcionalidades"""

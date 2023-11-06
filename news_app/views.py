@@ -28,3 +28,4 @@ class NewsView(APIView):
     def delete(self, request, id):
         delete_news_instance = DeleteNewsOperation(request=request, news_id=id)
         return process_and_get_response(delete_news_instance)
+

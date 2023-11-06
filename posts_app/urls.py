@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PreSearch, PostView, PostsView, SearchPost, GetCategoriesView, DeleteFileView, DownloadFileView
+from .views import PreSearch, PostView, PostsView, SearchPost, GetCategoriesView, DeleteFileView, ContentListView, AllContentListView
 
 urlpatterns = [
     path('<int:_id>/', PostView.as_view()),
@@ -9,5 +9,8 @@ urlpatterns = [
     path('allposts/', PostsView.as_view(), name='allposts'),
     path('delete-file/<int:id>/', DeleteFileView.as_view()),
     path('search/', SearchPost.as_view()),
-    path('download/<int:pk>/', DownloadFileView.as_view(), name='download_file'),
+    path('content_list/', ContentListView.as_view()),
+    path('content_list/<int:content_list_id>/', ContentListView.as_view()),
+    path('allcontent_list/', AllContentListView.as_view())
+    # path('download/<int:pk>/', DownloadFileView.as_view(), name='download_file'),
 ]

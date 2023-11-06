@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class NewsModel(models.Model):
-    title = models.CharField(max_length=60, error_messages={
+    title = models.CharField(max_length=100, error_messages={
         'max_length': 'Límite de texto excedido'
     }, help_text="Titulo de la noticia")
     image = models.ImageField(upload_to='news', blank=True, null=True)

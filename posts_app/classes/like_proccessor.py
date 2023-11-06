@@ -4,7 +4,7 @@ from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 from django.core.exceptions import ObjectDoesNotExist
 
 
-# Eliminar el innecesario id que se recibe como parametro en la vista, ademas optimizar el acceso a la base de datos
+# Eliminar el innecesario id que se recibe como parametro en la vista, además optimizar el acceso a la base de datos
 
 class PostLikeProcessor(PostOperations):
     def __init__(self, request, post_id):
@@ -20,7 +20,7 @@ class PostLikeProcessor(PostOperations):
             user_in_post_like = self.instance_manager.instance.likes.get(id=authenticated_user.id)
         except ObjectDoesNotExist:
             user_in_post_like = None
-        return True if user_in_post_like  else False
+        return True if user_in_post_like else False
 
     def is_user_in_post_dislikes(self) -> bool:
         authenticated_user = self.request_manager.request.user

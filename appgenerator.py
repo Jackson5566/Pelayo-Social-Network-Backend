@@ -1,6 +1,7 @@
 import argparse
 
-#Aprender un poco mas sobre esto
+
+# Aprender un poco mas sobre esto
 
 def generate_operations_class(nombre_archivo):
     codigo_predefinido = """
@@ -18,8 +19,9 @@ class AppOperations(Operations, ABC):
                                  model_instance=model_instance)
     """
 
-    with open(nombre_archivo, "w") as archivo:
+    with open(nombre_archivo + "_operations.py", "w") as archivo:
         archivo.write(codigo_predefinido)
+
 
 def generate_createupdateoperations_class(nombre_archivo):
     codigo_predefinido = """
@@ -30,7 +32,7 @@ from news_app.classes.bases.newsOperations import NewsOperations
 from news_app.serializers import CreateNewsSerializer
 
 
-class NewsCreateUpdateOperations(NewsOperations, CreateUpdateProcessor):
+class AppCreateUpdateOperations(AppOperations, CreateUpdateProcessor):
 
     def __init__(self, request, model_id=None):
         NewsOperations.__init__(self, request=request, model_id=model_id)
@@ -41,10 +43,10 @@ class NewsCreateUpdateOperations(NewsOperations, CreateUpdateProcessor):
 
     @validate_serializer('serializer_manager')
     def start_process(self):
-        self.create_or_update_process()ç
+        self.create_or_update_process()
     """
 
-    with open(nombre_archivo, "w") as archivo:
+    with open(nombre_archivo + "_create_update_operations.py", "w") as archivo:
         archivo.write(codigo_predefinido)
 
 

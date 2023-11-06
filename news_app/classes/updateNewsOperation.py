@@ -9,15 +9,14 @@ class UpdateNewsOperation(NewsCreateUpdateOperations):
     Nota: Llevar a la abstraccion estas operaciones comunes
     """
     def __init__(self, request):
-        super().__init__(request=request)
+        news_id = request.data.get('id')
+        super().__init__(request=request, model_id=news_id)
 
     def create_or_update_process(self):
         self.update_news()
         self.response = ResponseBody(data={'message': 'Éxito con la actualización'}, status=status.HTTP_200_OK)
 
     def update_news(self):
-        authenticated_user = self.request_manager.request.user
-        if self.is_model_instance_from_user(user=authenticated_user):
-            self.instance_manager.instance = self.serializer_manager.serializer.update(
-                validated_data=self.serializer_manager.serializer.validated_data,
-                instance=self.instance_manager.instance)
+        self.instance_manager.instance = self.serializer_manager.serializer.update(
+            validated_data=self.serializer_manager.serializer.validated_data,
+            instance=self.instance_manager.instance)

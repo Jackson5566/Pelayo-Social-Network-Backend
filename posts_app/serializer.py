@@ -1,7 +1,23 @@
 from rest_framework import serializers
-from .models import PostModel, FileModel
+from .models import PostModel, FileModel, ContentListModel
 from users_app.serializer import UsersSerializerReturn2
 from api.serializers import BaseReturnSerializer
+
+
+class CreateContentListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContentListModel
+        fields = ['name', 'description']
+
+    def create(self, validated_data):
+        instance = ContentListModel.objects.create(**validated_data, user=self.context['request'].user)
+        return instance
+
+
+class GetContentListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ContentListModel
+        fields = '__all__'
 
 
 class FilesSerializer(serializers.ModelSerializer):

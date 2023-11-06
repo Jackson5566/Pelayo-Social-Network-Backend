@@ -1,3 +1,5 @@
+from abc import ABC
+
 from api.classes.serialzer_operations import SerializerOperations
 from api.classes.type_alias.operations import CreateUpdateProcessor
 from api.decorators.validate_serializer import validate_serializer
@@ -5,7 +7,7 @@ from news_app.classes.bases.newsOperations import NewsOperations
 from news_app.serializers import CreateNewsSerializer
 
 
-class NewsCreateUpdateOperations(NewsOperations, CreateUpdateProcessor):
+class NewsCreateUpdateOperations(NewsOperations, CreateUpdateProcessor, ABC):
 
     def __init__(self, request, model_id=None):
         NewsOperations.__init__(self, request=request, model_id=model_id)

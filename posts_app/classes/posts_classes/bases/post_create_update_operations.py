@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import Union
 from posts_app.models import CategoryModel
 from api.decorators.validate_serializer import validate_serializer
@@ -7,7 +8,7 @@ from api.classes.type_alias.operations import CreateUpdateProcessor
 from api.classes.serialzer_operations import SerializerOperations
 
 
-class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor):
+class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     def __init__(self, request, model_id=None):
         PostOperations.__init__(self, request=request, model_id=model_id)
         SerializerOperations.__init__(self)

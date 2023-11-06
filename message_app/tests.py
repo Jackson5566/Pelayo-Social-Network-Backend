@@ -14,7 +14,7 @@ class MessageOperationsTest(Test):
     def test_create_message_successful(self):
         PostModel.objects.create(title="Titulo", text="Contenido", description="Contenido2")
 
-        data = {content': 'Contenido', 'id': '1'}
+        data = {'content': 'Contenido', 'id': '1'}
         response = self.client.post('/api/message/', data)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
