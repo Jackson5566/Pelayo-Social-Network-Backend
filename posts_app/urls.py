@@ -1,5 +1,7 @@
 from django.urls import path
-from .views import PreSearch, PostView, PostsView, SearchPost, GetCategoriesView, DeleteFileView, ContentListView, AllContentListView
+from .generics_view import PostsView, SearchPost, AllContentListView
+from .views import PreSearch, PostView, GetCategoriesView, DeleteFileView, ContentListView
+
 
 urlpatterns = [
     path('<int:_id>/', PostView.as_view()),

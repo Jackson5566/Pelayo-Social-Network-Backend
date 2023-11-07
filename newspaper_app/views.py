@@ -1,5 +1,4 @@
 from rest_framework.views import APIView
-
 from api.decorators.add_security import access_protected
 from api.shortcuts.data_get import process_and_get_response
 from newspaper_app.classes.createNewspaperOperation import CreateNewspaperOperation
@@ -8,8 +7,6 @@ from newspaper_app.classes.getNewspaperOperation import GetNewspaperOperation
 from newspaper_app.classes.updateNewspaperOperation import UpdateNewspaperOperation
 from newspaper_app.models import NewspaperModel
 
-
-# Create your views here.
 
 @access_protected
 class NewspaperView(APIView):
