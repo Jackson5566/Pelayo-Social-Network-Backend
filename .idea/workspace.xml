@@ -7,10 +7,6 @@
     <list default="true" id="24bda280-3ab2-486c-af8d-d0002cc2032d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0014_alter_postmodel_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0015_alter_postmodel_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0016_postmodel_user_photo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0017_remove_postmodel_user_photo.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
