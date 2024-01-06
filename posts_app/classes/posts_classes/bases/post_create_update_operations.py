@@ -7,7 +7,6 @@ from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 from api.classes.type_alias.operations import CreateUpdateProcessor
 from api.classes.serialzer_operations import SerializerOperations
 
-
 class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     def __init__(self, request, model_id=None):
         PostOperations.__init__(self, request=request, model_id=model_id)

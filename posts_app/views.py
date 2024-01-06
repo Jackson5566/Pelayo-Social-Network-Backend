@@ -30,20 +30,20 @@ from .serializer import GetContentListSerializer
 @access_protected
 class PostsView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['categories__name', 'user__id', 'content_list__name', 'content_list__id']
+    filterset_fields = ['categories__name', 'user__id', 'contents_list__name', 'contents_list__id']
     # Intentar ORdering de DRF
 
     def get_queryset(self):
         # Pensar si hace falta una optimizacion
         top = self.request.query_params.get('top')
         if top:
-            pubs = PostModel.objects.annotate(num_likes=Count("likes")).select_related('user', 'content_list').prefetch_related('categories', 'files', 'likes',
+            pubs = PostModel.objects.annotate(num_likes=Count("likes")).select_related('user').prefetch_related('categories', 'files', 'likes',
                                                                                          'dislikes',
-                                                                                         'messages').order_by("-num_likes")[:top]
+                                                                                         'messages', 'contents_list').order_by("-num_likes")[:top]
             return pubs
-        return PostModel.objects.select_related('user', 'content_list').prefetch_related('categories', 'files', 'likes',
+        return PostModel.objects.select_related('user').prefetch_related('categories', 'files', 'likes',
                                                                                          'dislikes',
-                                                                                         'messages').all().order_by(
+                                                                                         'messages', 'contents_list').all().order_by(
             '-created')
 
 

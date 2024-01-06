@@ -14,6 +14,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from threading import Thread
 
+
 # Simplificar más este código
 
 class PasswordChangeRequestView(generics.GenericAPIView):
@@ -54,7 +55,7 @@ class CreateUser(generics.GenericAPIView):
         users_serializer = UsersSerializer(data=request.data)
 
         ancient_user = User.objects.filter(username=request.data.get('username'),
-            email=request.data.get('email')).first()
+                                           email=request.data.get('email')).first()
         if ancient_user and not ancient_user.is_active:
             self.send_user_expiration_link.utilities.user = ancient_user
 
@@ -62,8 +63,8 @@ class CreateUser(generics.GenericAPIView):
 
         else:
             if users_serializer.is_valid():
-
-                self.send_user_expiration_link.utilities.user = users_serializer.create(validated_data=users_serializer.data)
+                self.send_user_expiration_link.utilities.user = users_serializer.create(
+                    validated_data=users_serializer.data)
                 self.send_user_expiration_link.utilities.user.is_active = False
                 self.send_user_expiration_link.utilities.user.save()
 
@@ -73,7 +74,7 @@ class CreateUser(generics.GenericAPIView):
 
     def send_confirmation_email(self):
         self.send_user_expiration_link.send_link(template='user_confirmation_email.html',
-                                            subject='Confirmación de cuenta')
+                                                 subject='Confirmación de cuenta')
 
         return Response({
             'message': 'Mail de confirmación enviado'
@@ -100,8 +101,8 @@ class CreateUserConfirmation(generics.GenericAPIView):
     def send_welcome_email(self):
         message = render_to_string('welcome.html')
         send_mail("Bienvenida", "", None,
-          [self.get_user_from_expiration_link.utilities.user.email],
-          fail_silently=False, html_message=message)
+                  [self.get_user_from_expiration_link.utilities.user.email],
+                  fail_silently=False, html_message=message)
 
 
 @access_protected
@@ -109,6 +110,7 @@ class Complaint(APIView):
     def post(self, request):
         denunciation_user = DenunciateUser(request=request)
         return process_and_get_response(denunciation_user)
+
 
 @access_protected
 class GetAuthenticatedUser(APIView):
@@ -122,4 +124,3 @@ class UsersView(viewsets.ModelViewSet):
     serializer_class = UsersSerializer
     queryset = User.objects.all()
     permission_classes = [permissions.IsAdminUser]
-

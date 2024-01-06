@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="24bda280-3ab2-486c-af8d-d0002cc2032d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/api.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appgenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/appgenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Cantar_del_Mio_CId.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Captura_de_pantalla_2023-07-25_164248.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Captura_de_pantalla_2023-07-26_000722.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Captura_de_pantalla_2023-07-26_001719.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Captura_de_pantalla_2023-07-26_001719_7gL499K.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Captura_de_pantalla_2023-07-26_001719_NIiXxeI.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Captura_de_pantalla_2023-07-26_001719_Y0RUrqE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Captura_de_pantalla_2023-07-26_001738.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Deporte_1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/FUNCIONAMIENTO_DE_C.COMPUTACIÓN_I.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/LA_VERDAD_-_CREATIVIDADMEJOR.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/P3-Texto2-10.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/PR6-Crear_un_indíce-JAE.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Psicosis_3.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Screenshot_2023-08-24-09-30-35-96_d300a7c584ad198d99383a061359d12f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Screenshot_2023-09-30-15-32-37-790_com.zhiliaoapp.musically.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Telaraña_de_ideas_1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/Telaraña_de_ideas_1_1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo_1F3F2XO.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo_25zJRKp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo_7bUuPQB.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo_XjUawDf.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo_aVQvAk4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo_oQZv73m.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/archivo_yUcwKDx.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/c-sharp-image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/conjuntos.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/conjuntos_uxGnkVy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/gempel1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/images.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/images_ZI2wEIh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/files/por-que-no-podemos-ver-a-dios.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/123200047_4537466086327563_8776215522122177769_n.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/123200047_4537466086327563_8776215522122177769_n_jsVZwvu.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/3-pasos-para-lograr-todas-las-metas.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/3-pasos-para-lograr-todas-las-metas_N3GCKnp.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Captura_de_pantalla_2023-07-26_000722.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Captura_de_pantalla_2023-07-26_001015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Captura_de_pantalla_2023-07-26_001015_SDQ3j5o.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Captura_de_pantalla_2023-07-26_001719.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Coat_of_Arms_of_the_Spanish_Royal_Academy_of_History.svg.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/IMG-20231009-WA0001.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/IMG20230824093400.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Lengua_mapa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Michelangelo_-_Creation_of_Adam_cropped.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Michelangelo_-_Creation_of_Adam_cropped_cykLrGO.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/PAINT.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Screenshot_2023-08-03-13-09-03-71_81c19963fdffdf9c4577360e88aeb102.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Screenshot_2023-08-24-09-30-35-96_d300a7c584ad198d99383a061359d12f.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Screenshot_2023-09-29-21-35-25-497_com.zhiliaoapp.musically.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Screenshot_2023-09-30-15-32-37-790_com.zhiliaoapp.musically.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Tiempo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Typescript-img.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/Typescript-img_kUKDPzH.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/WIN_20220812_20_25_31_Pro.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/agua.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/agua_CbjzL6z.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/c-sharp-image.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/contenidos-fisica-y-quimica-2-eso.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/esquema.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/gempel1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/iStock-949190756.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/imageNotFound.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/images.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/images_170YPky.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/images_Rb7RIUT.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/images_kN5Dzyt.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/lGCAIw5rdTH4Pp6ateihWRChDDUfd1qgcUx31tHE.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/maxresdefault.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/maxresdefault_7fOmUfk.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/por-que-no-podemos-ver-a-dios.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/psicosis-img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/python-img.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/python-img_xpnhiz1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/un.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/universy.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/gallery/unnamed.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_11_BvH62b6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_11_EUfu0NV.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_11_YQD12su.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_13_SXOgPVF.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_20.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_2023-07-25_164248.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_2023-07-25_164248_F1ASfy1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_2023-07-25_164248_buM7KT5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_2023-07-26_000722.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_2023-07-26_001719.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_2023-10-14_110825.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_21.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_21_xc9jkY2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Captura_de_pantalla_9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Lengua_mapa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/news/Lengua_mapa_vfEGo56.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/Captura_de_pantalla_2023-07-25_164248.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/Captura_de_pantalla_2023-07-26_001015.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/Captura_de_pantalla_2023-07-26_001738.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/Captura_de_pantalla_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/Captura_de_pantalla_39.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/Lengua_mapa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/Tiempo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/existencia.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/gempel1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/media/newspaper/gempel2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_app/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_app/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newspaper_app/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/newspaper_app/serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/add_to_content_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/add_to_content_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_create_update_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_create_update_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2aZvIfxST4grXTkwBQNpCzyTkyI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "v2",
+    "last_opened_file_path": "C:/PSN"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="24bda280-3ab2-486c-af8d-d0002cc2032d" name="Changes" comment="" />
+      <created>1704538837928</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1704538837928</updated>
+    </task>
+    <servers />
+  </component>
+</project>

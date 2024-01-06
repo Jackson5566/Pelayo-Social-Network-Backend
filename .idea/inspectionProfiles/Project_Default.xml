@@ -1,0 +1,24 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyInterpreterInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="posts_app.models.PostModel.*" />
+          <option value="auth_app.models.User.DoesNotExist" />
+          <option value="posts_app.models.CategoryModel.objects" />
+          <option value="posts_app.models.FileModel.DoesNotExist" />
+          <option value="posts_app.models.FileModel.objects" />
+          <option value="django.db.models.fields.files.ImageField.path" />
+          <option value="message_app.models.MessagesModel.objects" />
+          <option value="news_app.models.NewsModel.objects" />
+          <option value="posts_app.models.ContentListModel.objects" />
+          <option value="busel.product_app.admin.product_app" />
+          <option value="product_app.models.ProductModel.objects" />
+          <option value="rest_framework_simplejwt.tokens.Token.access_token" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

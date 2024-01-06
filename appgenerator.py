@@ -1,7 +1,7 @@
 import argparse
 
 
-# Aprender un poco mas sobre esto
+# A programar mas coño
 
 def generate_operations_class(nombre_archivo):
     codigo_predefinido = """

@@ -9,8 +9,7 @@ class GetNewsSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        # ret['image'] = instance.image.name
-        ret['image'] = 'gallery/Lengua_mapa.png'
+        ret['image'] = instance.image.name
         return ret
 
 

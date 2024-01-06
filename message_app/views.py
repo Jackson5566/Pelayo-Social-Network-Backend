@@ -5,7 +5,6 @@ from message_app.classes.get_comment import GetCommentOperation
 from api.shortcuts.data_get import process_and_get_response
 from api.decorators.add_security import access_protected
 from message_app.classes.delete_comment_operation import DeleteCommentOperation
-
 from api.serializers import CommentBaseSerializer
 from rest_framework import generics
 from .paginations import MessagesPagination

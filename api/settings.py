@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 
+import firebase_admin
+from firebase_admin import credentials
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -24,9 +27,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 #jackson782.pythonanywhere.com
+ALLOWED_HOSTS = ['jackson782.pythonanywhere.com', 'https://pelayo-sn-media.b-cdn.net/']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -46,10 +51,13 @@ INSTALLED_APPS = [
     'message_app',
     'django_filters',
     'news_app',
-    'newspaper_app'
+    'newspaper_app',
+    'stdimage'
 ]
 
 # https://jackson782.pythonanywhere.com/
+CSRF_TRUSTED_ORIGINS = ['https://pelayo-sn-media.b-cdn.net/', 'https://jackson782.pythonanywhere.com/']
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -82,22 +90,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'api.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'HOST': 'Jackson782.mysql.pythonanywhere-services.com',
-#         'USER': 'Jackson782',
-#         'PASSWORD': 'mysqldatabase&!',
-#         'NAME': 'Jackson782$default',
-#         'CHARSET': 'utf8',
-#     },
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': 'Jackson782.mysql.pythonanywhere-services.com',
+        'USER': 'Jackson782',
+        'PASSWORD': 'mysqldatabase&!',
+        'NAME': 'Jackson782$default',
+        'CHARSET': 'utf8',
+    },
 }
 
 
@@ -175,11 +176,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "jalmeidaechevarria"
 EMAIL_HOST_PASSWORD = "qwertyteclado&!1234M"
 
-# EMAIL_HOST_USER = "buselenterprise01@gmail.com"
-# EMAIL_HOST_PASSWORD = "hmzqhoikzavceybl"
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=10),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
 }
 
@@ -188,3 +187,8 @@ AUTH_USER_MODEL = 'auth_app.User'
 BACKEND_URL = 'https://jackson782.pythonanywhere.com'
 
 ATOMIC_REQUESTS = True
+
+cred = credentials.Certificate(BASE_DIR / "api" / "firebaseSecretKey.json")
+firebase_admin.initialize_app(cred, {'storageBucket': 'pelayo-social-network.appspot.com'})
+
+

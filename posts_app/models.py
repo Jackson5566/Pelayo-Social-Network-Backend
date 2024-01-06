@@ -1,10 +1,13 @@
 from django.db import models
-from PIL import Image
 from api.settings import AUTH_USER_MODEL
 from message_app.models import MessagesModel
+from .custom import FirebaseStorage
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
 
 
 # Filosofia: Los usuario podran meter datos en las listas de otros con una autorizacion
+
 
 class CategoryModel(models.Model):
     name = models.CharField(max_length=30)
@@ -14,7 +17,7 @@ class CategoryModel(models.Model):
 
 
 class FileModel(models.Model):
-    files = models.FileField(upload_to='files')
+    files = models.FileField(upload_to='files', storage=FirebaseStorage())
 
     def __str__(self):
         return self.files.name
@@ -32,31 +35,22 @@ class ContentListModel(models.Model):
 
 
 class PostModel(models.Model):
-    title = models.CharField(max_length=100)  # Campo para el titulo
-    description = models.CharField(max_length=300)  # Campo para la descripción
-    text = models.TextField()  # Campo para el texto
-    image = models.ImageField(upload_to='gallery', blank=True, null=True)  # Campo para la imagen
+    title = models.CharField(max_length=100)
+    description = models.CharField(max_length=300)
+    text = models.TextField()
+    image = ProcessedImageField(upload_to='images/gallery',
+                                processors=[ResizeToFill(800, 600)],
+                                format='JPEG', options={'quality': 60},
+                                storage=FirebaseStorage(), blank=True, null=True)
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
-                             related_name="posts")  # Campo para el usuario
+                             related_name="posts")
     likes = models.ManyToManyField(AUTH_USER_MODEL, related_name='likes', blank=True)
     dislikes = models.ManyToManyField(AUTH_USER_MODEL, related_name='disslikes', blank=True)
     files = models.ManyToManyField(FileModel, blank=True)
     messages = models.ManyToManyField(MessagesModel, related_name="messages", blank=True)
     categories = models.ManyToManyField(CategoryModel, blank=True, related_name='categories')
-    content_list = models.ForeignKey(ContentListModel, blank=True, null=True, on_delete=models.CASCADE,
-                                     related_name="posts", default=None)
+    contents_list = models.ManyToManyField(ContentListModel, blank=True, null=True, related_name="posts", default=None)
     created = models.DateTimeField(auto_now_add=True)
 
-    def save(self, *args, **kwargs):
-        last_img_path = self.image.path if self.image else None
-        super().save(*args, **kwargs)
-        if self.image and last_img_path != self.image.path:
-            image = Image.open(self.image.path)
-            if image.mode == "RGBA":
-                image = image.convert("RGB")
-
-            resized_image = image.resize((800, 600), Image.LANCZOS)
-            resized_image.save(self.image.path, "JPEG", quality=50, optimize=True)
-
     def __str__(self):
-        return self.title
+        return f"Post: {self.title}, De Usuario: {self.user.username}, Con ID: {self.id}"
