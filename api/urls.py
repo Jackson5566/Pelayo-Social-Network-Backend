@@ -5,7 +5,7 @@ from django.contrib.staticfiles.urls import static
 from rest_framework_simplejwt.views import TokenRefreshView, TokenObtainPairView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', admin.site.urls),
     path('api/posts/', include("posts_app.urls")),
     path("api/", include("message_app.urls")),
     path('api/', include("users_app.urls")),

@@ -51,12 +51,11 @@ INSTALLED_APPS = [
     'django_filters',
     'news_app',
     'newspaper_app',
-    'stdimage',
     'imagekit'
 ]
 
 # https://jackson782.pythonanywhere.com/
-CSRF_TRUSTED_ORIGINS = ['.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['https://psn-git-alpha-jackson5566s-projects.vercel.app']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
