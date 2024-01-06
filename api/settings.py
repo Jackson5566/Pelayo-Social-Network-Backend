@@ -29,8 +29,7 @@ SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-#jackson782.pythonanywhere.com
-ALLOWED_HOSTS = ['jackson782.pythonanywhere.com', 'https://pelayo-sn-media.b-cdn.net/']
+ALLOWED_HOSTS = ['.vercel.app']
 
 # Application definition
 
@@ -52,11 +51,12 @@ INSTALLED_APPS = [
     'django_filters',
     'news_app',
     'newspaper_app',
-    'stdimage'
+    'stdimage',
+    'imagekit'
 ]
 
 # https://jackson782.pythonanywhere.com/
-CSRF_TRUSTED_ORIGINS = ['https://pelayo-sn-media.b-cdn.net/', 'https://jackson782.pythonanywhere.com/']
+CSRF_TRUSTED_ORIGINS = ['.vercel.app']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -170,7 +170,7 @@ MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.educa.madrid.org'
-#
+
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "jalmeidaechevarria"
