@@ -9,16 +9,16 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+import os
 from pathlib import Path
 from datetime import timedelta
 
+import dj_database_url
 import firebase_admin
 from firebase_admin import credentials
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 ]
 
 # https://jackson782.pythonanywhere.com/
-CSRF_TRUSTED_ORIGINS = ['https://psn-git-alpha-jackson5566s-projects.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['*']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -87,19 +87,11 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'api.wsgi.app'
+WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'HOST': 'Jackson782.mysql.pythonanywhere-services.com',
-        'USER': 'Jackson782',
-        'PASSWORD': 'mysqldatabase&!',
-        'NAME': 'Jackson782$default',
-        'CHARSET': 'utf8',
-    },
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -119,7 +111,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -131,27 +122,18 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
 STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [
-
-]
-
-STATIC_ROOT =  BASE_DIR / 'staticfiles'
-
+STATIC_ROOT = 'staticfiles'
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 CORS_ALLOW_ALL = False
 CORS_ALLOWED_ORIGINS = [
@@ -175,7 +157,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "jalmeidaechevarria"
 EMAIL_HOST_PASSWORD = "qwertyteclado&!1234M"
 
-
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=2),
@@ -189,5 +170,3 @@ ATOMIC_REQUESTS = True
 
 cred = credentials.Certificate(BASE_DIR / "api" / "firebaseSecretKey.json")
 firebase_admin.initialize_app(cred, {'storageBucket': 'pelayo-social-network.appspot.com'})
-
-
