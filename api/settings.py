@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://psn-backend.onrender.com']
 
 # Application definition
 
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 ]
 
 # https://jackson782.pythonanywhere.com/
-CSRF_TRUSTED_ORIGINS = ['*']
+CSRF_TRUSTED_ORIGINS = ['https://psn-backend.onrender.com']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -90,7 +90,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    "default": dj_database_url.parse(os.environ.get('DATABASE_URL'))
 }
 
 # Password validation
