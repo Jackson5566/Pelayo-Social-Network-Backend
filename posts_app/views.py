@@ -1,8 +1,12 @@
+from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.generics import ListAPIView
+from api.decorators.get_posts import get_posts
 from .classes.posts_classes.add_to_content_list import AddToContentList
 from .classes.posts_classes.create_content_list import CreateContentList
 from .classes.posts_classes.delete_content_list import DeleteContentList
 from .classes.posts_classes.g_posts_fl import GetPostsFL
-from .models import PostModel
+from .models import PostModel, ContentListModel
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from posts_app.classes.posts_classes.get_post import GetPostData
@@ -14,30 +18,32 @@ from api.shortcuts.data_get import process_and_get_response
 from api.decorators.add_security import access_protected
 from posts_app.classes.posts_classes.delete_file import DeleteFile
 from posts_app.classes.posts_classes.get_categories import GetCategories
+from .serializer import GetContentListSerializer
 
 
 # Emplearme mas a fondo con temas de optimizacion
 # Dividir esto en varias vistas para eliminar la incoherencia
 
-<<<<<<< HEAD
 @get_posts
 @access_protected
 class PostsView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['categories__name', 'user__id', 'contents_list__name', 'contents_list__id']
+
     # Intentar ORdering de DRF
 
     def get_queryset(self):
         # Pensar si hace falta una optimizacion
         top = self.request.query_params.get('top')
         if top:
-            pubs = PostModel.objects.annotate(num_likes=Count("likes")).select_related('user').prefetch_related('categories', 'files', 'likes',
-                                                                                         'dislikes',
-                                                                                         'messages', 'contents_list').order_by("-num_likes")[:top]
+            pubs = PostModel.objects.annotate(num_likes=Count("likes")).select_related('user').prefetch_related(
+                'categories', 'files', 'likes',
+                'dislikes',
+                'messages', 'contents_list').order_by("-num_likes")[:top]
             return pubs
         return PostModel.objects.select_related('user').prefetch_related('categories', 'files', 'likes',
-                                                                                         'dislikes',
-                                                                                         'messages', 'contents_list').all().order_by(
+                                                                         'dislikes',
+                                                                         'messages', 'contents_list').all().order_by(
             '-created')
 
 
@@ -51,8 +57,6 @@ class AllContentListView(ListAPIView):
         return ContentListModel.objects.select_related('user').all().order_by('-created')
 
 
-=======
->>>>>>> d9b7b8f68eefca89492004c16b06f2584d0daf06
 @access_protected
 class ContentListView(APIView):
 
