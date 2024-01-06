@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['psn-backend.onrender.com', '127.0.0.1']
 
@@ -90,7 +90,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'api.wsgi.application'
 
 DATABASES = {
-    "default": dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    "default": dj_database_url.parse('postgres://psn_database_user:57K3BxmkIxfNFn4YF5PE5JdkL45PRucm@dpg-cmcnb2n109ks7391d1v0-a.frankfurt-postgres.render.com/psn_database')
 }
 
 # Password validation
@@ -164,7 +164,7 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'auth_app.User'
 
-BACKEND_URL = 'https://jackson782.pythonanywhere.com'
+BACKEND_URL = 'https://psn-backend.onrender.com'
 
 ATOMIC_REQUESTS = True
 
