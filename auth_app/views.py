@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from .classes.denunciate import DenunciateUser
 from rest_framework_simplejwt.tokens import RefreshToken
 from api.shortcuts.data_get import process_and_get_response
-from rest_framework import generics, permissions, viewsets, status
+from rest_framework import permissions, viewsets, status
 from .classes.expirationLink import GetUserFromExpirationLink, SendUserExpirationLink
 from api.decorators.add_security import access_protected
 from django.shortcuts import get_object_or_404
@@ -13,11 +13,13 @@ from users_app.serializer import UsersSerializerReturn2
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from threading import Thread
+from rest_framework.generics import GenericAPIView
+
 
 
 # Simplificar más este código
 
-class PasswordChangeRequestView(generics.GenericAPIView):
+class PasswordChangeRequestView(GenericAPIView):
     send_user_expiration_link = SendUserExpirationLink()
 
     def post(self, request):
@@ -31,7 +33,7 @@ class PasswordChangeRequestView(generics.GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
-class PasswordChangeConfirmView(generics.GenericAPIView):
+class PasswordChangeConfirmView(GenericAPIView):
     get_user_from_expiration_link = GetUserFromExpirationLink()
 
     def post(self, request, token):
@@ -48,7 +50,7 @@ class PasswordChangeConfirmView(generics.GenericAPIView):
             return Response({'error': 'Las contraseñas no coinciden.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CreateUser(generics.GenericAPIView):
+class CreateUser(GenericAPIView):
     send_user_expiration_link = SendUserExpirationLink()
 
     def post(self, request):
@@ -81,7 +83,7 @@ class CreateUser(generics.GenericAPIView):
         }, status=200)
 
 
-class CreateUserConfirmation(generics.GenericAPIView):
+class CreateUserConfirmation(GenericAPIView):
     get_user_from_expiration_link = GetUserFromExpirationLink()
 
     def get(self, request, token):
