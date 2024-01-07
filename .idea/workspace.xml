@@ -6,7 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="24bda280-3ab2-486c-af8d-d0002cc2032d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contact_app/classes/send_mail.py" beforeDir="false" afterPath="$PROJECT_DIR$/contact_app/classes/send_mail.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contact_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/contact_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/generics_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/generics_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,22 +25,22 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2aZvIfxST4grXTkwBQNpCzyTkyI" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "alpha",
-    "last_opened_file_path": "C:/PSN"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;alpha&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/PSN&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

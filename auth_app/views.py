@@ -16,7 +16,6 @@ from threading import Thread
 from rest_framework.generics import GenericAPIView
 
 
-
 # Simplificar más este código
 
 class PasswordChangeRequestView(GenericAPIView):

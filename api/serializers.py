@@ -46,8 +46,10 @@ class BaseReturnSerializer(DynamicModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        ret['likes'] = instance.likes.count()
-        ret['dislikes'] = instance.dislikes.count()
+        ret['reactions'] = {
+            'likes': instance.likes.count(),
+            'dislikes': instance.dislikes.count()
+        }
         ret['image'] = os.path.basename(instance.image.url) if instance.image else None
         ret['files'] = [
             {'url': BACKEND_URL + file.files.url, 'title': os.path.basename(file.files.name), 'id': file.id}

@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['psn-backend.onrender.com', '127.0.0.1']
+ALLOWED_HOSTS = ['psn-backend.onrender.com', 'localhost', 'onrender.com', '.onrender.com']
 
 # Application definition
 
@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 ]
 
 # https://jackson782.pythonanywhere.com/
-CSRF_TRUSTED_ORIGINS = ['https://psn-backend.onrender.com/']
+CSRF_TRUSTED_ORIGINS = ['https://psn-backend.onrender.com/', 'http://localhost:8000/']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
