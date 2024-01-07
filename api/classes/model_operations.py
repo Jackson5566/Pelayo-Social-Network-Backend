@@ -11,9 +11,6 @@ class SearchModel:
     model_class: Type[Model]
 
     def is_valid(self) -> bool:
-        # if self.model_class is None or self.model_id is None:
-        #     return False
-        # return True
         return not (self.model_class is None or self.model_id is None)
 
 
