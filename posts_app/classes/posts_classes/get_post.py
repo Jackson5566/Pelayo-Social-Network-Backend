@@ -14,6 +14,7 @@ class GetPostData(PostOperations, SerializerOperations):
     def __init__(self, request, post_id):
         PostOperations.__init__(self, request=request, model_id=post_id)
         self.context = {'request': request}
+        # No me gusta, refactorizar
         self.is_from_user = self.is_model_instance_from_user(user=self.authenticated_user)
         self.only_messages = self.show_only_messages()
         SerializerOperations.__init__(self)
@@ -22,12 +23,16 @@ class GetPostData(PostOperations, SerializerOperations):
         serializer = self.serialize_without_user(fields=['messages']) if self.only_messages else self.serialize_post()
         return serializer
 
+# ¿ form user?
     def start_process(self):
         data = self.serializer_manager.serializer.data
-        if not self.only_messages:
-            data['fromUser'] = self.is_from_user
 
-        self.response = ResponseBody(data=data, status=status.HTTP_200_OK)
+        if self.is_from_user:
+
+            self.response = ResponseBody(data=data, status=status.HTTP_200_OK)
+
+        else:
+            self.response = ResponseBody(data={'message': "No permitido"}, status=status.HTTP_403_FORBIDDEN)
 
     def serialize_post(self) -> ModelSerializer:
         return self.serialize_without_user() if self.is_from_user else self.serialize_with_user()

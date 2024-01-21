@@ -1,11 +1,15 @@
 from abc import ABC
 from typing import Union
+
+from rest_framework import status
+from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.models import CategoryModel
 from api.decorators.validate_serializer import validate_serializer
-from posts_app.serializer import FilesSerializer, PostsCreateSerializer
+from posts_app.serializer import FilesSerializer, PostsCreateSerializer, PostsReturnSerializerWithUser
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 from api.classes.type_alias.operations import CreateUpdateProcessor
 from api.classes.serialzer_operations import SerializerOperations
+
 
 class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     def __init__(self, request, model_id=None):
@@ -15,6 +19,14 @@ class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     @validate_serializer('serializer_manager')
     def start_process(self) -> None:
         self.create_or_update_process()
+
+        try:
+            post = PostsReturnSerializerWithUser(instance=self.instance_manager.instance)
+            self.response = ResponseBody(data={'post': post.data}, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            # Muestra más detalle
+            self.response = ResponseBody(data={'message': "Ha ocurrido un error"}, status=status.HTTP_400_BAD_REQUEST)
 
     def _get_serializer(self, **kwargs):
         return PostsCreateSerializer(data=self.request_manager.request.data,

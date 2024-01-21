@@ -88,9 +88,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'api.wsgi.application'
+#
+# DATABASES = {
+#     "default": dj_database_url.parse(os.environ.get('DATABASE_URL'))
+# }
 
 DATABASES = {
-    "default": dj_database_url.parse('postgres://psn_database_user:57K3BxmkIxfNFn4YF5PE5JdkL45PRucm@dpg-cmcnb2n109ks7391d1v0-a.frankfurt-postgres.render.com/psn_database')
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
+    }
 }
 
 # Password validation

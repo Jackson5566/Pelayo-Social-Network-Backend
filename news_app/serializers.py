@@ -1,3 +1,5 @@
+import os
+
 from rest_framework.serializers import ModelSerializer
 from news_app.models import NewsModel
 
@@ -9,7 +11,7 @@ class GetNewsSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        ret['image'] = instance.image.name
+        ret['image'] = os.path.basename(instance.image.url) if instance.image else None
         return ret
 
 

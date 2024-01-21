@@ -1,7 +1,7 @@
 from django.db import models
 from api.settings import AUTH_USER_MODEL
 from message_app.models import MessagesModel
-from .custom import FirebaseStorage
+from api.customs.custom_storage import FirebaseStorage
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFill
 
@@ -27,7 +27,7 @@ class ContentListModel(models.Model):
     name = models.CharField(max_length=60)
     description = models.CharField(max_length=200)
     user = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE,
-                             related_name="content_list")
+                             related_name="contents_list")
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

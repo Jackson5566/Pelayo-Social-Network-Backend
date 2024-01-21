@@ -8,16 +8,17 @@ from rest_framework.response import Response
 from rest_framework import status
 from typing import Union
 
+
 # Analizar funcionamiento
 
 class EncodeProccesor:
     @staticmethod
-    def encode(token):
+    def encode(token: str):
         encoded_token = urlsafe_base64_encode(token.encode())
         return encoded_token
 
     @staticmethod
-    def decode(token):
+    def decode(token: str):
         decode_token = urlsafe_base64_decode(token)
         decoded_token_str = force_str(decode_token)
         return decoded_token_str
@@ -36,7 +37,9 @@ class UserExpirationLinkUtilities:
     def user(self, user):
         self._user = user
 
+
 class SendUserExpirationLink:
+    # Cambiar a settings.py
     FRONT_END_SITE = 'pelayo-social-network.web.app'
 
     def __init__(self):

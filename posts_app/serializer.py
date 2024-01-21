@@ -47,7 +47,7 @@ class PostsReturnSerializerWithoutUser(BaseReturnSerializer):
 class PostsCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostModel
-        exclude = ['user', 'likes', 'dislikes', 'files', 'messages', 'categories']
+        exclude = ['user', 'likes', 'dislikes', 'files', 'messages', 'categories', 'contents_list']
 
     def create(self, validated_data):
         instance = PostModel.objects.create(**validated_data, user=self.context['request'].user)

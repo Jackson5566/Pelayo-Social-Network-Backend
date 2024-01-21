@@ -2,7 +2,6 @@ from rest_framework import status
 from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.classes.posts_classes.bases.post_operations import PostOperations
 from django.core.exceptions import ObjectDoesNotExist
-from threading import Thread
 
 
 # Eliminar el innecesario id que se recibe como parametro en la vista, además optimizar el acceso a la base de datos
@@ -65,7 +64,6 @@ class PostLikeProcessor(PostOperations):
     def increase_likes(self) -> None:
         self.instance_manager.instance.likes.add(self.request_manager.request.user)
         self.likes += 1
-
 
     def decrease_dislikes(self) -> None:
         self.instance_manager.instance.dislikes.remove(self.request_manager.request.user)

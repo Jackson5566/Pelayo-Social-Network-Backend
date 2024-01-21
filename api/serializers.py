@@ -52,6 +52,7 @@ class BaseReturnSerializer(DynamicModelSerializer):
         }
         ret['image'] = os.path.basename(instance.image.url) if instance.image else None
         ret['files'] = [
-            {'url': BACKEND_URL + file.files.url, 'title': os.path.basename(file.files.name), 'id': file.id}
+            {'url': BACKEND_URL + file.files.url,
+             'title': os.path.basename(file.files.name), 'id': file.id}
             for file in instance.files.all()]
         return ret
