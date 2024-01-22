@@ -11,8 +11,11 @@ class DeleteContentList(ContentListOperations, DeleteProcessor):
         super().__init__(request=request, model_id=content_list_id)
 
     def start_process(self):
-        self.delete()
-        self.response = ResponseBody(data={'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
+        try:
+            self.delete()
+            self.response = ResponseBody(data={'message': 'Recurso eliminado con éxito'}, status=status.HTTP_200_OK)
+        except:
+            self.response = ResponseBody(data={'message': 'Ha ocurrido un error'}, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self):
         self.instance_manager.instance.delete()

@@ -1,6 +1,5 @@
 from abc import ABC
 from typing import Union
-
 from rest_framework import status
 from api.classes.controller_logic_excecutor import ResponseBody
 from posts_app.models import CategoryModel
@@ -19,13 +18,11 @@ class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     @validate_serializer('serializer_manager')
     def start_process(self) -> None:
         self.create_or_update_process()
-
         try:
             post = PostsReturnSerializerWithUser(instance=self.instance_manager.instance)
             self.response = ResponseBody(data={'post': post.data}, status=status.HTTP_201_CREATED)
 
         except Exception as e:
-            # Muestra más detalle
             self.response = ResponseBody(data={'message': "Ha ocurrido un error"}, status=status.HTTP_400_BAD_REQUEST)
 
     def _get_serializer(self, **kwargs):

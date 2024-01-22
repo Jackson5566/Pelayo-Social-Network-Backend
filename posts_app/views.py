@@ -31,8 +31,8 @@ class ContentListView(APIView):
         creation_instance = CreateContentList(request=request)
         return process_and_get_response(creation_instance)
 
-    def delete(self, request, id):
-        deletion_instance = DeleteContentList(request, content_list_id=id)
+    def delete(self, request, content_list_id):
+        deletion_instance = DeleteContentList(request, content_list_id=content_list_id)
         return process_and_get_response(deletion_instance)
 
 

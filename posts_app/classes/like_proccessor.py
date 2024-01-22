@@ -55,7 +55,7 @@ class PostLikeProcessor(PostOperations):
         return self.request_manager.request.data.get('likes')
 
     def get_dislikes(self) -> int:
-        return self.request_manager.request.data.get('disslikes')
+        return self.request_manager.request.data.get('dislikes')
 
     def decrease_likes(self) -> None:
         self.instance_manager.instance.likes.remove(self.request_manager.request.user)

@@ -6,65 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="24bda280-3ab2-486c-af8d-d0002cc2032d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/decorators/add_security.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/decorators/add_security.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/classes/expirationLink.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/classes/expirationLink.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0002_user_denunciations.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0003_alter_user_denunciations_alter_user_email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0004_alter_user_email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0005_alter_user_email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0006_alter_user_email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0007_alter_user_email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0008_alter_user_email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0009_alter_user_email.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0010_user_description.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0011_alter_user_description.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0012_user_isprofessor.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0013_user_user_photo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0014_alter_user_user_photo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contact_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/contact_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_app/classes/delete_comment_operation.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/classes/delete_comment_operation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_app/migrations/0002_alter_messagesmodel_content.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_app/migrations/0003_remove_messagesmodel_title.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_app/migrations/0004_alter_messagesmodel_content.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/message_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/customs/custom_storage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/news_app/migrations/0002_newsmodel_created.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/news_app/migrations/0003_alter_newsmodel_title.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/news_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/pendientes.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/news_app/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_app/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/apps.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mydatabase" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/posts_app/classes/like_proccessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/like_proccessor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_create_update_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_create_update_operations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_post.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/delete_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/delete_post.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/get_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/get_post.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/update_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/update_post.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/custom.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/generics_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/generics_view.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0002_rename_disslikes_postmodel_dislikes.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0003_alter_postmodel_user_contentlist.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0004_rename_contentlist_contentlistmodel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0005_remove_contentlistmodel_posts_postmodel_content_list.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0006_rename_messages_postmodel_comments_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0007_rename_comments_postmodel_messages.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0008_contentlistmodel_description.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0009_alter_postmodel_content_list.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0010_alter_postmodel_content_list.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0011_remove_postmodel_content_list_postmodel_content_list.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0012_remove_postmodel_content_list_contentlistmodel_posts.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0013_remove_contentlistmodel_posts_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/0014_alter_filemodel_files_alter_postmodel_image.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_content_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_content_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/delete_content_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/delete_content_list.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

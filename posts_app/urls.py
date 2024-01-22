@@ -12,7 +12,7 @@ urlpatterns = [
     path('delete-file/<int:id>/', DeleteFileView.as_view()),
     path('search/', SearchPost.as_view()),
     path('content_list/', ContentListView.as_view()),
-    path('content_list/<int:content_list_id>/', ContentListView.as_view()),
+    path('content_list/<int:content_list_id>', ContentListView.as_view()),
     path('allcontent_list/', AllContentListView.as_view())
     # path('download/<int:pk>/', DownloadFileView.as_view(), name='download_file'),
 ]
