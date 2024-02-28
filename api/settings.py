@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django_filters',
     'news_app',
     'newspaper_app',
-    'imagekit'
+    'imagekit',
+    'drf_spectacular',
 ]
 
 # https://jackson782.pythonanywhere.com/
@@ -155,6 +156,17 @@ CORS_ALLOWED_PATHS = [
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Pelayo Social Network API',
+    'DESCRIPTION': 'API de la red social PSN(Pelayo Social Network)',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.educa.madrid.org'

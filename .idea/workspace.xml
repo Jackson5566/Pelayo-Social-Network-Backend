@@ -6,12 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="24bda280-3ab2-486c-af8d-d0002cc2032d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/classes/controller_logic_excecutor.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/classes/controller_logic_excecutor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contact_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/contact_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mydatabase" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/like_proccessor.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/like_proccessor.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_create_update_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_create_update_operations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_content_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/create_content_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/delete_content_list.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/delete_content_list.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newspaper_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/newspaper_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pendientes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pendientes.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/generics_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/generics_view.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/posts_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,14 +44,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;alpha&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/PSN&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "alpha",
+    "last_opened_file_path": "C:/PSN",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -58,5 +63,16 @@
       <updated>1704538837928</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

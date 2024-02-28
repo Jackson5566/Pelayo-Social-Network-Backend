@@ -21,9 +21,9 @@ class ControllerLogicExecutor(ExecutorBase, ABC):
         self._response = None
 
     @property
-    def response(self):
+    def response(self) -> Response:
         return self._response
 
     @response.setter
     def response(self, response: ResponseBody) -> None:
-        self._response = Response(data=response.data, status=response.status)
+        self._response = Response(data=response.data, status=response.status, content_type='application/json')

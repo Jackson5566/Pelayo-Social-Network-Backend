@@ -10,6 +10,7 @@ from api.decorators.get_posts import get_posts
 
 
 @get_posts
+@access_protected
 class PostsView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['categories__name', 'user__id', 'contents_list__name', 'contents_list__id']

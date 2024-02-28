@@ -2,7 +2,6 @@ from .classes.posts_classes.add_to_content_list import AddToContentList
 from .classes.posts_classes.create_content_list import CreateContentList
 from .classes.posts_classes.delete_content_list import DeleteContentList
 from .classes.posts_classes.g_posts_fl import GetPostsFL
-from .models import PostModel
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from posts_app.classes.posts_classes.get_post import GetPostData
@@ -14,11 +13,15 @@ from api.shortcuts.data_get import process_and_get_response
 from api.decorators.add_security import access_protected
 from posts_app.classes.posts_classes.delete_file import DeleteFile
 from posts_app.classes.posts_classes.get_categories import GetCategories
+from drf_spectacular.utils import extend_schema
+from .serializer import *
 
 
 @access_protected
 class ContentListView(APIView):
-
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def patch(self, request, content_list_id):
         added_instance = AddToContentList(request=request, content_list_id=content_list_id)
         return process_and_get_response(added_instance)
@@ -27,10 +30,16 @@ class ContentListView(APIView):
         getter_instance = GetPostsFL(request=request, content_list_id=content_list_id)
         return process_and_get_response(getter_instance)
 
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def post(self, request):
         creation_instance = CreateContentList(request=request)
         return process_and_get_response(creation_instance)
 
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def delete(self, request, content_list_id):
         deletion_instance = DeleteContentList(request, content_list_id=content_list_id)
         return process_and_get_response(deletion_instance)
@@ -38,22 +47,37 @@ class ContentListView(APIView):
 
 @access_protected
 class PostView(APIView):
+    @extend_schema(
+        responses={200: PostsReturnSerializerWithoutUser, 404: str},
+    )
     def get(self, request, _id):
         get_post_data_instance = GetPostData(post_id=_id, request=request)
         return process_and_get_response(get_post_data_instance)
 
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def post(self, request):
         create_post_instance = CreatePost(request=request)
         return process_and_get_response(create_post_instance)
 
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def delete(self, request, _id):
         delete_post_instance = DeletePost(request=request, post_id=_id)
         return process_and_get_response(delete_post_instance)
 
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def put(self, request):
         update_post_instance = UpdatePost(request=request)
         return process_and_get_response(update_post_instance)
 
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def patch(self, request, _id):
         like_processor = PostLikeProcessor(request=request, post_id=_id)
         return process_and_get_response(like_processor)
@@ -73,6 +97,9 @@ class PreSearch(APIView):
 
 @access_protected
 class GetCategoriesView(APIView):
+    @extend_schema(
+        responses={200: str, 404: list[str]},
+    )
     def get(self, request):
         get_categories = GetCategories(request=request)
         return process_and_get_response(get_categories)
@@ -80,6 +107,9 @@ class GetCategoriesView(APIView):
 
 @access_protected
 class DeleteFileView(APIView):
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
     def delete(self, request, id):
         delete_file = DeleteFile(request=request, file_id=id)
         return process_and_get_response(delete_file)

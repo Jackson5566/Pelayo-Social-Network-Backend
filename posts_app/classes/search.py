@@ -3,6 +3,10 @@ from necesary_scripts.list_features import separate_by_vowels
 from necesary_scripts.search_requirements import get_coincidences
 from ..models import PostModel
 
+"""
+Realmente costoso, al no ser que lo convierta en consultas query mas complejas
+"""
+
 
 class SearchAlgorithm(AccessDataLogicController):
     def __init__(self, request):
@@ -14,7 +18,7 @@ class SearchAlgorithm(AccessDataLogicController):
         self.convert_search_to_work_string()
         self.set_coincidences_list()
         self.sort_coincidence_list()
-        self.queryset = self.get_searched_posts()
+        self.get_searched_posts()
 
     def set_coincidences_list(self):
         posts = PostModel.objects.select_related('user').prefetch_related('categories', 'files', 'likes', 'dislikes',
@@ -43,5 +47,4 @@ class SearchAlgorithm(AccessDataLogicController):
         return list(set(self.search))
 
     def get_searched_posts(self):
-        list_unidimensional = [element[1] for element in self.list_coincidence]
-        return list_unidimensional
+        self.queryset = [element[1] for element in self.list_coincidence]

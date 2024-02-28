@@ -1,3 +1,10 @@
 Añadir los envio de mails como parte de las señales
 
 UnorderedObjects
+Documentar la API
+terminar las pruebas unitarias
+oprimizar algoritmo de busqueda
+hacer que sea impotente
+eTags
+segregar las vistas
+celery
