@@ -6,7 +6,6 @@ from django.shortcuts import get_object_or_404
 class CreateCommentOperation(CreateUpdateCommentOperations):
     def __init__(self, request):
         super().__init__(request=request)
-        self._post_instance = self.get_commented_post()
 
     def create_or_update_process(self):
         self.instance_manager.instance = self.serializer_manager.serializer.create(
@@ -15,11 +14,8 @@ class CreateCommentOperation(CreateUpdateCommentOperations):
         self.add_created_message_to_post()
 
     def add_created_message_to_post(self):
-        self._post_instance.messages.add(self.instance_manager.instance)
+        self.get_commented_post().messages.add(self.instance_manager.instance)
 
     def get_commented_post(self):
         post_id = self.request_manager.request.data.get('id')
         return get_object_or_404(PostModel, id=post_id)
-
-    def get_status(self):
-        return 201

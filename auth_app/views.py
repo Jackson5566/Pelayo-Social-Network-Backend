@@ -13,12 +13,13 @@ from users_app.serializer import UsersSerializerReturn2
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from threading import Thread
-from rest_framework.generics import GenericAPIView
 
 
 # Simplificar más este código
 
-class PasswordChangeRequestView(GenericAPIView):
+# Antes funcionaba con APIVIEW
+
+class PasswordChangeRequestView(APIView):
     send_user_expiration_link = SendUserExpirationLink()
 
     def post(self, request):
@@ -32,7 +33,7 @@ class PasswordChangeRequestView(GenericAPIView):
                         status=status.HTTP_200_OK)
 
 
-class PasswordChangeConfirmView(GenericAPIView):
+class PasswordChangeConfirmView(APIView):
     get_user_from_expiration_link = GetUserFromExpirationLink()
 
     def post(self, request, token):
@@ -49,7 +50,7 @@ class PasswordChangeConfirmView(GenericAPIView):
             return Response({'error': 'Las contraseñas no coinciden.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CreateUser(GenericAPIView):
+class CreateUser(APIView):
     send_user_expiration_link = SendUserExpirationLink()
 
     def post(self, request):
@@ -82,7 +83,7 @@ class CreateUser(GenericAPIView):
         }, status=200)
 
 
-class CreateUserConfirmation(GenericAPIView):
+class CreateUserConfirmation(APIView):
     get_user_from_expiration_link = GetUserFromExpirationLink()
 
     def get(self, request, token):

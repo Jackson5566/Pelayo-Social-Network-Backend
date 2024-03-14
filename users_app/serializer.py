@@ -1,6 +1,7 @@
 from auth_app.models import User
 from api.serializers import DynamicModelSerializer
 
+
 class UsersSerializerReturn2(DynamicModelSerializer):
     class Meta:
         model = User

@@ -3,8 +3,7 @@ from posts_app.classes.posts_classes.bases.post_create_update_operations import 
 
 class UpdatePost(PostCreateUpdateOperations):
 
-    def __init__(self, request):
-        post_id = request.data.get('id')
+    def __init__(self, request, post_id):
         super().__init__(request=request, model_id=post_id)
 
     def create_or_update_process(self):

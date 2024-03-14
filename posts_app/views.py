@@ -18,7 +18,16 @@ from .serializer import *
 
 
 @access_protected
-class ContentListView(APIView):
+class CreateContentListView(APIView):
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
+    def post(self, request):
+        creation_instance = CreateContentList(request=request)
+        return process_and_get_response(creation_instance)
+
+
+class ContentListDetailView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
@@ -33,33 +42,19 @@ class ContentListView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
-    def post(self, request):
-        creation_instance = CreateContentList(request=request)
-        return process_and_get_response(creation_instance)
-
-    @extend_schema(
-        responses={200: str, 404: str},
-    )
     def delete(self, request, content_list_id):
         deletion_instance = DeleteContentList(request, content_list_id=content_list_id)
         return process_and_get_response(deletion_instance)
 
 
 @access_protected
-class PostView(APIView):
+class PostDetailView(APIView):
     @extend_schema(
         responses={200: PostsReturnSerializerWithoutUser, 404: str},
     )
     def get(self, request, _id):
         get_post_data_instance = GetPostData(post_id=_id, request=request)
         return process_and_get_response(get_post_data_instance)
-
-    @extend_schema(
-        responses={200: str, 404: str},
-    )
-    def post(self, request):
-        create_post_instance = CreatePost(request=request)
-        return process_and_get_response(create_post_instance)
 
     @extend_schema(
         responses={200: str, 404: str},
@@ -71,10 +66,22 @@ class PostView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
-    def put(self, request):
-        update_post_instance = UpdatePost(request=request)
+    # Añadir id
+    def put(self, request, _id):
+        update_post_instance = UpdatePost(request=request, post_id=_id)
         return process_and_get_response(update_post_instance)
 
+
+class CreatePostView(APIView):
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
+    def post(self, request):
+        create_post_instance = CreatePost(request=request)
+        return process_and_get_response(create_post_instance)
+
+
+class LikePostView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )

@@ -17,3 +17,10 @@ class PostOperations(Operations, ABC):
     # def is_model_from_authenticated_user(self, post_instance=None) -> bool:
     #     return self.request_manager.request.user == post_instance.user if post_instance \
     #         else self.request_manager.request.user == self.model_instance_manager.instance.user
+
+
+class CPostOperations(Operations, ABC):
+    def __init__(self, request, model_instance=None):
+        ControllerLogicExecutor.__init__(self, request=request)
+        ModelOperations.__init__(self, model_instance=model_instance)
+        self.authenticated_user = self.request_manager.request.user

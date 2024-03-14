@@ -16,5 +16,5 @@ class User(AbstractUser):
     }, )
     description = models.CharField(max_length=1000, blank=True, null=True, help_text='Descripción del usuario')
     denunciations = models.ManyToManyField('self', blank=True, help_text='Complaints imposed by other users')
-    # points = models.IntegerField(default=50)
+    points = models.IntegerField(default=50, help_text="User Points")
     isProfessor = models.BooleanField(default=False)

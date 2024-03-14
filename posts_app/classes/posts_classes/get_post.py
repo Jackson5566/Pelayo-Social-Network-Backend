@@ -16,11 +16,10 @@ class GetPostData(PostOperations, SerializerOperations):
         self.context = {'request': request}
         # No me gusta, refactorizar
         self.is_from_user = self.is_model_instance_from_user(user=self.authenticated_user)
-        self.only_messages = self.show_only_messages()
         SerializerOperations.__init__(self)
 
     def _get_serializer(self, **kwargs):
-        serializer = self.serialize_without_user(fields=['messages']) if self.only_messages else self.serialize_post()
+        serializer = self.serialize_without_user(fields=['messages']) if self.show_only_messages() else self.serialize_post()
         return serializer
 
 # ¿ form user?

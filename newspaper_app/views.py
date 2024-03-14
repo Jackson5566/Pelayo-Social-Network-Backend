@@ -11,14 +11,7 @@ from .serializer import *
 
 
 @access_protected
-class NewspaperView(APIView):
-    @extend_schema(
-        responses={200: GetNewspaperSectionSerializer, 404: str},
-    )
-    def get(self, request):
-        get_news_instance = GetNewspaperOperation(request=request, news_instance=NewspaperModel.objects.all())
-        return process_and_get_response(get_news_instance)
-
+class CreateNewspaperView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
@@ -26,6 +19,17 @@ class NewspaperView(APIView):
         create_news_instance = CreateNewspaperOperation(request=request)
         return process_and_get_response(create_news_instance)
 
+
+@access_protected
+class NewspaperDetailView(APIView):
+    @extend_schema(
+        responses={200: GetNewspaperSectionSerializer, 404: str},
+    )
+    def get(self, request):
+        get_news_instance = GetNewspaperOperation(request=request, news_instance=NewspaperModel.objects.all())
+        return process_and_get_response(get_news_instance)
+
+    # Recuerda incluir el id tambien
     @extend_schema(
         responses={200: str, 404: str},
     )

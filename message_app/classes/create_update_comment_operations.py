@@ -10,8 +10,8 @@ from api.classes.serialzer_operations import SerializerOperations
 
 
 class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor, ABC):
-    """Al igual que CommentOperations, se encargara de expander una clase, en este caso la anteriormente mencionada
-    Al ser las operaciones de acrualizacion y creacion tan similares, se hace necesario una clase para compartir
+    """Al igual que CommentOperations, se encargará de expander una clase, en este caso la anteriormente mencionada
+    Al ser las operaciones de actualización y creación tan similares, se hace necesario una clase para compartir
     funcionalidades"""
 
     def __init__(self, request, model_id=None):
@@ -31,6 +31,5 @@ class CreateUpdateCommentOperations(CommentOperations, CreateUpdateProcessor, AB
         message_to_return_serializer = CommentBaseSerializer(instance=self.instance_manager.instance)
         self.response = ResponseBody(data=message_to_return_serializer.data, status=self.get_status())
 
-    @abstractmethod
-    def get_status(self):
+    def get_status(self) -> int:
         return status.HTTP_201_CREATED

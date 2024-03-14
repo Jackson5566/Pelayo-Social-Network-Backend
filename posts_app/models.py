@@ -51,7 +51,7 @@ class PostModel(models.Model):
     categories = models.ManyToManyField(CategoryModel, blank=True, related_name='categories')
     contents_list = models.ManyToManyField(ContentListModel, blank=True, null=True, related_name="posts", default=None)
     created = models.DateTimeField(auto_now_add=True)
-    uuid = models.UUIDField(editable=False)
+    uuid = models.UUIDField(editable=False, default=00000000000)
 
     def __str__(self):
         return f"Post: {self.title}, De Usuario: {self.user.username}, Con ID: {self.id}"

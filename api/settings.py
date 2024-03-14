@@ -17,21 +17,13 @@ import dj_database_url
 import firebase_admin
 from firebase_admin import credentials
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-&^_21q!(yq3_3ygyu)nkou^8@vyab-+!!0y^$6o_sl+=*m2tk0'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['psn-backend.onrender.com', 'localhost', 'onrender.com', '.onrender.com']
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -97,7 +89,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'mydatabase',
+        'NAME': 'psn-database',
     }
 }
 
@@ -189,3 +181,8 @@ ATOMIC_REQUESTS = True
 
 cred = credentials.Certificate(BASE_DIR / "api" / "firebaseSecretKey.json")
 firebase_admin.initialize_app(cred, {'storageBucket': 'pelayo-social-network.appspot.com'})
+
+# Cambiar a la de Espaá
+CELERY_TIMEZONE = "Australia/Tasmania"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60

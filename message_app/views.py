@@ -12,15 +12,14 @@ from posts_app.models import PostModel
 
 
 @access_protected
-class MessageView(APIView):
+class CreateMessageView(APIView):
     def post(self, request):
         create_comment_instance = CreateCommentOperation(request=request)
         return process_and_get_response(create_comment_instance)
 
-    def put(self, request):
-        update_comment_instance = UpdateCommentOperation(request=request)
-        return process_and_get_response(update_comment_instance)
 
+@access_protected
+class DetailMessageView(APIView):
     def get(self, request, id):
         get_comment_instance = GetCommentOperation(request=request, post_id=id)
         return process_and_get_response(get_comment_instance)
@@ -28,6 +27,10 @@ class MessageView(APIView):
     def delete(self, request, id):
         delete_comment_instance = DeleteCommentOperation(request=request, model_id=id)
         return process_and_get_response(delete_comment_instance)
+
+    def put(self, request, id):
+        update_comment_instance = UpdateCommentOperation(request=request, comment_id=id)
+        return process_and_get_response(update_comment_instance)
 
 
 @access_protected

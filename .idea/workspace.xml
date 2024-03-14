@@ -5,18 +5,46 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="24bda280-3ab2-486c-af8d-d0002cc2032d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/generator/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generator/file_extensions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generator/generator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/classes/controller_logic_excecutor.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/classes/controller_logic_excecutor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/classes/type_alias/operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/classes/type_alias/operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/decorators/add_security.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/decorators/add_security.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/decorators/get_posts.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/decorators/get_posts.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contact_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/contact_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mydatabase" beforeDir="false" afterPath="$PROJECT_DIR$/mydatabase" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appgenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/appgenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0002_remove_user_points.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/0003_user_points.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/celery.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/auth_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_app/classes/comment_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/classes/comment_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_app/classes/create_comment.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/classes/create_comment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_app/classes/create_update_comment_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/classes/create_update_comment_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_app/classes/update_comment.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/classes/update_comment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/message_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/message_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mydatabase" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_app/classes/updateNewsOperation.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_app/classes/updateNewsOperation.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/news_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/news_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newspaper_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/newspaper_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/newspaper_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/newspaper_app/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pendientes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/pendientes.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/posts_app/classes/search.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/search.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_operations.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/bases/post_operations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/get_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/get_post.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/classes/posts_classes/update_post.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/classes/posts_classes/update_post.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/posts_app/generics_view.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/generics_view.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/posts_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/serializer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/posts_app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/posts_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/posts_app/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users_app/serializer.py" beforeDir="false" afterPath="$PROJECT_DIR$/users_app/serializer.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,15 +72,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "alpha",
-    "last_opened_file_path": "C:/PSN",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;alpha&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/PSN&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\PSN" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

@@ -13,7 +13,7 @@ from api.decorators.get_posts import get_posts
 @access_protected
 class PostsView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['categories__name', 'user__id', 'contents_list__name', 'contents_list__id']
+    filterset_fields = ['categories__name', 'user__id', 'contents_list__name', 'contents_list__id', 'title']
 
     # Intentar ORdering de DRF
 
@@ -41,6 +41,7 @@ class AllContentListView(ListAPIView):
     def get_queryset(self):
         return ContentListModel.objects.select_related('user').all().order_by('-created')
 
+# Cambiar lo de la búsqueda
 
 @get_posts
 @access_protected

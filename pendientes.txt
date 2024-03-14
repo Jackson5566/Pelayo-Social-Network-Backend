@@ -8,3 +8,6 @@ hacer que sea impotente
 eTags
 segregar las vistas
 celery
+
+
+Refactorizar hacia la metodologia de operaciones CRUD

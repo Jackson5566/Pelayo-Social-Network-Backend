@@ -41,6 +41,8 @@ class PostsReturnSerializerWithUser(BaseReturnSerializer):
 
 
 class PostsReturnSerializerWithoutUser(BaseReturnSerializer):
+
+    """que cojones!!!"""
     pass
 
 
