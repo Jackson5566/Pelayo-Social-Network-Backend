@@ -5,7 +5,7 @@ from api.shortcuts.data_get import process_and_get_response
 from users_app.classes.update_user_operation import UpdateUser
 
 
-@access_protected
+# @access_protected
 class SelectedUserInfo(APIView):
     def get(self, request, id):
         get_user_operation = GetUserOperation(request=request, user_id=id)

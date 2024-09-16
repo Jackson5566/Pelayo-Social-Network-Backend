@@ -20,9 +20,10 @@ class SendMailOperation(ControllerLogicExecutor, SerializerOperations):
         data = self.serializer_manager.serializer.validated_data
         user = self.request_manager.request.user
         try:
+            # user.email if user.is_authenticated else data['email']}
             send_mail(data['subject'], data['content'] +
-                      f"\nEmail enviado por: {user.email if user.is_authenticated else data['email']}",
-                      "jalmeidaechevarria@educa.madrid.org", ["jalmeidaechevarria@educa.madrid.org"],
+                      f"\nEmail enviado por: {data['email']}",
+                      "jackson0102almeida@gmail.com", ["jackson0102almeida@gmail.com"],
                       fail_silently=False)
             self.response = ResponseBody(data={"info": "Mail enviado correctamente"}, status=status.HTTP_200_OK)
         except SMTPException:

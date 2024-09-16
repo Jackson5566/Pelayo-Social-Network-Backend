@@ -17,18 +17,22 @@ from drf_spectacular.utils import extend_schema
 from .serializer import *
 
 
-@access_protected
 class ContentListView(APIView):
+    @extend_schema(
+        responses={200: str, 404: str},
+    )
+    def get(self, request, content_list_id):
+        getter_instance = GetPostsFL(request=request, content_list_id=content_list_id)
+        return process_and_get_response(getter_instance)
+
+@access_protected
+class ContentListProcessingView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
     def patch(self, request, content_list_id):
         added_instance = AddToContentList(request=request, content_list_id=content_list_id)
         return process_and_get_response(added_instance)
-
-    def get(self, request, content_list_id):
-        getter_instance = GetPostsFL(request=request, content_list_id=content_list_id)
-        return process_and_get_response(getter_instance)
 
     @extend_schema(
         responses={200: str, 404: str},
@@ -54,6 +58,8 @@ class PostView(APIView):
         get_post_data_instance = GetPostData(post_id=_id, request=request)
         return process_and_get_response(get_post_data_instance)
 
+@access_protected
+class PostProcessingView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
@@ -71,8 +77,8 @@ class PostView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
-    def put(self, request):
-        update_post_instance = UpdatePost(request=request)
+    def put(self, request, _id):
+        update_post_instance = UpdatePost(request=request, post_id=_id)
         return process_and_get_response(update_post_instance)
 
     @extend_schema(
@@ -82,8 +88,7 @@ class PostView(APIView):
         like_processor = PostLikeProcessor(request=request, post_id=_id)
         return process_and_get_response(like_processor)
 
-
-@access_protected
+# @access_protected
 class PreSearch(APIView):
     def get(self, request):
         user_id = request.query_params.get('user_id')
@@ -95,7 +100,7 @@ class PreSearch(APIView):
         return Response(title_posts)
 
 
-@access_protected
+# @access_protected
 class GetCategoriesView(APIView):
     @extend_schema(
         responses={200: str, 404: list[str]},

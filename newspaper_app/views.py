@@ -29,8 +29,8 @@ class NewspaperView(APIView):
     @extend_schema(
         responses={200: str, 404: str},
     )
-    def put(self, request):
-        update_news_instance = UpdateNewspaperOperation(request=request)
+    def put(self, request, id):
+        update_news_instance = UpdateNewspaperOperation(request=request, id=id)
         return process_and_get_response(update_news_instance)
 
     @extend_schema(

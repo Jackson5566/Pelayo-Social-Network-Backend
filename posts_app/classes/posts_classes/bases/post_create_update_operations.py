@@ -18,6 +18,7 @@ class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     @validate_serializer('serializer_manager')
     def start_process(self) -> None:
         self.create_or_update_process()
+        
         try:
             post = PostsReturnSerializerWithUser(instance=self.instance_manager.instance)
             self.response = ResponseBody(data={'post': post.data}, status=status.HTTP_201_CREATED)
@@ -32,6 +33,7 @@ class PostCreateUpdateOperations(PostOperations, CreateUpdateProcessor, ABC):
     def set_categories(self) -> None:
         for category in self.request_manager.request.data.getlist('categories'):
             category_instance = CategoryModel.objects.filter(name=category).first()
+
             if category_instance:
                 self.instance_manager.instance.categories.add(category_instance)
 

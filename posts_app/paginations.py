@@ -17,7 +17,6 @@ class MyPagination(PageNumberPagination):
             'count': self.page.paginator.count,
             'results': data
         }
-
         if self.request.query_params.get('only') == 'posts':
             response = response.get('results', '')
 

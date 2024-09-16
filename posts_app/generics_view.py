@@ -5,12 +5,12 @@ from api.decorators.add_security import access_protected
 from api.shortcuts.data_get import process_and_get_queryset
 from posts_app.classes.search import SearchAlgorithm
 from posts_app.models import PostModel, ContentListModel
-from posts_app.serializer import GetContentListSerializer
+from posts_app.serializer import GetContentListSerializer, PostsReturnSerializerWithUser
 from api.decorators.get_posts import get_posts
 
 
 @get_posts
-@access_protected
+# @access_protected
 class PostsView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['categories__name', 'user__id', 'contents_list__name', 'contents_list__id']
@@ -32,7 +32,7 @@ class PostsView(ListAPIView):
             '-created')
 
 
-@access_protected
+# @access_protected
 class AllContentListView(ListAPIView):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['user__id']
@@ -42,9 +42,18 @@ class AllContentListView(ListAPIView):
         return ContentListModel.objects.select_related('user').all().order_by('-created')
 
 
+# @get_posts
+# # @access_protected
+# class SearchPost(ListAPIView):
+#     def get_queryset(self):
+#         search_algorithm = SearchAlgorithm(request=self.request)
+#         return process_and_get_queryset(search_algorithm)
+#
+from rest_framework import filters
+
 @get_posts
-@access_protected
 class SearchPost(ListAPIView):
-    def get_queryset(self):
-        search_algorithm = SearchAlgorithm(request=self.request)
-        return process_and_get_queryset(search_algorithm)
+    queryset = PostModel.objects.all()
+    serializer_class = PostsReturnSerializerWithUser
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'description', 'text', 'user__username']

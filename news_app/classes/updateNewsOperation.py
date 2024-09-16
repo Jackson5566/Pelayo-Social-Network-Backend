@@ -8,9 +8,8 @@ class UpdateNewsOperation(NewsCreateUpdateOperations):
     """
     Nota: Llevar a la abstraccion estas operaciones comunes
     """
-    def __init__(self, request):
-        news_id = request.data.get('id')
-        super().__init__(request=request, model_id=news_id)
+    def __init__(self, request, id):
+        super().__init__(request=request, model_id=id)
 
     def create_or_update_process(self):
         self.update_news()
